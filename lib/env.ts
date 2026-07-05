@@ -26,7 +26,7 @@ function getRequiredEnvVar(key: string): string {
 export const env = {
   // 站点配置
   NEXT_PUBLIC_SITE_URL: getEnvVar("NEXT_PUBLIC_SITE_URL", "http://localhost:3000"),
-  NEXT_PUBLIC_SITE_NAME: getEnvVar("NEXT_PUBLIC_SITE_NAME", "康贝儿"),
+  NEXT_PUBLIC_SITE_NAME: getEnvVar("NEXT_PUBLIC_SITE_NAME", "天悦宝贝"),
 
   // Sanity CMS 配置
   NEXT_PUBLIC_SANITY_PROJECT_ID: getEnvVar("NEXT_PUBLIC_SANITY_PROJECT_ID"),

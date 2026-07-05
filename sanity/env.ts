@@ -24,6 +24,12 @@ export const projectId = assertEnv(
  */
 export const token = process.env.SANITY_API_READ_TOKEN;
 
+/**
+ * 服务端写入 token（仅 API 路由使用）
+ * 不暴露为 NEXT_PUBLIC_* 变量
+ */
+export const writeToken = process.env.SANITY_API_WRITE_TOKEN;
+
 /** Studio 路由路径 */
 export const studioUrl = "/studio";
 
