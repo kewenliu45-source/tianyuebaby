@@ -13,6 +13,12 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "siteNameEn",
+      title: "英文网站名称",
+      type: "string",
+      description: "显示在页脚中文名称下方，留空则使用默认英文名",
+    }),
+    defineField({
       name: "description",
       title: "网站描述",
       type: "text",
@@ -22,6 +28,13 @@ export const siteSettings = defineType({
       name: "logo",
       title: "网站 Logo",
       type: "imageWithAlt",
+    }),
+    defineField({
+      name: "favicon",
+      title: "浏览器图标 (Favicon)",
+      type: "image",
+      description: "浏览器标签栏显示的小图标，建议上传 32x32 或 64x64 像素的 PNG 图片，支持透明背景",
+      options: { hotspot: false },
     }),
     defineField({
       name: "defaultShareImage",
@@ -52,6 +65,13 @@ export const siteSettings = defineType({
       title: "微信公众号二维码",
       type: "image",
       options: { hotspot: false },
+    }),
+    defineField({
+      name: "footerWechatQrCode",
+      title: "页脚微信二维码",
+      type: "image",
+      options: { hotspot: false },
+      description: "仅用于网站公共页脚，不影响右侧悬浮微信咨询二维码。建议上传正方形图片，不低于 500×500px。",
     }),
 
     // ── 咨询栏文字 ──

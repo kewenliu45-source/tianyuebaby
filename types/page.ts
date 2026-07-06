@@ -12,6 +12,7 @@ import type {
   WhyUs,
   FaqPage,
   StartJourney,
+  AboutTianyuePage,
   PrivacyPage,
   ThirdGenerationIvfPage,
   IvfServicesPage,
@@ -28,6 +29,9 @@ import type {
   FaqCategory,
   BannerSlide,
   Seo,
+  ScienceVideo,
+  VideosPage,
+  VideoCategory,
 } from "./sanity";
 
 // ─────────────────────────────────────────────
@@ -122,6 +126,15 @@ export interface StartJourneyPageData {
 }
 
 // ─────────────────────────────────────────────
+// 走进天悦宝贝页面数据
+// ─────────────────────────────────────────────
+
+export interface AboutTianyuePageData {
+  siteSettings: SiteSettings | null;
+  aboutTianyuePage: AboutTianyuePage | null;
+}
+
+// ─────────────────────────────────────────────
 // 隐私政策数据
 // ─────────────────────────────────────────────
 
@@ -203,4 +216,23 @@ export interface SuccessCaseDetailPageData {
 export interface MedicalServicesPageData {
   siteSettings: SiteSettings | null;
   medicalServicesPage: MedicalServicesPage | null;
+}
+
+// ─────────────────────────────────────────────
+// 科普视频中心数据
+// ─────────────────────────────────────────────
+
+export interface VideosPageData {
+  siteSettings: SiteSettings | null;
+  videosPage: VideosPage | null;
+  scienceVideos: ScienceVideo[];
+  categories: VideoCategory[];
+  featuredVideos: ScienceVideo[];
+}
+
+export interface VideoDetailPageData {
+  siteSettings: SiteSettings | null;
+  videosPage: VideosPage | null;
+  video: ScienceVideo | null;
+  relatedVideos: ScienceVideo[];
 }

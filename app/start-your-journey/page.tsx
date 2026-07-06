@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "页面已迁移",
@@ -11,6 +12,16 @@ export default function StartJourneyRedirectPage() {
     <section className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-xl mb-8">
+            <Image
+              src="/images/site/doctor-consultation.png"
+              alt="顾问咨询服务"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 672px"
+              priority
+            />
+          </div>
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             页面已迁移
           </h1>

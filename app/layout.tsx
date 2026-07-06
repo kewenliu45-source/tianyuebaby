@@ -16,6 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const { siteSettings } = await fetchLayoutData();
   const seo = siteSettings?.defaultSeo;
 
+  // 生成 favicon URL
+  const faviconUrl = siteSettings?.favicon
+    ? urlForImage(siteSettings.favicon as unknown as Parameters<typeof urlForImage>[0]).url()
+    : undefined;
+
   return {
     title: {
       default: siteSettings?.siteName || "天悦宝贝（国际）助孕中心",
@@ -23,6 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: seo?.metaDescription || siteSettings?.description,
     keywords: seo?.keywords,
+    icons: faviconUrl
+      ? {
+          icon: faviconUrl,
+          apple: faviconUrl,
+        }
+      : undefined,
     openGraph: {
       title: seo?.ogTitle || siteSettings?.siteName,
       description: seo?.ogDescription || siteSettings?.description,

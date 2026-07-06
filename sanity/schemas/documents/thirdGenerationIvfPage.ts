@@ -49,6 +49,19 @@ export const thirdGenerationIvfPage = defineType({
     }),
     defineField({ name: "heroFormButtonText", title: "Hero 表单按钮文字", type: "string" }),
 
+    // ── 三代试管科普 ──
+    defineField({ name: "introTitle", title: "科普模块 - 标题", type: "string" }),
+    defineField({ name: "introSubtitle", title: "科普模块 - 副标题", type: "string" }),
+    defineField({ name: "introBody", title: "科普模块 - 正文", type: "text", rows: 8 }),
+    defineField({ name: "introImage", title: "科普模块 - 图片", type: "imageWithAlt" }),
+    defineField({ name: "introImageCaption", title: "科普模块 - 图片说明", type: "string" }),
+    defineField({
+      name: "introPoints",
+      title: "科普模块 - 信息要点",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+
     // ── Trust Bar ──
     defineField({
       name: "trustItems",
@@ -69,6 +82,7 @@ export const thirdGenerationIvfPage = defineType({
     // ── 为什么选择我们 ──
     defineField({ name: "whyChooseTitle", title: "为什么选择我们 - 标题", type: "string" }),
     defineField({ name: "whyChooseDescription", title: "为什么选择我们 - 描述", type: "text", rows: 3 }),
+    defineField({ name: "whyChooseImage", title: "为什么选择我们 - 主图", type: "imageWithAlt" }),
     defineField({
       name: "whyChooseItems",
       title: "优势列表",
@@ -167,6 +181,7 @@ export const thirdGenerationIvfPage = defineType({
     // ── 服务流程 ──
     defineField({ name: "processTitle", title: "服务流程 - 标题", type: "string" }),
     defineField({ name: "processDescription", title: "服务流程 - 描述", type: "text", rows: 3 }),
+    defineField({ name: "processImage", title: "服务流程 - 主图", type: "imageWithAlt" }),
     defineField({
       name: "processSteps",
       title: "流程步骤",
@@ -179,6 +194,7 @@ export const thirdGenerationIvfPage = defineType({
             defineField({ name: "title", title: "标题", type: "string", validation: (r) => r.required() }),
             defineField({ name: "description", title: "描述", type: "text" }),
             defineField({ name: "duration", title: "预计时长", type: "string" }),
+            defineField({ name: "image", title: "步骤图片", type: "imageWithAlt" }),
           ],
         },
       ],
@@ -208,6 +224,7 @@ export const thirdGenerationIvfPage = defineType({
     // ── 客户评价 ──
     defineField({ name: "testimonialsTitle", title: "客户评价 - 标题", type: "string" }),
     defineField({ name: "testimonialsDescription", title: "客户评价 - 描述", type: "text", rows: 3 }),
+    defineField({ name: "testimonialsImage", title: "客户评价 - 场景图", type: "imageWithAlt" }),
     defineField({
       name: "testimonialItems",
       title: "评价列表",

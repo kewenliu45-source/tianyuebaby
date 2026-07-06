@@ -204,22 +204,16 @@ function NewsSidebar({
 
       {/* B. 医疗资源卡 */}
       <div className="bg-white rounded-xl ring-1 ring-[#e5e7eb] overflow-hidden">
-        {resourceImageUrl ? (
-          <div className="relative w-full aspect-[16/9]">
-            <Image
-              src={resourceImageUrl}
-              alt={resourceImageAlt}
-              fill
-              className="object-cover"
-              sizes="300px"
-              loading="lazy"
-            />
-          </div>
-        ) : (
-          <div className="w-full aspect-[16/9] bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-            <MapPin className="w-10 h-10 text-[#2563eb]/20" />
-          </div>
-        )}
+        <div className="relative w-full aspect-[16/9]">
+          <Image
+            src={resourceImageUrl || "/images/site/hospital-corridor.png"}
+            alt={resourceImageAlt}
+            fill
+            className="object-cover"
+            sizes="300px"
+            loading="lazy"
+          />
+        </div>
         <div className="p-5">
           <h3 className="text-base font-semibold text-[#173b68] mb-2">
             {resource.title}
@@ -424,8 +418,15 @@ export function NewsList({
                           )}
                         </div>
                       ) : (
-                        <div className="w-full sm:w-56 shrink-0 aspect-[16/10] sm:aspect-auto sm:h-[160px] bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-                          <Heart className="w-10 h-10 text-[#2563eb]/20" />
+                        <div className="relative w-full sm:w-56 shrink-0 aspect-[16/10] sm:aspect-auto sm:h-[160px]">
+                          <Image
+                            src="/images/site/documents-review.png"
+                            alt={article.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, 224px"
+                            loading="lazy"
+                          />
                         </div>
                       )}
 

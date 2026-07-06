@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import { iconImageUrl } from "@/sanity/lib/image";
 import type { SiteSettings } from "@/types/sanity";
 
 const links: [string, string, boolean?][] = [
@@ -13,7 +15,7 @@ const links: [string, string, boolean?][] = [
   ["冻卵/冻精", "/egg-sperm-freezing"],
   ["第三方辅助生殖", "/third-party-assisted-reproduction", true],
   ["私人订制", "/private-customization", true],
-  ["成功案例", "/success-cases"],
+  ["科普视频", "/videos"],
   ["新闻资讯", "/news"],
   ["医疗服务", "/medical-services"],
   ["走进天悦宝贝", "/about-tianyue"],
@@ -31,6 +33,11 @@ export function SiteHeader({ siteSettings }: { siteSettings?: SiteSettings | nul
   }, []);
   const transparent = pathname === "/" && !scrolled;
   const brand = siteSettings?.siteName || "天悦宝贝（国际）助孕中心";
+  const sanityLogo = siteSettings?.logo?.image;
+  const logoSrc = sanityLogo
+    ? iconImageUrl(sanityLogo as unknown as Parameters<typeof iconImageUrl>[0])
+    : "/images/site/tianyue-logo-mark.png";
+  const logoAlt = siteSettings?.logo?.alt || `${brand} Logo`;
 
   return <header className={`z-50 w-full transition-all duration-300 ${transparent
     ? "absolute top-0 border-b border-white/30 bg-white/60 shadow-[0_4px_24px_rgba(40,95,160,.06)] backdrop-blur-xl"
@@ -38,12 +45,22 @@ export function SiteHeader({ siteSettings }: { siteSettings?: SiteSettings | nul
   }`}>
     <div className="mx-auto flex h-[82px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 lg:px-8">
       {/* ── 品牌 Logo ── */}
-      <Link href="/" className="shrink-0 leading-tight" aria-label={brand}>
-        <span className={`block text-[15px] font-extrabold tracking-wide lg:text-[17px] ${transparent ? "text-[#2563eb] drop-shadow-[0_1px_2px_rgba(37,99,235,.15)]" : "text-[#1e4fd6]"}`}>
-          天悦宝贝（国际）助孕中心
-        </span>
-        <span className={`mt-1 block text-center text-[10px] font-semibold tracking-[.3em] ${transparent ? "text-[#3b6fe0]/80" : "text-[#4b6fa8]"}`}>
-          专业&nbsp;&nbsp;贴心&nbsp;&nbsp;科学&nbsp;&nbsp;安全
+      <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label={brand}>
+        <Image
+          src={logoSrc}
+          alt={logoAlt}
+          width={74}
+          height={53}
+          className="h-[48px] w-[67px] shrink-0 object-contain sm:h-[54px] sm:w-[76px]"
+          priority
+        />
+        <span className="hidden leading-tight sm:block">
+          <span className={`block text-[14px] font-extrabold tracking-wide lg:text-[16px] ${transparent ? "text-[#2563eb] drop-shadow-[0_1px_2px_rgba(37,99,235,.15)]" : "text-[#1e4fd6]"}`}>
+            {brand}
+          </span>
+          <span className={`mt-1 block text-center text-[10px] font-semibold tracking-[.3em] ${transparent ? "text-[#3b6fe0]/80" : "text-[#4b6fa8]"}`}>
+            专业&nbsp;&nbsp;贴心&nbsp;&nbsp;科学&nbsp;&nbsp;安全
+          </span>
         </span>
       </Link>
 

@@ -89,13 +89,16 @@ export interface SiteSettings {
   _id: string;
   _type: "siteSettings";
   siteName: string;
+  siteNameEn?: string;
   description?: string;
   logo?: ImageWithAlt;
+  favicon?: SanityImage;
   defaultShareImage?: SanityImage;
   phone?: string;
   serviceHours?: string;
   wechatQrCode?: SanityImage;
   wechatPublicQrCode?: SanityImage;
+  footerWechatQrCode?: SanityImage;
   sidebarCtaText?: string;
   mobileCtaText?: string;
   footerDescription?: string;
@@ -119,6 +122,55 @@ export interface HomePage {
   _type: "homePage";
   banners?: BannerSlide[];
   heroImage?: ImageWithAlt;
+  hero?: {
+    isEnabled?: boolean;
+    desktopImage?: ImageWithAlt;
+    mobileImage?: ImageWithAlt;
+    overlayStrength?: number;
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    primaryButtonText?: string;
+    primaryButtonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
+    badges?: string[];
+    stats?: Array<{ value: string; label: string }>;
+  };
+  expertiseSection?: {
+    isEnabled?: boolean;
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    capabilities?: Array<{ title: string; description?: string }>;
+    buttonText?: string;
+    buttonLink?: string;
+    mainImage?: ImageWithAlt;
+    secondaryImage?: ImageWithAlt;
+    tertiaryImage?: ImageWithAlt;
+  };
+  servicesSection?: {
+    isEnabled?: boolean;
+    title?: string;
+    description?: string;
+    items?: Array<{
+      isEnabled?: boolean;
+      image?: ImageWithAlt;
+      title: string;
+      audience?: string;
+      description?: string;
+      buttonText?: string;
+      buttonLink?: string;
+    }>;
+  };
+  sectionVisibility?: {
+    advantages?: boolean;
+    journey?: boolean;
+    stats?: boolean;
+    news?: boolean;
+    faq?: boolean;
+    cta?: boolean;
+  };
   brandIntroTitle?: string;
   brandIntroContent?: string;
   brandIntroImage?: ImageWithAlt;
@@ -130,19 +182,34 @@ export interface HomePage {
     icon?: string;
   }>;
   advantagesTitle?: string;
+  advantagesDescription?: string;
+  advantagesMainImage?: ImageWithAlt;
   advantages?: Array<{
     title: string;
     description?: string;
     icon?: string;
     color?: "pink" | "purple" | "yellow" | "green";
+    image?: ImageWithAlt;
+    isEnabled?: boolean;
   }>;
   journeyTitle?: string;
+  journeyDescription?: string;
+  journeyMainImage?: ImageWithAlt;
+  journeyImageOverlay?: string;
+  journeyButtonText?: string;
+  journeyButtonLink?: string;
   journeySteps?: Array<{
     title: string;
     description?: string;
     stepNumber: number;
+    icon?: string;
+    isEnabled?: boolean;
   }>;
   statsTitle?: string;
+  statsDescription?: string;
+  statsBackgroundImage?: ImageWithAlt;
+  statsButtonText?: string;
+  statsButtonLink?: string;
   stats?: Array<{
     value: string;
     label: string;
@@ -150,6 +217,7 @@ export interface HomePage {
   }>;
   newsTitle?: string;
   featuredNewsCount?: number;
+  featuredNews?: NewsArticle[];
   faqTitle?: string;
   featuredFaqCount?: number;
   cta?: Cta;
@@ -255,6 +323,23 @@ export interface StartJourney {
   serviceHours?: string;
   consultationNote?: string;
   seo?: Seo;
+}
+
+export interface AboutTianyuePage {
+  _id: string;
+  _type: "aboutTianyuePage";
+  pageTitle?: string;
+  pageDescription?: string;
+  seo?: Seo;
+  banners?: BannerSlide[];
+  brandTitle?: string;
+  brandDescription?: string;
+  brandImage?: ImageWithAlt;
+  contactTitle?: string;
+  phone?: string;
+  wechatQrCode?: SanityImage;
+  serviceHours?: string;
+  consultationNote?: string;
 }
 
 export interface PrivacyPage {
@@ -397,6 +482,12 @@ export interface ThirdGenerationIvfPage {
   heroFormTitle?: string;
   heroFormFields?: string[];
   heroFormButtonText?: string;
+  introTitle?: string;
+  introSubtitle?: string;
+  introBody?: string;
+  introImage?: ImageWithAlt;
+  introImageCaption?: string;
+  introPoints?: string[];
   trustItems?: Array<{
     value: string;
     label?: string;
@@ -404,6 +495,7 @@ export interface ThirdGenerationIvfPage {
   }>;
   whyChooseTitle?: string;
   whyChooseDescription?: string;
+  whyChooseImage?: ImageWithAlt;
   whyChooseItems?: Array<{
     title: string;
     description?: string;
@@ -437,11 +529,13 @@ export interface ThirdGenerationIvfPage {
   }>;
   processTitle?: string;
   processDescription?: string;
+  processImage?: ImageWithAlt;
   processSteps?: Array<{
     stepNumber: number;
     title: string;
     description?: string;
     duration?: string;
+    image?: ImageWithAlt;
   }>;
   casesTitle?: string;
   casesDescription?: string;
@@ -454,6 +548,7 @@ export interface ThirdGenerationIvfPage {
   }>;
   testimonialsTitle?: string;
   testimonialsDescription?: string;
+  testimonialsImage?: ImageWithAlt;
   testimonialItems?: Array<{
     displayName?: string;
     profile?: string;
@@ -807,6 +902,18 @@ export interface IvfServicesPage {
     ctaText?: string;
     ctaLink?: string;
   }>;
+  serviceRegions?: Array<{
+    name: string;
+    subtitle?: string;
+    description?: string;
+    image?: ImageWithAlt;
+    serviceHighlights?: string[];
+    ctaText?: string;
+    ctaLink?: string;
+    mapLabel?: string;
+    lng?: number;
+    lat?: number;
+  }>;
   regionalServiceTitle?: string;
   regionalServiceDescription?: string;
   regionalServiceSteps?: Array<{
@@ -1032,4 +1139,79 @@ export interface MedicalServicesPage {
   consultationTitle?: string;
   consultationDescription?: string;
   consultationBackgroundImage?: ImageWithAlt;
+}
+
+// ─────────────────────────────────────────────
+// 科普视频中心
+// ─────────────────────────────────────────────
+
+export interface VideoCategory {
+  _id: string;
+  _type: "videoCategory";
+  name: string;
+  slug: Slug;
+  sortOrder?: number;
+}
+
+export interface VideoCategoryRef {
+  _id: string;
+  _type: "videoCategory";
+  name: string;
+  slug: Slug;
+}
+
+export interface ScienceVideo {
+  _id: string;
+  _type: "scienceVideo";
+  title: string;
+  slug: Slug;
+  excerpt?: string;
+  content?: RichTextBlock[];
+  coverImage?: ImageWithAlt;
+  category?: VideoCategoryRef;
+  presenter?: string;
+  duration?: string;
+  videoSource: "external" | "upload";
+  externalUrl?: string;
+  videoFile?: { asset: { _ref: string; _type: "reference" } };
+  publishedAt: string;
+  isFeatured?: boolean;
+  sortOrder?: number;
+  seo?: Seo;
+}
+
+export interface VideosPage {
+  _id: string;
+  _type: "videosPage";
+  pageTitle?: string;
+  pageDescription?: string;
+  seo?: Seo;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroDescription?: string;
+  heroImage?: ImageWithAlt;
+  heroPrimaryButtonText?: string;
+  heroPrimaryButtonLink?: string;
+  featuredTitle?: string;
+  featuredDescription?: string;
+  listTitle?: string;
+  listDescription?: string;
+  categoryFilterEnabled?: boolean;
+  sidebarConsultTitle?: string;
+  sidebarConsultDescription?: string;
+  sidebarConsultButtonText?: string;
+  sidebarConsultButtonLink?: string;
+  sidebarPhone?: string;
+  sidebarHotLinks?: Array<{ title: string; href: string }>;
+  sidebarRelatedLinks?: Array<{ title: string; href: string }>;
+  finalCtaTitle?: string;
+  finalCtaDescription?: string;
+  finalCtaPrimaryButtonText?: string;
+  finalCtaPrimaryButtonLink?: string;
+  finalCtaSecondaryButtonText?: string;
+  finalCtaSecondaryButtonLink?: string;
+  finalCtaBackgroundImage?: ImageWithAlt;
+  emptyStateText?: string;
+  playbackErrorText?: string;
+  medicalDisclaimer?: string;
 }

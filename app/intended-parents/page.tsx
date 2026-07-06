@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
 import { PageBanner } from "@/components/shared/page-banner";
 import { fetchIntendedParentsPageData } from "@/sanity/lib/fetchers";
@@ -115,18 +116,32 @@ export default async function IntendedParentsPage() {
       {/* 常见需求 */}
       <section className="py-16 lg:py-24 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
-            {intendedParents?.needsTitle || "常见需求"}
-          </h2>
-          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-            {needs.map((item, index) => (
-              <div key={index} className="bg-white rounded-xl p-6">
-                <h3 className="font-semibold text-foreground mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground">{item.description}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-[420px_minmax(0,1fr)] gap-10 items-center max-w-6xl mx-auto">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+              <Image
+                src="/images/site/newborn-family.png"
+                alt="家庭与新生宝宝"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 420px"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+                {intendedParents?.needsTitle || "常见需求"}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {needs.map((item, index) => (
+                  <div key={index} className="bg-white rounded-xl p-6">
+                    <h3 className="font-semibold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>

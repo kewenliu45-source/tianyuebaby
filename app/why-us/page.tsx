@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, MessageCircle, Award, Shield, Users, Heart } from "lucide-react";
 import { PageBanner } from "@/components/shared/page-banner";
 import { fetchWhyUsPageData } from "@/sanity/lib/fetchers";
@@ -64,7 +65,7 @@ export default async function WhyUsPage() {
   ];
 
   const defaultStats = [
-    { value: "10+", label: "年行业经验" },
+    { value: "15+", label: "年行业经验" },
     { value: "1000+", label: "成功案例" },
     { value: "98%", label: "客户满意度" },
     { value: "24h", label: "全程服务" },
@@ -100,7 +101,8 @@ export default async function WhyUsPage() {
       {/* 机构介绍 */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-10 items-center max-w-6xl mx-auto">
+            <div className="text-center lg:text-left">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
               {whyUs?.introTitle || "关于天悦宝贝"}
             </h2>
@@ -108,6 +110,17 @@ export default async function WhyUsPage() {
               {whyUs?.introContent ||
                 "天悦宝贝（国际）助孕中心是一家专注于助孕咨询服务的机构。我们致力于为有需要的家庭提供专业、贴心的助孕方案咨询与全程陪伴服务。凭借多年的行业经验和丰富的资源网络，我们已帮助众多家庭实现了拥有宝宝的梦想。"}
             </p>
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+              <Image
+                src="/images/site/care-team.png"
+                alt="天悦宝贝专业顾问团队"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 420px"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </section>

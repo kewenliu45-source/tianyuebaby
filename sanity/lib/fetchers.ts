@@ -13,6 +13,7 @@ import type {
   FaqItem,
   NewsCategory,
   FaqCategory,
+  ScienceVideo,
 } from "@/types/sanity";
 import type {
   LayoutData,
@@ -24,6 +25,7 @@ import type {
   WhyUsPageData,
   FaqPageData,
   StartJourneyPageData,
+  AboutTianyuePageData,
   PrivacyPageData,
   ThirdGenerationIvfPageData,
   IvfServicesPageData,
@@ -33,6 +35,8 @@ import type {
   SuccessCasesPageData,
   SuccessCaseDetailPageData,
   MedicalServicesPageData,
+  VideosPageData,
+  VideoDetailPageData,
 } from "@/types/page";
 
 import {
@@ -49,6 +53,7 @@ import {
   whyUsPageQuery,
   faqPageDataQuery,
   startJourneyPageQuery,
+  aboutTianyuePageDataQuery,
   privacyPageDataQuery,
   thirdGenerationIvfPageDataQuery,
   ivfServicesPageDataQuery,
@@ -60,6 +65,11 @@ import {
   relatedSuccessCasesQuery,
   successCaseSlugsQuery,
   medicalServicesPageDataQuery,
+  videosPageDataQuery,
+  videosPageQuery,
+  scienceVideoBySlugQuery,
+  relatedVideosQuery,
+  videoSlugsQuery,
   allNewsForSitemapQuery,
 } from "./queries";
 import { sanityFetch } from "./fetch";
@@ -337,6 +347,27 @@ export async function fetchStartJourneyPageData(): Promise<StartJourneyPageData>
 }
 
 // ─────────────────────────────────────────────
+// 走进天悦宝贝页面
+// ─────────────────────────────────────────────
+
+/** 走进天悦宝贝聚合数据 */
+export async function fetchAboutTianyuePageData(): Promise<AboutTianyuePageData> {
+  try {
+    return await sanityFetch<AboutTianyuePageData>({
+      query: aboutTianyuePageDataQuery,
+      cache: "force-cache",
+      revalidate: 60,
+    });
+  } catch {
+    console.warn("Failed to fetch about Tianyue page data");
+    return {
+      siteSettings: null,
+      aboutTianyuePage: null,
+    };
+  }
+}
+
+// ─────────────────────────────────────────────
 // 隐私政策
 // ─────────────────────────────────────────────
 
@@ -564,6 +595,101 @@ export async function fetchMedicalServicesPageData(): Promise<MedicalServicesPag
       siteSettings: null,
       medicalServicesPage: null,
     };
+  }
+}
+
+// ─────────────────────────────────────────────
+// 科普视频中心
+// ─────────────────────────────────────────────
+
+/** 科普视频中心聚合数据 */
+export async function fetchVideosPageData(): Promise<VideosPageData> {
+  try {
+    return await sanityFetch<VideosPageData>({
+      query: videosPageDataQuery,
+      cache: "force-cache",
+      revalidate: 60,
+    });
+  } catch {
+    console.warn("Failed to fetch videos page data");
+    return {
+      siteSettings: null,
+      videosPage: null,
+      scienceVideos: [],
+      categories: [],
+      featuredVideos: [],
+    };
+  }
+}
+
+/** 科普视频详情数据 */
+export async function fetchVideoDetailPageData(
+  slug: string
+): Promise<VideoDetailPageData> {
+  try {
+    const video = await sanityFetch<ScienceVideo | null>({
+      query: scienceVideoBySlugQuery,
+      params: { slug },
+      cache: "force-cache",
+      revalidate: 60,
+    });
+
+    if (!video) {
+      return {
+        siteSettings: null,
+        videosPage: null,
+        video: null,
+        relatedVideos: [],
+      };
+    }
+
+    const relatedVideos = video.category?._id
+      ? await sanityFetch<ScienceVideo[]>({
+          query: relatedVideosQuery,
+          params: { slug, categoryId: video.category._id },
+          cache: "force-cache",
+          revalidate: 60,
+        })
+      : [];
+
+    const [siteSettings, videosPage] = await Promise.all([
+      fetchSiteSettings(),
+      sanityFetch<import("@/types/sanity").VideosPage | null>({
+        query: videosPageQuery,
+        cache: "force-cache",
+        revalidate: 60,
+      }),
+    ]);
+
+    return {
+      siteSettings,
+      videosPage,
+      video,
+      relatedVideos: relatedVideos || [],
+    };
+  } catch {
+    console.warn(`Failed to fetch video detail data for slug: ${slug}`);
+    return {
+      siteSettings: null,
+      videosPage: null,
+      video: null,
+      relatedVideos: [],
+    };
+  }
+}
+
+/** 获取所有科普视频 slug，用于 generateStaticParams */
+export async function fetchVideoSlugs(): Promise<string[]> {
+  try {
+    const result = await sanityFetch<{ slug: string }[]>({
+      query: videoSlugsQuery,
+      cache: "force-cache",
+      revalidate: 60,
+    });
+    return result.map((item) => item.slug);
+  } catch {
+    console.warn("Failed to fetch video slugs");
+    return [];
   }
 }
 

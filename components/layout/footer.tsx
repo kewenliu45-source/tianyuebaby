@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Clock } from "lucide-react";
+import { iconImageUrl } from "@/sanity/lib/image";
 import type { SiteSettings } from "@/types/sanity";
 
 interface FooterProps {
@@ -13,7 +15,7 @@ const fallbackNavItems = [
   { label: "冻卵/冻精", href: "/egg-sperm-freezing" },
   { label: "第三方辅助生殖", href: "/third-party-assisted-reproduction" },
   { label: "私人订制", href: "/private-customization" },
-  { label: "成功案例", href: "/success-cases" },
+  { label: "科普视频", href: "/videos" },
   { label: "新闻资讯", href: "/news" },
   { label: "医疗服务", href: "/medical-services" },
   { label: "走进天悦宝贝", href: "/about-tianyue" },
@@ -21,18 +23,23 @@ const fallbackNavItems = [
 
 export function Footer({ siteSettings }: FooterProps) {
   const brandName = siteSettings?.siteName || "天悦宝贝（国际）助孕中心";
+  const brandNameEn = siteSettings?.siteNameEn || "Tianyue Baby International Fertility Center";
   const phone = siteSettings?.phone || "400-123-4567";
   const serviceHours = siteSettings?.serviceHours || "周一至周日 9:00-18:00";
   const footerDescription =
     siteSettings?.footerDescription ||
     "专注助孕咨询服务，为有需要的家庭提供专业、贴心的助孕方案咨询与全程陪伴服务。";
-  const icpNumber = siteSettings?.icpNumber || "ICP 备案号占位";
+  const icpNumber = siteSettings?.icpNumber || "";
   const copyrightText =
     siteSettings?.copyrightText ||
     `© ${new Date().getFullYear()} ${brandName} 版权所有`;
 
-  // 构建导航项
-  const navLabels = siteSettings?.navLabels;
+  // 页脚独立二维码（与右侧悬浮微信咨询互不影响）
+  const footerQrCode = siteSettings?.footerWechatQrCode;
+  const qrSrc = footerQrCode
+    ? iconImageUrl(footerQrCode as unknown as Parameters<typeof iconImageUrl>[0])
+    : null;
+
   const navItems = fallbackNavItems;
 
   return (
@@ -47,6 +54,9 @@ export function Footer({ siteSettings }: FooterProps) {
             >
               {brandName}
             </Link>
+            <p className="mt-1 text-xs text-navy-foreground/50 tracking-wider">
+              {brandNameEn}
+            </p>
             <p className="mt-4 text-sm text-navy-foreground/70 leading-relaxed">
               {footerDescription}
             </p>
@@ -71,7 +81,7 @@ export function Footer({ siteSettings }: FooterProps) {
             </ul>
           </div>
 
-          {/* 联系方式 */}
+          {/* 联系方式 + 微信二维码 */}
           <div>
             <h3 className="text-sm font-semibold text-navy-foreground mb-4">
               联系我们
@@ -93,6 +103,23 @@ export function Footer({ siteSettings }: FooterProps) {
                 </div>
               </li>
             </ul>
+
+            {/* 微信二维码 — 白色卡片，提升扫码识别率 */}
+            {qrSrc && (
+              <div className="mt-4 w-fit">
+                <div className="w-[180px] rounded-[10px] bg-white p-3.5 box-border lg:w-[180px] w-[150px] lg:p-3.5 p-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={qrSrc}
+                    alt="微信咨询二维码"
+                    className="block w-full h-auto object-contain"
+                  />
+                </div>
+                <p className="mt-2.5 text-sm text-white/85 text-center">
+                  扫码添加微信咨询
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -100,7 +127,7 @@ export function Footer({ siteSettings }: FooterProps) {
         <div className="mt-12 pt-8 border-t border-navy-foreground/10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-navy-foreground/50">{copyrightText}</p>
-            <p className="text-xs text-navy-foreground/50">{icpNumber}</p>
+            {icpNumber && <p className="text-xs text-navy-foreground/50">{icpNumber}</p>}
           </div>
         </div>
       </div>

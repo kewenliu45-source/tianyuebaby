@@ -212,15 +212,15 @@ const DEFAULT_SIDEBAR = {
     { title: "妇科医生咨询", description: "生育力评估与建议", icon: "heart" },
     { title: "心理咨询支持", description: "情绪疏导与心理陪伴", icon: "users" },
   ],
-  featuredCaseTitle: "精选案例",
-  featuredCaseDescription: "了解真实的咨询服务案例，仅供参考。",
+  featuredCaseTitle: "精选科普视频",
+  featuredCaseDescription: "观看专业讲解视频，全面了解辅助生殖知识。",
   serviceTitle: "服务通道",
   serviceItems: [
     { title: "三代试管婴儿", href: "/third-generation-ivf", icon: "heart" },
     { title: "冻卵/冻精", href: "/egg-sperm-freezing", icon: "snowflake" },
     { title: "海外生殖方案", href: "/overseas-fertility", icon: "globe" },
     { title: "私人订制方案", href: "/private-customization", icon: "award" },
-    { title: "成功案例", href: "/success-cases", icon: "check" },
+    { title: "科普视频", href: "/videos", icon: "check" },
   ],
 };
 
@@ -326,7 +326,7 @@ export default async function MedicalServicesPage() {
     secondaryButtonText: DEFAULT_HERO.secondaryButtonText,
     secondaryButtonLink: DEFAULT_HERO.secondaryButtonLink,
   };
-  const heroImageUrl = getImageUrl(p?.heroImage, "banner");
+  const heroImageUrl = getImageUrl(p?.heroImage, "banner") || "/images/site/fertility-hero.png";
   const breadcrumbLabel = p?.breadcrumbCurrentLabel || "医疗服务";
 
   const timelineTitle = p?.timelineTitle || "天悦宝贝发展历程";
@@ -348,7 +348,7 @@ export default async function MedicalServicesPage() {
       ? p.advantageItems
       : DEFAULT_ADVANTAGES.items,
   };
-  const advantagesImageUrl = getImageUrl(p?.advantagesImage, "banner");
+  const advantagesImageUrl = getImageUrl(p?.advantagesImage, "banner") || "/images/site/embryology-lab.png";
 
   const related = {
     title: p?.relatedTitle || DEFAULT_RELATED.title,
@@ -381,8 +381,8 @@ export default async function MedicalServicesPage() {
       ? p.sidebarServiceItems
       : DEFAULT_SIDEBAR.serviceItems,
   };
-  const sidebarResourceImageUrl = getImageUrl(p?.sidebarResourceImage, "content");
-  const sidebarFeaturedImageUrl = getImageUrl(p?.sidebarFeaturedCaseImage, "content");
+  const sidebarResourceImageUrl = getImageUrl(p?.sidebarResourceImage, "content") || "/images/site/hospital-corridor.png";
+  const sidebarFeaturedImageUrl = getImageUrl(p?.sidebarFeaturedCaseImage, "content") || "/images/site/newborn-family.png";
 
   // 品牌沉淀
   const brand = {
@@ -390,14 +390,14 @@ export default async function MedicalServicesPage() {
     subtitle: p?.brandSectionSubtitle || DEFAULT_BRAND.subtitle,
     description: p?.brandSectionDescription || DEFAULT_BRAND.description,
   };
-  const brandBgUrl = getImageUrl(p?.brandSectionBackgroundImage, "banner");
+  const brandBgUrl = getImageUrl(p?.brandSectionBackgroundImage, "banner") || "/images/site/brand-consult-bg.png";
 
   // 咨询区
   const consultation = {
     title: p?.consultationTitle || DEFAULT_CONSULTATION.title,
     description: p?.consultationDescription || DEFAULT_CONSULTATION.description,
   };
-  const consultationBgUrl = getImageUrl(p?.consultationBackgroundImage, "banner");
+  const consultationBgUrl = getImageUrl(p?.consultationBackgroundImage, "banner") || "/images/site/brand-consult-bg.png";
 
   return (
     <>
@@ -530,7 +530,9 @@ export default async function MedicalServicesPage() {
                 const introDescription =
                   p?.introDescription ||
                   "天悦宝贝为有需求的家庭提供辅助生殖相关的专业咨询服务，包括医学资料评估、海外生殖医疗资源对接、方案分析与流程陪伴。需要说明的是，我们提供的是咨询、评估、资源对接和流程陪伴服务，不直接替代医生诊疗或治疗。所有医疗操作由合作医疗机构的专业医生团队执行。";
-                const introImageUrl = getImageUrl(p?.introImage, "content");
+                const introImageUrl =
+                  getImageUrl(p?.introImage, "content") ||
+                  "/images/site/clinic-reception.png";
 
                 return (
                   <div className="mb-10">
@@ -568,7 +570,15 @@ export default async function MedicalServicesPage() {
 
               {/* 核心服务模块 */}
               {serviceSections.map((section, i) => {
-                const imageUrl = getImageUrl(section.image, "content");
+                const fallbackServiceImages = [
+                  "/images/site/documents-review.png",
+                  "/images/site/care-team.png",
+                  "/images/site/embryology-lab.png",
+                  "/images/site/doctor-consultation.png",
+                ];
+                const imageUrl =
+                  getImageUrl(section.image, "content") ||
+                  fallbackServiceImages[i % fallbackServiceImages.length];
                 const isLeft = section.imagePosition === "left";
 
                 return (
@@ -627,26 +637,46 @@ export default async function MedicalServicesPage() {
                         {/* 子项列表 */}
                         {section.items && section.items.length > 0 && (
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
-                            {section.items.map((item, j) => (
-                              <div
-                                key={j}
-                                className="flex items-start gap-3 bg-[#f8fbff] rounded-lg p-3"
-                              >
-                                <div className="w-8 h-8 rounded-md bg-blue-50 flex items-center justify-center shrink-0 text-[#2563eb]">
-                                  {getIcon(item.icon)}
-                                </div>
-                                <div>
-                                  <p className="text-sm font-semibold text-[#173b68]">
-                                    {item.title}
-                                  </p>
-                                  {item.description && (
-                                    <p className="text-xs text-[#8a9bb5] mt-0.5">
-                                      {item.description}
-                                    </p>
+                            {section.items.map((item, j) => {
+                              const itemImage =
+                                "image" in item ? item.image : undefined;
+                              const itemImageUrl = getImageUrl(itemImage, "content");
+
+                              return (
+                                <div
+                                  key={j}
+                                  className="overflow-hidden rounded-lg bg-[#f8fbff]"
+                                >
+                                  {itemImageUrl && (
+                                    <div className="relative aspect-[16/10] w-full">
+                                      <Image
+                                        src={itemImageUrl}
+                                        alt={itemImage?.alt || item.title || ""}
+                                        fill
+                                        className="object-cover"
+                                        loading="lazy"
+                                        sizes="(max-width: 640px) 100vw, 320px"
+                                      />
+                                    </div>
                                   )}
+                                  <div className="flex items-start gap-3 p-3">
+                                    <div className="w-8 h-8 rounded-md bg-blue-50 flex items-center justify-center shrink-0 text-[#2563eb]">
+                                      {getIcon(item.icon)}
+                                    </div>
+                                    <div>
+                                      <p className="text-sm font-semibold text-[#173b68]">
+                                        {item.title}
+                                      </p>
+                                      {item.description && (
+                                        <p className="text-xs text-[#8a9bb5] mt-0.5">
+                                          {item.description}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
+                              );
+                            })}
                           </div>
                         )}
 
@@ -860,7 +890,7 @@ export default async function MedicalServicesPage() {
                   </ul>
                 </div>
 
-                {/* D. 精选案例 */}
+                {/* D. 精选科普视频 */}
                 <div className="bg-white rounded-xl ring-1 ring-[#e5e7eb] overflow-hidden">
                   {sidebarFeaturedImageUrl ? (
                     <div className="relative w-full aspect-[16/9]">
@@ -890,7 +920,7 @@ export default async function MedicalServicesPage() {
                         href={p.sidebarFeaturedCaseLink}
                         className="inline-flex items-center gap-1 text-sm font-semibold text-[#2563eb] hover:text-[#1d4ed8] transition-colors"
                       >
-                        查看案例
+                        查看视频
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     )}

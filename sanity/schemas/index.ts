@@ -31,6 +31,10 @@ import { privateCustomizationPage } from "./documents/privateCustomizationPage";
 import { successCasesPage } from "./documents/successCasesPage";
 import { successCase } from "./documents/successCase";
 import { medicalServicesPage } from "./documents/medicalServicesPage";
+import { scienceVideo } from "./documents/scienceVideo";
+import { videosPage } from "./documents/videosPage";
+import { videoCategory } from "./documents/videoCategory";
+import { aboutTianyuePage } from "./documents/aboutTianyuePage";
 
 /** 所有 Object Schema — 可被文档 Schema 复用 */
 export const objectTypes: SchemaTypeDefinition[] = [
@@ -66,6 +70,10 @@ export const documentTypes: SchemaTypeDefinition[] = [
   successCasesPage,
   successCase,
   medicalServicesPage,
+  scienceVideo,
+  videosPage,
+  videoCategory,
+  aboutTianyuePage,
 ];
 
 /** 汇总所有 Schema 类型 */

@@ -66,6 +66,53 @@ type HospitalItem = { name: string; location: string; description: string; tags:
 type ExpertItem = { name: string; title: string; description: string; specialties: string[]; avatar?: ImageWithAlt };
 type CaseItem = { title: string; profile: string; summary: string; resultDescription: string; image?: ImageWithAlt };
 type TestimonialItem = { displayName: string; profile: string; content: string; rating: number; avatar?: ImageWithAlt };
+type ProcessStep = { stepNumber: number; title: string; description?: string; duration?: string; image?: ImageWithAlt };
+
+const DEFAULT_IMAGES = {
+  hero: "/images/site/embryology-lab.png",
+  intro: "/images/site/microscope-workstation.png",
+  whyChoose: "/images/site/doctor-consultation.png",
+  process: "/images/site/documents-review.png",
+  testimonial: "/images/site/newborn-family.png",
+  cta: "/images/site/hospital-corridor.png",
+  services: [
+    "/images/site/doctor-consultation.png",
+    "/images/site/microscope-workstation.png",
+    "/images/site/documents-review.png",
+    "/images/site/embryology-lab.png",
+    "/images/site/care-team.png",
+    "/images/site/hospital-corridor.png",
+  ],
+  hospitals: [
+    "/images/site/clinic-reception.png",
+    "/images/site/embryology-lab.png",
+    "/images/site/hospital-corridor.png",
+  ],
+  experts: [
+    "/images/site/care-team.png",
+    "/images/site/doctor-consultation.png",
+    "/images/site/documents-review.png",
+  ],
+  cases: [
+    "/images/site/newborn-family.png",
+    "/images/site/doctor-consultation.png",
+    "/images/site/documents-review.png",
+  ],
+} as const;
+
+const DEFAULT_INTRO = {
+  title: "什么是第三代试管婴儿（PGT）",
+  subtitle: "在胚胎移植前了解染色体或特定遗传风险",
+  body: "第三代试管婴儿通常指胚胎植入前遗传学检测（PGT）。在体外受精形成胚胎后，实验室会在适当阶段取少量细胞进行检测，帮助医生了解胚胎的染色体情况，或判断是否携带特定遗传变异。\n\nPGT 并不适用于所有家庭，也不能保证妊娠结果。是否需要检测、采用哪一种检测方式，需要结合年龄、既往妊娠史、家族遗传病史和医生评估综合判断。",
+  caption: "胚胎学实验室通过规范流程完成培养、取样与检测衔接",
+  points: ["PGT-A：关注胚胎染色体数目", "PGT-M：针对已知单基因遗传病", "PGT-SR：适用于部分染色体结构异常"],
+};
+
+function cmsImageUrl(image: ImageWithAlt | undefined, fallback: string) {
+  return image?.image
+    ? contentImageUrl(image.image as unknown as Parameters<typeof contentImageUrl>[0])
+    : fallback;
+}
 
 const DEFAULT_SERVICES = {
   title: "核心服务内容",
@@ -229,6 +276,14 @@ export default async function ThirdGenerationIvfPage() {
     description: p?.whyChooseDescription || DEFAULT_WHY_CHOOSE.description,
     items: p?.whyChooseItems?.length ? p.whyChooseItems : DEFAULT_WHY_CHOOSE.items,
   };
+  const intro = {
+    title: p?.introTitle || DEFAULT_INTRO.title,
+    subtitle: p?.introSubtitle || DEFAULT_INTRO.subtitle,
+    body: p?.introBody || DEFAULT_INTRO.body,
+    image: p?.introImage,
+    caption: p?.introImageCaption || p?.introImage?.caption || DEFAULT_INTRO.caption,
+    points: p?.introPoints?.length ? p.introPoints : DEFAULT_INTRO.points,
+  };
   const serviceItems: ServiceItem[] = p?.serviceItems?.length ? p.serviceItems as ServiceItem[] : DEFAULT_SERVICES.items;
   const services = {
     title: p?.servicesTitle || DEFAULT_SERVICES.title,
@@ -250,7 +305,7 @@ export default async function ThirdGenerationIvfPage() {
   const process = {
     title: p?.processTitle || DEFAULT_PROCESS.title,
     description: p?.processDescription || DEFAULT_PROCESS.description,
-    steps: p?.processSteps?.length ? p.processSteps : DEFAULT_PROCESS.steps,
+    steps: (p?.processSteps?.length ? p.processSteps : DEFAULT_PROCESS.steps) as ProcessStep[],
   };
   const caseItems: CaseItem[] = p?.caseItems?.length ? p.caseItems as CaseItem[] : DEFAULT_CASES.items;
   const cases = {
@@ -293,9 +348,17 @@ export default async function ThirdGenerationIvfPage() {
       {/* ════════════════════════════════════════
           1. Hero
       ════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-[#f0f6ff] via-white to-[#e8f0fe] overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(37,99,235,.08),transparent_60%)]" />
-        <div className="container relative mx-auto max-w-[1180px] px-4 lg:px-8 py-16 lg:py-24">
+      <section className="relative min-h-[620px] overflow-hidden bg-[#15365e]">
+        <Image
+          src={cmsImageUrl(p?.heroImage, DEFAULT_IMAGES.hero)}
+          alt={p?.heroImage?.alt || "胚胎实验室与辅助生殖技术工作场景"}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,35,67,.92)_0%,rgba(10,35,67,.76)_48%,rgba(10,35,67,.42)_100%)]" />
+        <div className="container relative mx-auto max-w-[1180px] px-4 py-16 lg:px-8 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* 左侧文案 */}
             <div>
@@ -303,18 +366,18 @@ export default async function ThirdGenerationIvfPage() {
                 {hero.badges.map((badge) => (
                   <span
                     key={badge}
-                    className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-[#2563eb] ring-1 ring-blue-200/60"
+                    className="inline-flex items-center gap-1 rounded-full bg-white/12 px-3 py-1 text-xs font-medium text-white ring-1 ring-white/25 backdrop-blur-sm"
                   >
                     <Sparkles className="w-3 h-3" />
                     {badge}
                   </span>
                 ))}
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-[2.5rem] font-bold text-[#173b68] leading-tight mb-4">
+              <h1 className="mb-4 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-[2.75rem]">
                 {hero.title}
               </h1>
-              <p className="text-lg text-[#4b6fa8] mb-3">{hero.subtitle}</p>
-              <p className="text-[15px] text-[#5a6d8a] leading-relaxed mb-8">
+              <p className="mb-3 text-lg text-blue-100">{hero.subtitle}</p>
+              <p className="mb-8 text-[15px] leading-relaxed text-blue-50/85">
                 {hero.description}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -327,7 +390,7 @@ export default async function ThirdGenerationIvfPage() {
                 </Link>
                 <Link
                   href={hero.secondaryButtonLink}
-                  className="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white px-7 py-3 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
                 >
                   {hero.secondaryButtonText}
                   <ArrowRight className="w-4 h-4" />
@@ -339,6 +402,41 @@ export default async function ThirdGenerationIvfPage() {
               <ConsultationForm source="third-generation-ivf" />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 三代试管科普 */}
+      <section className="bg-white py-16 lg:py-24">
+        <div className="container mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-10 px-4 lg:grid-cols-[1.02fr_.98fr] lg:gap-14 lg:px-8">
+          <div className="order-2 lg:order-1">
+            <div className="mb-5 border-l-4 border-[#2563eb] pl-5">
+              <h2 className="text-2xl font-bold text-[#173b68] md:text-3xl">{intro.title}</h2>
+              <p className="mt-2 text-[#4b6fa8]">{intro.subtitle}</p>
+            </div>
+            <div className="space-y-5 text-[16px] leading-[1.9] text-[#4d617d]">
+              {intro.body.split("\n\n").map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+            <div className="mt-7 grid gap-3 sm:grid-cols-3">
+              {intro.points.map((point) => (
+                <div key={point} className="flex items-start gap-2 border-t-2 border-blue-100 pt-3 text-sm font-semibold text-[#173b68]">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#2563eb]" />
+                  {point}
+                </div>
+              ))}
+            </div>
+          </div>
+          <figure className="order-1 lg:order-2">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+              <Image
+                src={cmsImageUrl(intro.image, DEFAULT_IMAGES.intro)}
+                alt={intro.image?.alt || "胚胎学实验室显微镜观察工作场景"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 48vw"
+              />
+            </div>
+            <figcaption className="mt-3 text-sm text-[#6f8098]">{intro.caption}</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -366,27 +464,35 @@ export default async function ThirdGenerationIvfPage() {
       {/* ════════════════════════════════════════
           3. 为什么选择我们
       ════════════════════════════════════════ */}
-      <section className="bg-[#f8fbff] py-16 lg:py-24">
+      <section className="bg-[#f4f8fc] py-16 lg:py-24">
         <div className="container mx-auto max-w-[1180px] px-4 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="mb-10 max-w-2xl">
             <h2 className="text-2xl md:text-3xl font-bold text-[#173b68] mb-4">
               {whyChoose.title}
             </h2>
-            <p className="text-[#5a6d8a] max-w-2xl mx-auto">{whyChoose.description}</p>
+            <p className="text-[#5a6d8a]">{whyChoose.description}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyChoose.items.map((item, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl p-6 shadow-sm ring-1 ring-blue-100/60 hover:shadow-md transition-shadow"
-              >
-                <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4 text-[#2563eb]">
-                  {getIcon(item.icon)}
+          <div className="grid items-stretch gap-8 lg:grid-cols-[.9fr_1.1fr]">
+            <div className="relative min-h-[360px] overflow-hidden rounded-lg lg:min-h-full">
+              <Image
+                src={cmsImageUrl(p?.whyChooseImage, DEFAULT_IMAGES.whyChoose)}
+                alt={p?.whyChooseImage?.alt || "生殖医学顾问与家庭沟通方案"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 44vw"
+              />
+            </div>
+            <div className="grid gap-px overflow-hidden rounded-lg border border-blue-100 bg-blue-100 sm:grid-cols-2">
+              {whyChoose.items.map((item, i) => (
+                <div key={i} className="bg-white p-6">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-blue-50 text-[#2563eb]">
+                    {getIcon(item.icon)}
+                  </div>
+                  <h3 className="mb-2 font-semibold text-[#173b68]">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-[#5a6d8a]">{item.description}</p>
                 </div>
-                <h3 className="font-semibold text-[#173b68] mb-2">{item.title}</h3>
-                <p className="text-sm text-[#5a6d8a] leading-relaxed">{item.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -402,37 +508,36 @@ export default async function ThirdGenerationIvfPage() {
             </h2>
             <p className="text-[#5a6d8a] max-w-2xl mx-auto">{services.description}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="space-y-8">
             {services.items.map((item, i) => (
               <div
                 key={i}
-                className="bg-[#f8fbff] rounded-xl p-6 ring-1 ring-blue-100/60 hover:shadow-md transition-shadow"
+                className="grid overflow-hidden rounded-lg border border-blue-100 bg-[#f8fbff] lg:grid-cols-2"
               >
-                {item.image?.image && (
-                  <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
-                    <Image
-                      src={contentImageUrl(item.image.image as unknown as Parameters<typeof contentImageUrl>[0])}
-                      alt={item.image.alt || item.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                )}
-                <h3 className="font-semibold text-[#173b68] mb-2">{item.title}</h3>
-                <p className="text-sm text-[#5a6d8a] leading-relaxed mb-3">
-                  {item.description}
-                </p>
-                {item.points && item.points.length > 0 && (
-                  <ul className="space-y-1.5">
-                    {item.points.map((point, j) => (
-                      <li key={j} className="flex items-start gap-2 text-xs text-[#4b6fa8]">
-                        <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 text-[#2563eb] flex-shrink-0" />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <div className={`relative min-h-[260px] ${i % 2 ? "lg:order-2" : ""}`}>
+                  <Image
+                    src={cmsImageUrl(item.image, DEFAULT_IMAGES.services[i % DEFAULT_IMAGES.services.length])}
+                    alt={item.image?.alt || `${item.title}相关医疗服务场景`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="flex flex-col justify-center p-7 lg:p-10">
+                  <span className="mb-4 text-sm font-bold text-[#2563eb]">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="mb-3 text-xl font-bold text-[#173b68]">{item.title}</h3>
+                  <p className="mb-5 text-[15px] leading-relaxed text-[#5a6d8a]">{item.description}</p>
+                  {item.points && item.points.length > 0 && (
+                    <ul className="grid gap-2 sm:grid-cols-2">
+                      {item.points.map((point, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-[#4b6fa8]">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#2563eb]" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -454,37 +559,27 @@ export default async function ThirdGenerationIvfPage() {
             {hospitals.items.map((item, i) => (
               <div
                 key={i}
-                className="bg-white rounded-xl p-6 shadow-sm ring-1 ring-blue-100/60"
+                className="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-blue-100/60"
               >
-                {item.image?.image && (
-                  <div className="relative h-16 mb-4">
-                    <Image
-                      src={iconImageUrl(item.image.image as unknown as Parameters<typeof iconImageUrl>[0])}
-                      alt={item.image.alt || item.name}
-                      fill
-                      className="object-contain object-left"
-                    />
-                  </div>
-                )}
-                <h3 className="font-semibold text-[#173b68] mb-1">{item.name}</h3>
-                {item.location && (
-                  <p className="text-xs text-[#2563eb] mb-2">{item.location}</p>
-                )}
-                <p className="text-sm text-[#5a6d8a] leading-relaxed mb-3">
-                  {item.description}
-                </p>
-                {item.tags && item.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-block rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-[#2563eb]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                <div className="relative aspect-[16/10]">
+                  <Image
+                    src={cmsImageUrl(item.image, DEFAULT_IMAGES.hospitals[i % DEFAULT_IMAGES.hospitals.length])}
+                    alt={item.image?.alt || `${item.name}医疗环境`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="mb-1 font-semibold text-[#173b68]">{item.name}</h3>
+                  {item.location && <p className="mb-2 text-xs text-[#2563eb]">{item.location}</p>}
+                  <p className="mb-3 text-sm leading-relaxed text-[#5a6d8a]">{item.description}</p>
+                  {item.tags && item.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.tags.map((tag) => <span key={tag} className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-[#2563eb]">{tag}</span>)}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -508,20 +603,15 @@ export default async function ThirdGenerationIvfPage() {
                 key={i}
                 className="bg-[#f8fbff] rounded-xl p-6 text-center ring-1 ring-blue-100/60"
               >
-                {item.avatar?.image ? (
-                  <div className="relative w-20 h-20 rounded-full overflow-hidden mx-auto mb-4">
-                    <Image
-                      src={iconImageUrl(item.avatar.image as unknown as Parameters<typeof iconImageUrl>[0])}
-                      alt={item.avatar.alt || item.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-8 h-8 text-[#2563eb]" />
-                  </div>
-                )}
+                <div className="relative mx-auto mb-4 h-28 w-28 overflow-hidden rounded-full">
+                  <Image
+                    src={cmsImageUrl(item.avatar, DEFAULT_IMAGES.experts[i % DEFAULT_IMAGES.experts.length])}
+                    alt={item.avatar?.alt || `${item.name}专业形象`}
+                    fill
+                    className="object-cover"
+                    sizes="112px"
+                  />
+                </div>
                 <h3 className="font-semibold text-[#173b68] mb-1">{item.name}</h3>
                 {item.title && (
                   <p className="text-xs text-[#2563eb] mb-2">{item.title}</p>
@@ -552,35 +642,42 @@ export default async function ThirdGenerationIvfPage() {
       ════════════════════════════════════════ */}
       <section id="process" className="bg-[#f8fbff] py-16 lg:py-24">
         <div className="container mx-auto max-w-[1180px] px-4 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="mb-10 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-[#173b68] mb-4">
               {process.title}
             </h2>
             <p className="text-[#5a6d8a] max-w-2xl mx-auto">{process.description}</p>
           </div>
-          <div className="relative max-w-3xl mx-auto">
-            {/* 时间轴线 */}
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-blue-200 hidden md:block" />
-            <div className="space-y-8">
+          <div className="relative mb-10 aspect-[16/7] min-h-[260px] overflow-hidden rounded-lg">
+            <Image
+              src={cmsImageUrl(p?.processImage, DEFAULT_IMAGES.process)}
+              alt={p?.processImage?.alt || "顾问团队整理医学资料并规划服务流程"}
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+          <div className="relative mx-auto max-w-4xl">
+            <div className="absolute bottom-0 left-6 top-0 hidden w-px bg-blue-200 md:block" />
+            <div className="space-y-5">
               {process.steps.map((step) => (
                 <div key={step.stepNumber} className="relative flex gap-6">
-                  {/* 步骤编号 */}
                   <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#2563eb] text-white font-bold text-sm shadow-md shadow-blue-600/20">
                     {step.stepNumber}
                   </div>
-                  {/* 内容 */}
-                  <div className="bg-white rounded-xl p-5 shadow-sm ring-1 ring-blue-100/60 flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="font-semibold text-[#173b68]">{step.title}</h3>
-                      {step.duration && (
-                        <span className="text-xs text-[#8a9bb5] bg-blue-50 px-2 py-0.5 rounded-full">
-                          {step.duration}
-                        </span>
-                      )}
+                  <div className="flex-1 overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-blue-100/60 md:flex">
+                    {step.image?.image && (
+                      <div className="relative min-h-[150px] md:w-52 md:shrink-0">
+                        <Image src={cmsImageUrl(step.image, DEFAULT_IMAGES.process)} alt={step.image.alt || step.title} fill className="object-cover" sizes="208px" />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      <div className="mb-2 flex flex-wrap items-center gap-3">
+                        <h3 className="font-semibold text-[#173b68]">{step.title}</h3>
+                        {step.duration && <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-[#8a9bb5]">{step.duration}</span>}
+                      </div>
+                      <p className="text-sm leading-relaxed text-[#5a6d8a]">{step.description}</p>
                     </div>
-                    <p className="text-sm text-[#5a6d8a] leading-relaxed">
-                      {step.description}
-                    </p>
                   </div>
                 </div>
               ))}
@@ -606,17 +703,15 @@ export default async function ThirdGenerationIvfPage() {
                 key={i}
                 className="bg-[#f8fbff] rounded-xl p-6 ring-1 ring-blue-100/60"
               >
-                {item.image?.image && (
-                  <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
-                    <Image
-                      src={contentImageUrl(item.image.image as unknown as Parameters<typeof contentImageUrl>[0])}
-                      alt={item.image.alt || item.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                )}
+                <div className="relative mb-4 aspect-video overflow-hidden rounded-lg">
+                  <Image
+                    src={cmsImageUrl(item.image, DEFAULT_IMAGES.cases[i % DEFAULT_IMAGES.cases.length])}
+                    alt={item.image?.alt || `${item.title}匿名案例场景`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
                 <h3 className="font-semibold text-[#173b68] mb-2">{item.title}</h3>
                 {item.profile && (
                   <span className="inline-block text-xs text-[#2563eb] bg-blue-50 px-2 py-0.5 rounded-full mb-3">
@@ -648,11 +743,21 @@ export default async function ThirdGenerationIvfPage() {
             </h2>
             <p className="text-[#5a6d8a] max-w-2xl mx-auto">{testimonials.description}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.items.map((item, i) => (
+          <div className="grid items-stretch gap-8 lg:grid-cols-[.92fr_1.08fr]">
+            <div className="relative min-h-[420px] overflow-hidden rounded-lg">
+              <Image
+                src={cmsImageUrl(p?.testimonialsImage, DEFAULT_IMAGES.testimonial)}
+                alt={p?.testimonialsImage?.alt || "家庭与新生儿的温暖生活场景"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 45vw"
+              />
+            </div>
+            <div className="space-y-4">
+            {testimonials.items.slice(0, 3).map((item, i) => (
               <div
                 key={i}
-                className="bg-white rounded-xl p-6 shadow-sm ring-1 ring-blue-100/60"
+                className="bg-white p-6 shadow-sm ring-1 ring-blue-100/60"
               >
                 {/* 评分 */}
                 {item.rating && (
@@ -694,6 +799,7 @@ export default async function ThirdGenerationIvfPage() {
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -732,16 +838,15 @@ export default async function ThirdGenerationIvfPage() {
       {/* ════════════════════════════════════════
           11. 最终 CTA
       ════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-[#1a3a6b] to-[#0f2548] py-16 lg:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(37,99,235,.2),transparent_60%)]" />
-        {p?.finalCtaBackgroundImage?.image && (
-          <Image
-            src={contentImageUrl(p.finalCtaBackgroundImage.image as unknown as Parameters<typeof contentImageUrl>[0])}
-            alt={p.finalCtaBackgroundImage.alt || ""}
-            fill
-            className="object-cover opacity-10"
-          />
-        )}
+      <section className="relative overflow-hidden bg-[#102c50] py-16 lg:py-24">
+        <Image
+          src={cmsImageUrl(p?.finalCtaBackgroundImage, DEFAULT_IMAGES.cta)}
+          alt={p?.finalCtaBackgroundImage?.alt || "现代医疗中心走廊环境"}
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[#102c50]/82" />
         <div className="container relative mx-auto max-w-[1180px] px-4 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
             {finalCta.title}

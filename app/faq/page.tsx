@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, MessageCircle } from "lucide-react";
 import { PageBanner } from "@/components/shared/page-banner";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
@@ -58,6 +59,31 @@ export default async function FaqPage() {
         categories={categories}
         pageTitle={faqPage?.pageTitle}
       />
+
+      <section className="py-12 lg:py-16 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[420px_minmax(0,1fr)] gap-10 items-center max-w-5xl mx-auto">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+              <Image
+                src="/images/site/doctor-consultation.png"
+                alt="医生顾问解答辅助生殖咨询问题"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 420px"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                没找到想了解的问题？
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                每个家庭的身体情况、时间安排和方案选择都不同。您可以把检查报告、既往经历和主要疑问发给顾问，我们会协助您梳理信息，再根据实际情况提供更具体的咨询建议。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 咨询入口 */}
       <section className="py-16 lg:py-24 bg-primary text-primary-foreground">

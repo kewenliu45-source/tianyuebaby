@@ -66,13 +66,16 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
   _id,
   _type,
   siteName,
+  siteNameEn,
   description,
   logo${IMAGE_WITH_ALT},
+  favicon${IMAGE_ASSET},
   defaultShareImage${IMAGE_ASSET},
   phone,
   serviceHours,
   wechatQrCode${IMAGE_ASSET},
   wechatPublicQrCode${IMAGE_ASSET},
+  footerWechatQrCode${IMAGE_ASSET},
   sidebarCtaText,
   mobileCtaText,
   footerDescription,
@@ -98,6 +101,48 @@ export const homePageQuery = `*[_type == "homePage"][0]{
   _type,
   banners[]${BANNER_SLIDE},
   heroImage${IMAGE_WITH_ALT},
+  hero{
+    isEnabled,
+    desktopImage${IMAGE_WITH_ALT},
+    mobileImage${IMAGE_WITH_ALT},
+    overlayStrength,
+    eyebrow,
+    title,
+    description,
+    primaryButtonText,
+    primaryButtonLink,
+    secondaryButtonText,
+    secondaryButtonLink,
+    badges,
+    stats[]{value,label}
+  },
+  expertiseSection{
+    isEnabled,
+    eyebrow,
+    title,
+    description,
+    capabilities[]{title,description},
+    buttonText,
+    buttonLink,
+    mainImage${IMAGE_WITH_ALT},
+    secondaryImage${IMAGE_WITH_ALT},
+    tertiaryImage${IMAGE_WITH_ALT}
+  },
+  servicesSection{
+    isEnabled,
+    title,
+    description,
+    items[]{
+      isEnabled,
+      image${IMAGE_WITH_ALT},
+      title,
+      audience,
+      description,
+      buttonText,
+      buttonLink
+    }
+  },
+  sectionVisibility{advantages,journey,stats,news,faq,cta},
   brandIntroTitle,
   brandIntroContent,
   brandIntroImage${IMAGE_WITH_ALT},
@@ -129,6 +174,15 @@ export const homePageQuery = `*[_type == "homePage"][0]{
   },
   newsTitle,
   featuredNewsCount,
+  featuredNews[]->{
+    _id,
+    _type,
+    title,
+    slug,
+    excerpt,
+    coverImage${IMAGE_WITH_ALT},
+    publishedAt
+  },
   faqTitle,
   featuredFaqCount,
   cta${CTA},
@@ -136,7 +190,7 @@ export const homePageQuery = `*[_type == "homePage"][0]{
 }`;
 
 /** 首页推荐新闻 */
-export const featuredNewsQuery = `*[_type == "newsArticle" && isFeatured == true] | order(publishedAt desc)[0...3]{
+export const featuredNewsQuery = `*[_type == "newsArticle" && isFeatured == true] | order(publishedAt desc)[0...7]{
   _id,
   _type,
   title,
@@ -512,6 +566,34 @@ export const startJourneyPageQuery = `{
 }`;
 
 // ─────────────────────────────────────────────
+// 走进天悦宝贝页面
+// ─────────────────────────────────────────────
+
+/** 走进天悦宝贝页面数据 */
+export const aboutTianyuePageQuery = `*[_type == "aboutTianyuePage"][0]{
+  _id,
+  _type,
+  pageTitle,
+  pageDescription,
+  seo${SEO},
+  banners[]${BANNER_SLIDE},
+  brandTitle,
+  brandDescription,
+  brandImage${IMAGE_WITH_ALT},
+  contactTitle,
+  phone,
+  wechatQrCode${IMAGE_ASSET},
+  serviceHours,
+  consultationNote
+}`;
+
+/** 走进天悦宝贝聚合查询 */
+export const aboutTianyuePageDataQuery = `{
+  "siteSettings": ${siteSettingsQuery},
+  "aboutTianyuePage": ${aboutTianyuePageQuery}
+}`;
+
+// ─────────────────────────────────────────────
 // 三代试管婴儿页面
 // ─────────────────────────────────────────────
 
@@ -534,6 +616,12 @@ export const thirdGenerationIvfPageQuery = `*[_type == "thirdGenerationIvfPage"]
   heroFormTitle,
   heroFormFields,
   heroFormButtonText,
+  introTitle,
+  introSubtitle,
+  introBody,
+  introImage${IMAGE_WITH_ALT},
+  introImageCaption,
+  introPoints,
   trustItems[]{
     value,
     label,
@@ -541,6 +629,7 @@ export const thirdGenerationIvfPageQuery = `*[_type == "thirdGenerationIvfPage"]
   },
   whyChooseTitle,
   whyChooseDescription,
+  whyChooseImage${IMAGE_WITH_ALT},
   whyChooseItems[]{
     title,
     description,
@@ -574,11 +663,13 @@ export const thirdGenerationIvfPageQuery = `*[_type == "thirdGenerationIvfPage"]
   },
   processTitle,
   processDescription,
+  processImage${IMAGE_WITH_ALT},
   processSteps[]{
     stepNumber,
     title,
     description,
-    duration
+    duration,
+    image${IMAGE_WITH_ALT}
   },
   casesTitle,
   casesDescription,
@@ -591,6 +682,7 @@ export const thirdGenerationIvfPageQuery = `*[_type == "thirdGenerationIvfPage"]
   },
   testimonialsTitle,
   testimonialsDescription,
+  testimonialsImage${IMAGE_WITH_ALT},
   testimonialItems[]{
     displayName,
     profile,
@@ -656,6 +748,18 @@ export const ivfServicesPageQuery = `*[_type == "ivfServicesPage"][0]{
     image${IMAGE_WITH_ALT},
     ctaText,
     ctaLink
+  },
+  serviceRegions[]{
+    name,
+    subtitle,
+    description,
+    image${IMAGE_WITH_ALT},
+    serviceHighlights,
+    ctaText,
+    ctaLink,
+    mapLabel,
+    lng,
+    lat
   },
   regionalServiceTitle,
   regionalServiceDescription,
@@ -1291,6 +1395,142 @@ export const medicalServicesPageQuery = `*[_type == "medicalServicesPage"][0]{
 export const medicalServicesPageDataQuery = `{
   "siteSettings": ${siteSettingsQuery},
   "medicalServicesPage": ${medicalServicesPageQuery}
+}`;
+
+// ─────────────────────────────────────────────
+// 科普视频中心
+// ─────────────────────────────────────────────
+
+/** 科普视频通用字段片段 */
+const SCIENCE_VIDEO_FIELDS = `{
+  _id,
+  _type,
+  title,
+  slug,
+  excerpt,
+  coverImage${IMAGE_WITH_ALT},
+  category->{
+    _id,
+    _type,
+    name,
+    slug
+  },
+  presenter,
+  duration,
+  videoSource,
+  externalUrl,
+  videoFile{
+    asset->
+  },
+  publishedAt,
+  isFeatured,
+  sortOrder
+}`;
+
+/** 视频列表 */
+export const scienceVideosQuery = `*[_type == "scienceVideo"] | order(isFeatured desc, sortOrder asc, publishedAt desc)${SCIENCE_VIDEO_FIELDS}`;
+
+/** 推荐视频 */
+export const featuredVideosQuery = `*[_type == "scienceVideo" && isFeatured == true] | order(sortOrder asc, publishedAt desc)[0...6]${SCIENCE_VIDEO_FIELDS}`;
+
+/** 视频分类列表 */
+export const videoCategoriesQuery = `*[_type == "videoCategory"] | order(sortOrder asc){
+  _id,
+  _type,
+  name,
+  slug,
+  sortOrder
+}`;
+
+/** 科普视频页面配置 */
+export const videosPageQuery = `*[_type == "videosPage"][0]{
+  _id,
+  _type,
+  pageTitle,
+  pageDescription,
+  seo${SEO},
+  heroTitle,
+  heroSubtitle,
+  heroDescription,
+  heroImage${IMAGE_WITH_ALT},
+  heroPrimaryButtonText,
+  heroPrimaryButtonLink,
+  featuredTitle,
+  featuredDescription,
+  listTitle,
+  listDescription,
+  categoryFilterEnabled,
+  sidebarConsultTitle,
+  sidebarConsultDescription,
+  sidebarConsultButtonText,
+  sidebarConsultButtonLink,
+  sidebarPhone,
+  sidebarHotLinks[]{
+    title,
+    href
+  },
+  sidebarRelatedLinks[]{
+    title,
+    href
+  },
+  finalCtaTitle,
+  finalCtaDescription,
+  finalCtaPrimaryButtonText,
+  finalCtaPrimaryButtonLink,
+  finalCtaSecondaryButtonText,
+  finalCtaSecondaryButtonLink,
+  finalCtaBackgroundImage${IMAGE_WITH_ALT},
+  emptyStateText,
+  playbackErrorText,
+  medicalDisclaimer
+}`;
+
+/** 视频中心聚合查询 */
+export const videosPageDataQuery = `{
+  "siteSettings": ${siteSettingsQuery},
+  "videosPage": ${videosPageQuery},
+  "scienceVideos": ${scienceVideosQuery},
+  "categories": ${videoCategoriesQuery},
+  "featuredVideos": ${featuredVideosQuery}
+}`;
+
+/** 视频详情（按 slug） */
+export const scienceVideoBySlugQuery = `*[_type == "scienceVideo" && slug.current == $slug][0]{
+  _id,
+  _type,
+  title,
+  slug,
+  excerpt,
+  content[]{
+    ...,
+    _type == "imageWithAlt"${IMAGE_WITH_ALT}
+  },
+  coverImage${IMAGE_WITH_ALT},
+  category->{
+    _id,
+    _type,
+    name,
+    slug
+  },
+  presenter,
+  duration,
+  videoSource,
+  externalUrl,
+  videoFile{
+    asset->
+  },
+  publishedAt,
+  isFeatured,
+  sortOrder,
+  seo${SEO}
+}`;
+
+/** 相关视频（同分类，排除当前视频） */
+export const relatedVideosQuery = `*[_type == "scienceVideo" && slug.current != $slug && category._ref == $categoryId] | order(publishedAt desc)[0...3]${SCIENCE_VIDEO_FIELDS}`;
+
+/** 所有视频 slug（用于 generateStaticParams） */
+export const videoSlugsQuery = `*[_type == "scienceVideo" && defined(slug.current)][]{
+  "slug": slug.current
 }`;
 
 // ─────────────────────────────────────────────

@@ -42,8 +42,9 @@ export const ivfServicesPage = defineType({
     defineField({ name: "serviceAreasDescription", title: "服务覆盖地区 - 描述", type: "text", rows: 3 }),
     defineField({
       name: "serviceAreaItems",
-      title: "地区列表",
+      title: "地区列表（旧版，兼容）",
       type: "array",
+      hidden: true,
       of: [{
         type: "object",
         fields: [
@@ -56,6 +57,31 @@ export const ivfServicesPage = defineType({
           defineField({ name: "ctaText", title: "按钮文字", type: "string" }),
           defineField({ name: "ctaLink", title: "按钮链接", type: "string" }),
         ],
+      }],
+    }),
+
+    // ── 服务区域（含地图标记） ──
+    defineField({
+      name: "serviceRegions",
+      title: "服务区域（含地图标记）",
+      type: "array",
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "name", title: "地区名称", type: "string", validation: (r) => r.required() }),
+          defineField({ name: "subtitle", title: "副标题", type: "string" }),
+          defineField({ name: "description", title: "简介", type: "text", rows: 3 }),
+          defineField({ name: "image", title: "地区图片", type: "imageWithAlt" }),
+          defineField({ name: "serviceHighlights", title: "服务标签", type: "array", of: [{ type: "string" }] }),
+          defineField({ name: "ctaText", title: "按钮文字", type: "string" }),
+          defineField({ name: "ctaLink", title: "按钮链接", type: "string" }),
+          defineField({ name: "mapLabel", title: "地图标注名称", type: "string", description: "地图上显示的名称，可与地区名称不同" }),
+          defineField({ name: "lng", title: "经度", type: "number", description: "城市经度，如北京 116.4074", validation: (r) => r.min(70).max(140) }),
+          defineField({ name: "lat", title: "纬度", type: "number", description: "城市纬度，如北京 39.9042", validation: (r) => r.min(0).max(60) }),
+        ],
+        preview: {
+          select: { title: "name", subtitle: "subtitle" },
+        },
       }],
     }),
 

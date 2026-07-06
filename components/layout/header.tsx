@@ -19,7 +19,7 @@ const fallbackNavItems = [
   { label: "冻卵/冻精", href: "/egg-sperm-freezing" },
   { label: "第三方辅助生殖", href: "/third-party-assisted-reproduction" },
   { label: "私人订制", href: "/private-customization" },
-  { label: "成功案例", href: "/success-cases" },
+  { label: "科普视频", href: "/videos" },
   { label: "新闻资讯", href: "/news" },
   { label: "医疗服务", href: "/medical-services" },
   { label: "走进天悦宝贝", href: "/about-tianyue" },

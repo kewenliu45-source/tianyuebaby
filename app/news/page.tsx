@@ -147,7 +147,7 @@ export default async function NewsPage() {
     primaryButtonLink: newsPage?.heroPrimaryButtonLink || "#news-list",
   };
 
-  const heroImageUrl = getImageUrl(newsPage?.heroImage, "banner");
+  const heroImageUrl = getImageUrl(newsPage?.heroImage, "banner") || "/images/site/fertility-hero.png";
   const breadcrumbLabel = newsPage?.breadcrumbCurrentLabel || "新闻资讯";
 
   const timelineTitle =
@@ -170,7 +170,7 @@ export default async function NewsPage() {
   const brandBgUrl = getImageUrl(
     newsPage?.brandSectionBackgroundImage,
     "banner"
-  );
+  ) || "/images/site/brand-consult-bg.png";
 
   const consultation = {
     title: newsPage?.consultationTitle || DEFAULT_CONSULTATION.title,
@@ -180,7 +180,7 @@ export default async function NewsPage() {
   const consultationBgUrl = getImageUrl(
     newsPage?.consultationBackgroundImage,
     "banner"
-  );
+  ) || "/images/site/brand-consult-bg.png";
 
   return (
     <>

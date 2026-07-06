@@ -88,6 +88,16 @@ export const structure: StructureResolver = (S) =>
                     .views([S.view.form()])
                 ),
               S.listItem()
+                .id("about-tianyue")
+                .title("走进天悦宝贝")
+                .child(
+                  S.document()
+                    .id("about-tianyue-doc")
+                    .schemaType("aboutTianyuePage")
+                    .documentId("aboutTianyuePage")
+                    .views([S.view.form()])
+                ),
+              S.listItem()
                 .id("privacy-page")
                 .title("隐私政策")
                 .child(
@@ -243,35 +253,59 @@ export const structure: StructureResolver = (S) =>
         ),
       S.divider(),
 
-      // ── 成功案例 ──
+      // ── 科普视频中心 ──
       S.listItem()
-        .id("success-cases")
-        .title("成功案例")
+        .id("science-videos")
+        .title("科普视频中心")
         .child(
           S.list()
-            .id("success-cases-list")
-            .title("成功案例")
+            .id("science-videos-list")
+            .title("科普视频中心")
             .items([
               S.listItem()
-                .id("success-cases-all")
-                .title("全部案例")
+                .id("videos-page")
+                .title("科普视频页面")
+                .child(
+                  S.document()
+                    .id("videos-page-doc")
+                    .schemaType("videosPage")
+                    .documentId("videosPage")
+                    .views([S.view.form()])
+                ),
+              S.divider(),
+              S.listItem()
+                .id("science-videos-all")
+                .title("全部视频")
                 .child(
                   S.documentList()
-                    .id("success-cases-all-list")
-                    .title("全部案例")
-                    .filter('_type == "successCase"')
+                    .id("science-videos-all-list")
+                    .title("全部视频")
+                    .filter('_type == "scienceVideo"')
                     .defaultOrdering([
                       { field: "sortOrder", direction: "asc" },
                     ])
                 ),
               S.listItem()
-                .id("success-cases-featured")
-                .title("推荐案例")
+                .id("science-videos-featured")
+                .title("推荐视频")
                 .child(
                   S.documentList()
-                    .id("success-cases-featured-list")
-                    .title("推荐案例")
-                    .filter('_type == "successCase" && isFeatured == true')
+                    .id("science-videos-featured-list")
+                    .title("推荐视频")
+                    .filter('_type == "scienceVideo" && isFeatured == true')
+                    .defaultOrdering([
+                      { field: "sortOrder", direction: "asc" },
+                    ])
+                ),
+              S.divider(),
+              S.listItem()
+                .id("video-categories")
+                .title("视频分类")
+                .child(
+                  S.documentList()
+                    .id("video-categories-list")
+                    .title("视频分类")
+                    .filter('_type == "videoCategory"')
                     .defaultOrdering([
                       { field: "sortOrder", direction: "asc" },
                     ])
@@ -409,6 +443,10 @@ export const structure: StructureResolver = (S) =>
             "successCase",
             "newsPage",
             "medicalServicesPage",
+            "scienceVideo",
+            "videosPage",
+            "videoCategory",
+            "aboutTianyuePage",
           ].includes(listItem.getId() ?? "")
       ),
     ]);

@@ -70,12 +70,21 @@ export function PageBanner({ banners, defaultBanner }: PageBannerProps) {
   // 如果没有 banners，显示默认样式
   if (activeBanners.length === 0) {
     return (
-      <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] bg-gradient-to-r from-primary/10 to-secondary flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
+      <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/site/fertility-hero.png"
+          alt="天悦宝贝（国际）助孕中心"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548]/80 via-[#1a3a6b]/60 to-[#1a3a6b]/30" />
+        <div className="relative text-center px-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             天悦宝贝（国际）助孕中心
           </h1>
-          <p className="mt-4 text-muted-foreground">
+          <p className="mt-4 text-white/85">
             专注助孕咨询服务
           </p>
         </div>
@@ -96,10 +105,19 @@ export function PageBanner({ banners, defaultBanner }: PageBannerProps) {
               {/* 背景图片 */}
               <div className="absolute inset-0">
                 {/* 桌面图片 — 2560px，覆盖 2x 2K 屏 */}
-                {banner.desktopImage && (
+                {banner.desktopImage ? (
                   <Image
                     src={bannerImageUrl(banner.desktopImage as unknown as Parameters<typeof bannerImageUrl>[0])}
                     alt={banner.alt}
+                    fill
+                    sizes="100vw"
+                    className="object-cover hidden md:block"
+                    priority={index === 0}
+                  />
+                ) : (
+                  <Image
+                    src="/images/site/fertility-hero.png"
+                    alt={banner.alt || "天悦宝贝（国际）助孕中心"}
                     fill
                     sizes="100vw"
                     className="object-cover hidden md:block"
@@ -125,8 +143,18 @@ export function PageBanner({ banners, defaultBanner }: PageBannerProps) {
                     className="object-cover md:hidden"
                     priority={index === 0}
                   />
-                ) : null}
+                ) : (
+                  <Image
+                    src="/images/site/fertility-hero.png"
+                    alt={banner.alt || "天悦宝贝（国际）助孕中心"}
+                    fill
+                    sizes="100vw"
+                    className="object-cover md:hidden"
+                    priority={index === 0}
+                  />
+                )}
               </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548]/75 via-[#1a3a6b]/45 to-transparent" />
 
               {/* 文案内容 */}
               {(banner.title || banner.subtitle || banner.buttonText) && (

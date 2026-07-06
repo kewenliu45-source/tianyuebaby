@@ -374,7 +374,7 @@ export default async function NewsDetailPage({
           typeof contentImageUrl
         >[0]
       )
-    : null;
+    : "/images/site/brand-consult-bg.png";
 
   return (
     <>
@@ -450,22 +450,24 @@ export default async function NewsDetailPage({
               </header>
 
               {/* 封面图 */}
-              {article.coverImage?.image && (
-                <div className="relative aspect-video rounded-xl overflow-hidden mb-8">
-                  <Image
-                    src={articleImageUrl(
-                      article.coverImage.image as unknown as Parameters<
-                        typeof articleImageUrl
-                      >[0]
-                    )}
-                    alt={article.coverImage.alt || article.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 820px"
-                    priority
-                  />
-                </div>
-              )}
+              <div className="relative aspect-video rounded-xl overflow-hidden mb-8">
+                <Image
+                  src={
+                    article.coverImage?.image
+                      ? articleImageUrl(
+                          article.coverImage.image as unknown as Parameters<
+                            typeof articleImageUrl
+                          >[0]
+                        )
+                      : "/images/site/documents-review.png"
+                  }
+                  alt={article.coverImage?.alt || article.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 820px"
+                  priority
+                />
+              </div>
 
               {/* 正文 */}
               <div className="bg-white rounded-xl ring-1 ring-[#e5e7eb] p-6 lg:p-8">
@@ -498,26 +500,24 @@ export default async function NewsDetailPage({
                         href={`/news/${related.slug.current}`}
                         className="group bg-white rounded-xl overflow-hidden ring-1 ring-[#e5e7eb] hover:ring-[#2563eb]/30 hover:shadow-lg transition-all"
                       >
-                        {related.coverImage?.image ? (
-                          <div className="relative aspect-[16/10]">
-                            <Image
-                              src={cardImageUrl(
-                                related.coverImage.image as unknown as Parameters<
-                                  typeof cardImageUrl
-                                >[0]
-                              )}
-                              alt={
-                                related.coverImage.alt || related.title
-                              }
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 260px"
-                              loading="lazy"
-                            />
-                          </div>
-                        ) : (
-                          <div className="aspect-[16/10] bg-gradient-to-br from-blue-50 to-blue-100" />
-                        )}
+                        <div className="relative aspect-[16/10]">
+                          <Image
+                            src={
+                              related.coverImage?.image
+                                ? cardImageUrl(
+                                    related.coverImage.image as unknown as Parameters<
+                                      typeof cardImageUrl
+                                    >[0]
+                                  )
+                                : "/images/site/doctor-consultation.png"
+                            }
+                            alt={related.coverImage?.alt || related.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 260px"
+                            loading="lazy"
+                          />
+                        </div>
                         <div className="p-4">
                           <h3 className="text-sm font-semibold text-[#173b68] line-clamp-2 group-hover:text-[#2563eb] transition-colors">
                             {related.title}

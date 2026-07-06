@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, MessageCircle } from "lucide-react";
 import { PageBanner } from "@/components/shared/page-banner";
 import { fetchJourneyPageData } from "@/sanity/lib/fetchers";
@@ -95,6 +96,16 @@ export default async function JourneyPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
             {journey?.stepsTitle || "助孕流程"}
           </h2>
+          <div className="relative aspect-[16/7] max-w-5xl mx-auto mb-12 overflow-hidden rounded-xl">
+            <Image
+              src="/images/site/documents-review.png"
+              alt="顾问团队协助梳理助孕流程资料"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 1000px"
+              loading="lazy"
+            />
+          </div>
           <div className="max-w-4xl mx-auto">
             {steps.map((step, index) => (
               <div key={index} className="flex gap-6 mb-12 last:mb-0">
