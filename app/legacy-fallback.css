@@ -262,21 +262,22 @@ header > nav:last-child a {
 
 /* ================================================================
    6. 桌面端导航隐藏 / 移动端显示 — 兜底 media query
+   注意：不使用 !important，以免覆盖 Tailwind 的 xl:flex 等响应式类
    ================================================================ */
 @media (max-width: 1279px) {
   header nav[aria-label="主导航"] {
-    display: none !important;
+    display: none;
   }
 }
 
 @media (min-width: 1280px) {
   header button[type="button"] {
-    display: none !important;
+    display: none;
   }
   /* 移动菜单在桌面端隐藏 */
   header > div:not(:first-child):not([class]),
   header > nav:not([aria-label]) {
-    display: none !important;
+    display: none;
   }
 }
 
