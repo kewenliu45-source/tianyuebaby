@@ -127,6 +127,16 @@ export const structure: StructureResolver = (S) =>
                     .documentId("videosPage")
                     .views([S.view.form()])
                 ),
+              S.listItem()
+                .id("about-tianyue")
+                .title("走进天悦宝贝")
+                .child(
+                  S.document()
+                    .id("about-tianyue-doc")
+                    .schemaType("aboutTianyuePage")
+                    .documentId("aboutTianyuePage")
+                    .views([S.view.form()])
+                ),
             ])
         ),
       S.divider(),
@@ -375,7 +385,6 @@ export const structure: StructureResolver = (S) =>
             "startJourney",
             "successCasesPage",
             "successCase",
-            "aboutTianyuePage",
           ].includes(listItem.getId() ?? "")
       ),
     ]);
