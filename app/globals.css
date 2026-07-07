@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 旧浏览器兜底样式 — 仅在 Tailwind CSS 失效时生效 */
-@import "./legacy-fallback.css";
-
 /* ── CSS custom properties (RGB 空格分隔，供 TW3 /<alpha> 语法使用) ── */
 :root {
   --background: 255 255 255;
