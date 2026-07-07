@@ -54,7 +54,7 @@ export function DesktopWechatFloat({ siteSettings }: DesktopWechatFloatProps) {
             )}
           >
             <p className="text-sm font-semibold text-foreground mb-2 text-center">
-              关注公众号
+              添加微信咨询
             </p>
             {qrSrc ? (
               <div className="w-full aspect-square rounded-lg overflow-hidden">
