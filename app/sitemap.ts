@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
-import { fetchAllNewsForSitemap } from "@/sanity/lib/fetchers";
+import {
+  fetchAllNewsForSitemap,
+  fetchAllVideosForSitemap,
+} from "@/sanity/lib/fetchers";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://tiancibaobei.com";
@@ -18,6 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     { url: `${baseUrl}/news`, lastModified: new Date(), priority: 0.8 },
+    { url: `${baseUrl}/videos`, lastModified: new Date(), priority: 0.8 },
     {
       url: `${baseUrl}/why-us`,
       lastModified: new Date(),
@@ -37,16 +41,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // 新闻文章
+  let newsPages: MetadataRoute.Sitemap = [];
   try {
     const newsArticles = await fetchAllNewsForSitemap();
-    const newsPages: MetadataRoute.Sitemap = newsArticles.map((article) => ({
+    newsPages = newsArticles.map((article) => ({
       url: `${baseUrl}/news/${article.slug}`,
       lastModified: new Date(article._updatedAt || article.publishedAt),
       priority: 0.6,
     }));
-
-    return [...fixedPages, ...newsPages];
   } catch {
-    return fixedPages;
+    // ignore
   }
+
+  // 科普视频
+  let videoPages: MetadataRoute.Sitemap = [];
+  try {
+    const videos = await fetchAllVideosForSitemap();
+    videoPages = videos.map((video) => ({
+      url: `${baseUrl}/videos/${video.slug}`,
+      lastModified: new Date(video._updatedAt || video.publishedAt),
+      priority: 0.6,
+    }));
+  } catch {
+    // ignore
+  }
+
+  return [...fixedPages, ...newsPages, ...videoPages];
 }

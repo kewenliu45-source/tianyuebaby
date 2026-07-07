@@ -318,6 +318,9 @@ function DetailSidebar({
 
 // ── 页面 ──
 
+export const dynamicParams = true;
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const slugs = await fetchNewsSlugs();
   return slugs.map((slug) => ({ slug }));

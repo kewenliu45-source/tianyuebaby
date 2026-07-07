@@ -71,6 +71,7 @@ import {
   relatedVideosQuery,
   videoSlugsQuery,
   allNewsForSitemapQuery,
+  allVideosForSitemapQuery,
 } from "./queries";
 import { sanityFetch } from "./fetch";
 
@@ -711,6 +712,24 @@ export async function fetchAllNewsForSitemap(): Promise<
     });
   } catch {
     console.warn("Failed to fetch news for sitemap");
+    return [];
+  }
+}
+
+/** 获取所有科普视频（用于 sitemap） */
+export async function fetchAllVideosForSitemap(): Promise<
+  Array<{ slug: string; publishedAt: string; _updatedAt: string }>
+> {
+  try {
+    return await sanityFetch<
+      Array<{ slug: string; publishedAt: string; _updatedAt: string }>
+    >({
+      query: allVideosForSitemapQuery,
+      cache: "force-cache",
+      revalidate: 60,
+    });
+  } catch {
+    console.warn("Failed to fetch videos for sitemap");
     return [];
   }
 }

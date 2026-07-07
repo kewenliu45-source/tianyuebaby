@@ -1543,3 +1543,9 @@ export const allNewsForSitemapQuery = `*[_type == "newsArticle"] | order(publish
   publishedAt,
   _updatedAt
 }`;
+
+export const allVideosForSitemapQuery = `*[_type == "scienceVideo"] | order(publishedAt desc){
+  "slug": slug.current,
+  publishedAt,
+  _updatedAt
+}`;

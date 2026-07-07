@@ -95,6 +95,9 @@ function getEmbedUrl(url: string): string | null {
   }
 }
 
+export const dynamicParams = true;
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const slugs = await fetchVideoSlugs();
   return slugs.map((slug) => ({ slug }));
