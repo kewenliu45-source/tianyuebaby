@@ -368,6 +368,14 @@ export const structure: StructureResolver = (S) =>
             "scienceVideo",
             "videosPage",
             "videoCategory",
+            "intendedParents",
+            "journey",
+            "whyUs",
+            "faqPage",
+            "startJourney",
+            "successCasesPage",
+            "successCase",
+            "aboutTianyuePage",
           ].includes(listItem.getId() ?? "")
       ),
     ]);
