@@ -8,9 +8,11 @@ import {
   Users,
   Smartphone,
   ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 import { NewsList } from "@/components/shared/news-list";
 import { ConsultationForm } from "@/components/shared/consultation-form";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchNewsListPageData } from "@/sanity/lib/fetchers";
 import { bannerImageUrl, contentImageUrl } from "@/sanity/lib/image";
 import type { ImageWithAlt } from "@/types/sanity";
@@ -225,13 +227,21 @@ export default async function NewsPage() {
             <p className="text-[15px] text-white/70 leading-relaxed mb-6">
               {hero.description}
             </p>
-            <Link
-              href={hero.primaryButtonLink}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-2.5 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
-            >
-              {hero.primaryButtonText}
-              <ChevronRight className="w-4 h-4" />
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <PhoneConsultButton
+                phone={phone}
+                className="rounded-lg bg-white px-6 py-2.5 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
+                iconClassName="w-4 h-4"
+                label="电话咨询"
+              />
+              <Link
+                href="/about-tianyue#consultation"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+              >
+                在线咨询
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

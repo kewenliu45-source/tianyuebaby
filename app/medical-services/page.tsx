@@ -444,18 +444,17 @@ export default async function MedicalServicesPage() {
               {hero.description}
             </p>
             <div className="flex flex-wrap gap-3">
+              <PhoneConsultButton
+                phone={phone}
+                className="rounded-lg bg-white px-6 py-2.5 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
+                iconClassName="w-4 h-4"
+                label="电话咨询"
+              />
               <Link
-                href={hero.primaryButtonLink}
-                className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-2.5 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
-              >
-                {hero.primaryButtonText}
-                <ChevronRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href={hero.secondaryButtonLink}
+                href="/about-tianyue#consultation"
                 className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
               >
-                {hero.secondaryButtonText}
+                在线咨询
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

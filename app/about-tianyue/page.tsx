@@ -129,7 +129,7 @@ export default async function AboutTianyuePage() {
       </section>
 
       {/* 咨询联系 */}
-      <section className="py-16 lg:py-24 bg-muted">
+      <section id="consultation" className="py-16 lg:py-24 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
