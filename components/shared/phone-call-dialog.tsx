@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { X, Phone, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,30 @@ export function PhoneCallDialog({
   phone,
 }: PhoneCallDialogProps) {
   const [copied, setCopied] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  // Esc 关闭
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") onOpenChange(false);
+    },
+    [onOpenChange]
+  );
+
+  useEffect(() => {
+    if (!open) return;
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, handleKeyDown]);
+
+  // 打开时自动聚焦关闭按钮
+  useEffect(() => {
+    if (open) {
+      // 延迟一帧确保 DOM 已渲染
+      requestAnimationFrame(() => closeRef.current?.focus());
+    }
+  }, [open]);
 
   if (!open) return null;
 
@@ -39,20 +63,28 @@ export function PhoneCallDialog({
     }
   };
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === overlayRef.current) onOpenChange(false);
+  };
+
   return (
     <div
+      ref={overlayRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="phone-dialog-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={() => onOpenChange(false)}
+      onClick={handleOverlayClick}
     >
       <div
         className={cn(
           "relative w-[300px] p-6 rounded-2xl",
           "bg-white shadow-xl"
         )}
-        onClick={(e) => e.stopPropagation()}
       >
         {/* 关闭按钮 */}
         <button
+          ref={closeRef}
           type="button"
           onClick={() => onOpenChange(false)}
           className="absolute top-4 right-4 p-1 text-muted-foreground hover:text-foreground"
@@ -69,7 +101,10 @@ export function PhoneCallDialog({
         </div>
 
         {/* 标题 */}
-        <h3 className="text-lg font-semibold text-foreground text-center mb-2">
+        <h3
+          id="phone-dialog-title"
+          className="text-lg font-semibold text-foreground text-center mb-2"
+        >
           电话咨询
         </h3>
 
@@ -103,7 +138,7 @@ export function PhoneCallDialog({
             )}
           </button>
 
-          {/* 拨打（移动端触发 tel:，桌面端仅提示） */}
+          {/* 拨打 */}
           <a
             href={`tel:${phone.replace(/[\s-]/g, "")}`}
             className={cn(

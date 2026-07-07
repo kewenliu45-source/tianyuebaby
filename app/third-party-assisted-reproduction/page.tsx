@@ -22,6 +22,7 @@ import {
 import { ConsultationForm } from "@/components/shared/consultation-form";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { ArticleJsonLd } from "@/components/seo/article-json-ld";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchThirdPartyAssistedReproductionPageData } from "@/sanity/lib/fetchers";
 import { contentImageUrl, bannerImageUrl } from "@/sanity/lib/image";
 import type { ThirdPartyAssistedReproductionPage, ImageWithAlt } from "@/types/sanity";
@@ -653,6 +654,8 @@ export default async function ThirdPartyAssistedReproductionPage() {
   const { siteSettings, thirdPartyAssistedReproductionPage: p } =
     await fetchThirdPartyAssistedReproductionPageData();
 
+  const phone = siteSettings?.phone || "400-123-4567";
+
   // 使用 Sanity 数据，仅保留最小化 fallback
   const hero = {
     title: p?.heroTitle || FALLBACK_SEO.title.split(" | ")[0],
@@ -788,13 +791,12 @@ export default async function ThirdPartyAssistedReproductionPage() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <Link
-                href={hero.primaryButtonLink}
-                className="inline-flex items-center gap-2 rounded-lg bg-white px-7 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
-              >
-                <Phone className="w-4 h-4" />
-                {hero.primaryButtonText}
-              </Link>
+              <PhoneConsultButton
+                phone={phone}
+                className="rounded-lg bg-white px-7 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
+                iconClassName="w-4 h-4"
+                label={hero.primaryButtonText}
+              />
               <Link
                 href={hero.secondaryButtonLink}
                 className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-7 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
@@ -980,13 +982,12 @@ export default async function ThirdPartyAssistedReproductionPage() {
             {finalCta.description}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href={finalCta.primaryButtonLink}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              {finalCta.primaryButtonText}
-            </Link>
+            <PhoneConsultButton
+              phone={phone}
+              className="rounded-lg bg-white px-8 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
+              iconClassName="w-4 h-4"
+              label={finalCta.primaryButtonText}
+            />
             <Link
               href={finalCta.secondaryButtonLink}
               className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-8 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"

@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { ConsultationForm } from "@/components/shared/consultation-form";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchThirdGenerationIvfPageData } from "@/sanity/lib/fetchers";
 import { contentImageUrl, iconImageUrl } from "@/sanity/lib/image";
 import type { ImageWithAlt } from "@/types/sanity";
@@ -256,6 +257,8 @@ export default async function ThirdGenerationIvfPage() {
   const { siteSettings, thirdGenerationIvfPage: p } =
     await fetchThirdGenerationIvfPageData();
 
+  const phone = siteSettings?.phone || "400-123-4567";
+
   // 合并 CMS 数据与默认值
   const hero = {
     title: p?.heroTitle || DEFAULT_HERO.title,
@@ -381,13 +384,12 @@ export default async function ThirdGenerationIvfPage() {
                 {hero.description}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link
-                  href={hero.primaryButtonLink}
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#2563eb] px-7 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-[#1d4ed8] transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
-                  {hero.primaryButtonText}
-                </Link>
+                <PhoneConsultButton
+                  phone={phone}
+                  className="rounded-lg bg-[#2563eb] px-7 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-[#1d4ed8] transition-colors"
+                  iconClassName="w-4 h-4"
+                  label={hero.primaryButtonText}
+                />
                 <Link
                   href={hero.secondaryButtonLink}
                   className="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
@@ -855,13 +857,12 @@ export default async function ThirdGenerationIvfPage() {
             {finalCta.description}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href={finalCta.primaryButtonLink}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              {finalCta.primaryButtonText}
-            </Link>
+            <PhoneConsultButton
+              phone={phone}
+              className="rounded-lg bg-white px-8 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
+              iconClassName="w-4 h-4"
+              label={finalCta.primaryButtonText}
+            />
             <Link
               href={finalCta.secondaryButtonLink}
               className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-8 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"

@@ -21,6 +21,7 @@ import {
 import { ConsultationForm } from "@/components/shared/consultation-form";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { ServiceRegionsMap } from "@/components/shared/service-regions-map";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchIvfServicesPageData } from "@/sanity/lib/fetchers";
 import { contentImageUrl } from "@/sanity/lib/image";
 import type { ImageWithAlt } from "@/types/sanity";
@@ -97,6 +98,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function IvfServicesPage() {
   const { siteSettings, ivfServicesPage: p } =
     await fetchIvfServicesPageData();
+
+  const phone = siteSettings?.phone || "400-123-4567";
 
   // 使用 Sanity 数据，仅保留最小化 fallback
   const hero = {
@@ -234,13 +237,12 @@ export default async function IvfServicesPage() {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                <Link
-                  href={hero.primaryButtonLink}
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#2563eb] px-7 py-3 text-sm font-bold text-white shadow-lg hover:bg-[#1d4ed8] transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
-                  {hero.primaryButtonText}
-                </Link>
+                <PhoneConsultButton
+                  phone={phone}
+                  className="rounded-lg bg-[#2563eb] px-7 py-3 text-sm font-bold text-white shadow-lg hover:bg-[#1d4ed8] transition-colors"
+                  iconClassName="w-4 h-4"
+                  label={hero.primaryButtonText}
+                />
                 <Link
                   href={hero.secondaryButtonLink}
                   className="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white px-7 py-3 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
