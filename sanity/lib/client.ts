@@ -11,7 +11,7 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: !token, // 有 token 时不走 CDN，确保读到最新数据
+  useCdn: false, // 不走 CDN，确保读到最新数据
   token,
 });
 
