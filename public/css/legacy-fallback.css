@@ -1,0 +1,647 @@
+/*
+ * legacy-fallback.css
+ * ──────────────────
+ * 安卓百度浏览器（低版本 Chromium）兜底样式。
+ * 只使用旧浏览器稳定支持的语法：hex / rgb / rgba / flex / 普通选择器。
+ * 在 modern Chrome / Safari 中不会覆盖 Tailwind 生成的样式。
+ */
+
+/* ================================================================
+   1. CSS 变量降级 — 旧浏览器不认空格分隔 RGB 变量时的兜底
+   ================================================================ */
+:root {
+  --fb-primary: #4f6fe8;
+  --fb-primary-hover: #3d5bd6;
+  --fb-primary-fg: #ffffff;
+  --fb-bg: #ffffff;
+  --fb-fg: #28323c;
+  --fb-muted-fg: #6b7280;
+  --fb-border: #e5e7eb;
+  --fb-navy: #062b49;
+  --fb-navy-fg: #ffffff;
+  --fb-secondary: #effbf7;
+  --fb-destructive: #b91c1c;
+  --fb-radius: 8px;
+  --fb-radius-lg: 12px;
+}
+
+/* ================================================================
+   2. 基础元素重置 — 消除裸 HTML 默认样式
+   ================================================================ */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fb-fg);
+  background-color: var(--fb-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 链接 — 去除蓝色下划线 */
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* 按钮 — 去除原生灰色外观 */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* 列表 — 去除默认圆点 */
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 图片 — 防止超宽 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 0;
+}
+
+/* 标题 — 重置默认间距 */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: inherit;
+}
+
+/* 段落 — 重置默认间距 */
+p {
+  margin: 0;
+}
+
+/* 盒模型统一 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ================================================================
+   3. CSS 变量颜色兜底 — 当 rgb(var(--primary)) 语法失效时
+   ================================================================ */
+/* 如果浏览器不认 rgb(var(--primary) / 0.8)，以下选择器作为增强层 */
+
+/* 主色文字 */
+.text-primary { color: var(--fb-primary) !important; }
+.text-primary-foreground { color: var(--fb-primary-fg) !important; }
+.text-foreground { color: var(--fb-fg) !important; }
+.text-muted-foreground { color: var(--fb-muted-fg) !important; }
+.text-navy-foreground { color: var(--fb-navy-fg) !important; }
+.text-white { color: #ffffff !important; }
+
+/* 主色背景 */
+.bg-primary { background-color: var(--fb-primary) !important; }
+.bg-primary-foreground { background-color: var(--fb-primary-fg) !important; }
+.bg-background { background-color: var(--fb-bg) !important; }
+.bg-white { background-color: #ffffff !important; }
+.bg-navy { background-color: var(--fb-navy) !important; }
+.bg-muted { background-color: var(--fb-secondary) !important; }
+.bg-secondary { background-color: var(--fb-secondary) !important; }
+.bg-destructive { background-color: var(--fb-destructive) !important; }
+
+/* 边框色 */
+.border-border { border-color: var(--fb-border) !important; }
+.border-primary { border-color: var(--fb-primary) !important; }
+.border-white { border-color: #ffffff !important; }
+
+/* ================================================================
+   4. Header / 导航兜底
+   ================================================================ */
+header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--fb-border);
+}
+
+/* 首页透明 header — JS 会切换 class，这里兜底绝对定位 */
+header.absolute {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* header 内部容器 */
+header > div:first-child {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 82px;
+}
+
+/* Logo 区域 */
+header a[href="/"] {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  gap: 10px;
+  text-decoration: none;
+}
+
+header a[href="/"] img {
+  height: 48px;
+  width: 67px;
+  -webkit-object-fit: contain;
+  object-fit: contain;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
+
+/* 桌面导航 */
+header nav {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 导航链接 */
+header nav a {
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a2e52;
+  text-decoration: none;
+  -webkit-transition: background-color 0.15s, color 0.15s;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+header nav a:hover {
+  background-color: rgba(219, 234, 254, 0.7);
+  color: #1843a0;
+}
+
+/* 移动端菜单按钮 */
+header button[type="button"] {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  color: #174b9f;
+}
+
+/* ================================================================
+   5. 移动端展开菜单兜底
+   ================================================================ */
+header nav[aria-label] + div,
+header > nav:last-child {
+  background-color: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid #dbeafe;
+  padding: 16px 20px;
+}
+
+/* 移动菜单链接 */
+header > div:last-child a,
+header > nav:last-child a {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  white-space: nowrap;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a2e52;
+  text-decoration: none;
+}
+
+/* ================================================================
+   6. 桌面端导航隐藏 / 移动端显示 — 兜底 media query
+   ================================================================ */
+@media (max-width: 1279px) {
+  header nav[aria-label="主导航"] {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  header button[type="button"] {
+    display: none !important;
+  }
+  /* 移动菜单在桌面端隐藏 */
+  header > div:not(:first-child):not([class]),
+  header > nav:not([aria-label]) {
+    display: none !important;
+  }
+}
+
+/* ================================================================
+   7. 首页 Hero 区域兜底
+   ================================================================ */
+section {
+  position: relative;
+}
+
+/* Hero 大图区域 — 确保文字可见 */
+section .relative {
+  position: relative;
+}
+
+/* ================================================================
+   8. 卡片兜底
+   ================================================================ */
+/* 常见卡片 class */
+.bg-white.rounded-2xl,
+.bg-white.rounded-xl,
+.bg-white.rounded-lg {
+  background-color: #ffffff;
+  border-radius: var(--fb-radius-lg);
+  border: 1px solid var(--fb-border);
+}
+
+/* ================================================================
+   9. 图片兜底
+   ================================================================ */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Next.js Image 组件 */
+img[style*="position"] {
+  -webkit-object-fit: cover;
+  object-fit: cover;
+}
+
+/* ================================================================
+   10. 底部悬浮联系栏（移动端）兜底
+   ================================================================ */
+.lg\:hidden.fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid var(--fb-border);
+  padding: 12px 16px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+/* 联系栏内部 flex 布局 */
+.lg\:hidden.fixed > div {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 电话咨询按钮 */
+.lg\:hidden.fixed a[href^="tel:"] {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex: 1;
+  flex: 1;
+  height: 44px;
+  border-radius: var(--fb-radius);
+  background-color: #ffffff;
+  border: 1px solid var(--fb-primary);
+  color: var(--fb-primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  gap: 8px;
+}
+
+/* 微信咨询按钮 */
+.lg\:hidden.fixed button {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex: 1;
+  flex: 1;
+  height: 44px;
+  border-radius: var(--fb-radius);
+  background-color: #ffffff;
+  border: 1px solid var(--fb-primary);
+  color: var(--fb-primary);
+  font-size: 14px;
+  font-weight: 600;
+  gap: 8px;
+}
+
+/* 开始咨询按钮 */
+.lg\:hidden.fixed a[href="/start-your-journey"] {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex: 1;
+  flex: 1;
+  height: 44px;
+  border-radius: var(--fb-radius);
+  background-color: var(--fb-primary);
+  color: var(--fb-primary-fg);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ================================================================
+   11. 微信二维码弹窗兜底
+   ================================================================ */
+.fixed.inset-0.z-50 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 弹窗内容卡片 */
+.fixed.inset-0.z-50 > div {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  width: 280px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ================================================================
+   12. 桌面端微信浮层兜底
+   ================================================================ */
+.fixed.right-6.bottom-24 {
+  position: fixed;
+  right: 24px;
+  bottom: 96px;
+  z-index: 40;
+}
+
+.fixed.right-6.bottom-24 button {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 56px;
+  padding: 12px 8px;
+  border-radius: var(--fb-radius);
+  background-color: #ffffff;
+  border: 1px solid var(--fb-border);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  color: var(--fb-primary);
+}
+
+/* ================================================================
+   13. Footer 兜底
+   ================================================================ */
+footer {
+  background-color: var(--fb-navy);
+  color: var(--fb-navy-fg);
+}
+
+footer .container,
+footer > div {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 16px;
+}
+
+/* Footer grid — 移动端单列 */
+footer .grid {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  footer .grid {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  footer .grid > div {
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+/* Footer 链接 */
+footer a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+
+footer a:hover {
+  color: #ffffff;
+}
+
+/* Footer 标题 */
+footer h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+/* Footer 列表项间距 */
+footer li {
+  margin-bottom: 12px;
+}
+
+/* Footer 版权区 */
+footer .border-t {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 32px;
+  margin-top: 48px;
+}
+
+/* ================================================================
+   14. 按钮兜底
+   ================================================================ */
+/* 主色实心按钮 */
+a.inline-flex[href].rounded-full,
+button.inline-flex.rounded-full {
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 32px;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  -webkit-transition: background-color 0.15s;
+  transition: background-color 0.15s;
+}
+
+/* ================================================================
+   15. 安全区域 — 移动端底部间距（为悬浮栏留空间）
+   ================================================================ */
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: 72px;
+  }
+}
+
+/* ================================================================
+   16. 移动端优先 — 隐藏桌面专属元素
+   ================================================================ */
+@media (max-width: 1023px) {
+  .hidden.lg\:block {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:hidden {
+    display: none !important;
+  }
+}
+
+/* ================================================================
+   17. 网格布局兜底 — grid 在旧浏览器中可能部分失效
+   ================================================================ */
+.grid {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.grid > * {
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+/* 常见 grid 列数 class */
+.grid-cols-1 > * { max-width: 100%; }
+.grid-cols-2 > * { max-width: 50%; }
+.grid-cols-3 > * { max-width: 33.333%; }
+.grid-cols-4 > * { max-width: 25%; }
+
+@media (max-width: 767px) {
+  .sm\:grid-cols-2 > *,
+  .md\:grid-cols-2 > *,
+  .lg\:grid-cols-3 > *,
+  .lg\:grid-cols-4 > * {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .sm\:grid-cols-2 > * { max-width: 50%; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 > * { max-width: 33.333%; }
+  .lg\:grid-cols-4 > * { max-width: 25%; }
+}
+
+/* ================================================================
+   18. 渐变背景兜底 — 旧浏览器不支持时给纯色
+   ================================================================ */
+[class*="bg-gradient"] {
+  /* 旧浏览器忽略渐变，显示 fallback 纯色 */
+  background-color: #1a3a6b;
+}
+
+/* ================================================================
+   19. backdrop-blur 兜底 — 旧浏览器忽略模糊，只保留背景色
+   ================================================================ */
+[class*="backdrop-blur"] {
+  /* 旧浏览器不支持 backdrop-filter，背景色已经足够 */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* ================================================================
+   20. 滚动条安全 — 防止横向溢出
+   ================================================================ */
+html, body {
+  overflow-x: hidden;
+}
+
+/* ================================================================
+   21. 视频嵌入兜底
+   ================================================================ */
+video, iframe {
+  max-width: 100%;
+}

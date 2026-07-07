@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Phone, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { WechatQrDialog } from "@/components/shared/wechat-qr-dialog";
+import { PhoneCallDialog } from "@/components/shared/phone-call-dialog";
 import type { SiteSettings } from "@/types/sanity";
 
 interface MobileContactBarProps {
@@ -12,9 +13,9 @@ interface MobileContactBarProps {
 
 export function MobileContactBar({ siteSettings }: MobileContactBarProps) {
   const [showWechatDialog, setShowWechatDialog] = useState(false);
+  const [showPhoneDialog, setShowPhoneDialog] = useState(false);
 
   const phone = siteSettings?.phone || "400-123-4567";
-  const telHref = `tel:${phone.replace(/[\s-]/g, "")}`;
   const wechatQrCode = siteSettings?.wechatQrCode;
 
   return (
@@ -28,8 +29,9 @@ export function MobileContactBar({ siteSettings }: MobileContactBarProps) {
       >
         <div className="flex items-center gap-3">
           {/* 电话咨询 */}
-          <a
-            href={telHref}
+          <button
+            type="button"
+            onClick={() => setShowPhoneDialog(true)}
             className={cn(
               "flex items-center justify-center gap-2",
               "flex-1 h-11 rounded-lg",
@@ -40,7 +42,7 @@ export function MobileContactBar({ siteSettings }: MobileContactBarProps) {
           >
             <Phone className="w-4 h-4" />
             <span>电话咨询</span>
-          </a>
+          </button>
 
           {/* 微信咨询 */}
           <button
@@ -73,6 +75,13 @@ export function MobileContactBar({ siteSettings }: MobileContactBarProps) {
           </a>
         </div>
       </div>
+
+      {/* 电话弹窗 */}
+      <PhoneCallDialog
+        open={showPhoneDialog}
+        onOpenChange={setShowPhoneDialog}
+        phone={phone}
+      />
 
       {/* 微信二维码弹窗 */}
       <WechatQrDialog

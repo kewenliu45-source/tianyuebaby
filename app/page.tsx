@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Phone,
   MessageCircle,
   ArrowRight,
   Heart,
@@ -17,6 +16,7 @@ import { ProfessionalHomeSections } from "@/components/home/professional-home-se
 import { HomeNewsSection } from "@/components/home/home-news-section";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { fetchHomePageData } from "@/sanity/lib/fetchers";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { contentImageUrl } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils";
 
@@ -95,7 +95,6 @@ export default async function HomePage() {
     await fetchHomePageData();
 
   const phone = siteSettings?.phone || "400-123-4567";
-  const telHref = `tel:${phone.replace(/[\s-]/g, "")}`;
 
   // 数据：有则用，无则为空数组（不显示模块）
   const advantages = homePage?.advantages?.filter((a) => a.isEnabled !== false) || [];
@@ -251,13 +250,12 @@ export default async function HomePage() {
                 <p className="text-blue-200 text-sm mb-4">
                   专业顾问为您提供一对一咨询
                 </p>
-                <a
-                  href={telHref}
-                  className="inline-flex items-center gap-2 text-2xl font-bold hover:text-blue-200 transition-colors"
-                >
-                  <Phone className="w-5 h-5" />
-                  {phone}
-                </a>
+                <PhoneConsultButton
+                  phone={phone}
+                  className="text-2xl font-bold hover:text-blue-200 transition-colors bg-transparent"
+                  iconClassName="w-5 h-5"
+                  label={phone}
+                />
                 {siteSettings?.serviceHours && (
                   <p className="text-blue-200 text-sm mt-2">
                     {siteSettings.serviceHours}

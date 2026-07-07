@@ -4,8 +4,8 @@ import Image from "next/image";
 import {
   ChevronRight,
   ArrowRight,
-  Phone,
   MessageCircle,
+  Phone,
   Calendar,
   MapPin,
   Users,
@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { ConsultationForm } from "@/components/shared/consultation-form";
 import { fetchMedicalServicesPageData } from "@/sanity/lib/fetchers";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { bannerImageUrl, contentImageUrl } from "@/sanity/lib/image";
 import type {
   MedicalServicesPage,
@@ -316,6 +317,8 @@ export default async function MedicalServicesPage() {
   const { medicalServicesPage: p, siteSettings } =
     await fetchMedicalServicesPageData();
 
+  const phone = siteSettings?.phone || "400-123-4567";
+
   // 合并 CMS 与默认值
   const hero = {
     title: p?.heroTitle || DEFAULT_HERO.title,
@@ -417,7 +420,7 @@ export default async function MedicalServicesPage() {
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548]/85 via-[#1a3a6b]/75 to-[#1a3a6b]/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.85)] via-[rgba(26,58,107,0.75)] to-[rgba(26,58,107,0.6)]" />
 
         <div
           className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-12 lg:py-16 flex flex-col justify-center"
@@ -557,8 +560,8 @@ export default async function MedicalServicesPage() {
                     {!introImageUrl && (
                       <div className="relative aspect-[16/7] rounded-xl overflow-hidden mt-6 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
                         <div className="text-center">
-                          <Stethoscope className="w-12 h-12 text-[#2563eb]/30 mx-auto mb-3" />
-                          <p className="text-sm text-[#2563eb]/40 font-medium">
+                          <Stethoscope className="w-12 h-12 text-[rgba(37,99,235,0.3)] mx-auto mb-3" />
+                          <p className="text-sm text-[rgba(37,99,235,0.4)] font-medium">
                             高标准医疗服务
                           </p>
                         </div>
@@ -589,7 +592,7 @@ export default async function MedicalServicesPage() {
                     {/* 编号 + 标题 */}
                     <div className="flex items-start gap-3 mb-4">
                       {section.sectionNumber && (
-                        <span className="text-3xl font-bold text-[#2563eb]/20 leading-none">
+                        <span className="text-3xl font-bold text-[rgba(37,99,235,0.2)] leading-none">
                           {section.sectionNumber}
                         </span>
                       )}
@@ -710,7 +713,7 @@ export default async function MedicalServicesPage() {
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548] via-[#1a3a6b] to-[#2563eb]" />
                   )}
-                  <div className="absolute inset-0 bg-[#0f2548]/80" />
+                  <div className="absolute inset-0 bg-[rgba(15,37,72,0.8)]" />
 
                   <div className="relative px-6 py-10 lg:px-10 lg:py-12">
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-2 text-center">
@@ -751,7 +754,7 @@ export default async function MedicalServicesPage() {
                       <Link
                         key={i}
                         href={item.href || "#"}
-                        className="group bg-white rounded-xl p-5 ring-1 ring-[#e5e7eb] hover:ring-[#2563eb]/30 hover:shadow-lg transition-all"
+                        className="group bg-white rounded-xl p-5 ring-1 ring-[#e5e7eb] hover:ring-[rgba(37,99,235,0.3)] hover:shadow-lg transition-all"
                       >
                         <h3 className="text-sm font-semibold text-[#173b68] group-hover:text-[#2563eb] transition-colors mb-1">
                           {item.title}
@@ -820,13 +823,11 @@ export default async function MedicalServicesPage() {
                       <MessageCircle className="w-4 h-4" />
                       {sidebar.consultButtonText}
                     </Link>
-                    <a
-                      href="tel:400-xxx-xxxx"
-                      className="flex items-center gap-2 w-full justify-center rounded-lg border border-[#2563eb] px-4 py-2.5 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
-                    >
-                      <Phone className="w-4 h-4" />
-                      电话咨询
-                    </a>
+                    <PhoneConsultButton
+                      phone={phone}
+                      className="w-full justify-center rounded-lg border border-[#2563eb] px-4 py-2.5 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
+                      iconClassName="w-4 h-4"
+                    />
                   </div>
                 </div>
 
@@ -845,7 +846,7 @@ export default async function MedicalServicesPage() {
                     </div>
                   ) : (
                     <div className="w-full aspect-[16/9] bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-                      <MapPin className="w-10 h-10 text-[#2563eb]/20" />
+                      <MapPin className="w-10 h-10 text-[rgba(37,99,235,0.2)]" />
                     </div>
                   )}
                   <div className="p-5">
@@ -905,7 +906,7 @@ export default async function MedicalServicesPage() {
                     </div>
                   ) : (
                     <div className="w-full aspect-[16/9] bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-                      <Award className="w-10 h-10 text-[#2563eb]/20" />
+                      <Award className="w-10 h-10 text-[rgba(37,99,235,0.2)]" />
                     </div>
                   )}
                   <div className="p-5">

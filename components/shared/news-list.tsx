@@ -9,8 +9,8 @@ import {
   ChevronsLeft,
   ChevronsRight,
   ArrowRight,
-  Phone,
   MessageCircle,
+  Phone,
   Calendar,
   MapPin,
   Users,
@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { cardImageUrl, contentImageUrl } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import type { NewsArticle, NewsCategory, NewsPage } from "@/types/sanity";
 
 interface NewsListProps {
@@ -31,6 +32,7 @@ interface NewsListProps {
   pinnedArticles: NewsArticle[];
   categories: NewsCategory[];
   newsPage?: NewsPage | null;
+  phone?: string;
 }
 
 const PAGE_SIZE = 8;
@@ -122,9 +124,11 @@ function getServiceIcon(name?: string) {
 function NewsSidebar({
   newsPage,
   pinnedArticles,
+  phone,
 }: {
   newsPage?: NewsPage | null;
   pinnedArticles: NewsArticle[];
+  phone?: string;
 }) {
   // A. 在线咨询
   const consult = {
@@ -192,13 +196,11 @@ function NewsSidebar({
             <MessageCircle className="w-4 h-4" />
             {consult.buttonText}
           </Link>
-          <a
-            href="tel:400-xxx-xxxx"
-            className="flex items-center gap-2 w-full justify-center rounded-lg border border-[#2563eb] px-4 py-2.5 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
-          >
-            <Phone className="w-4 h-4" />
-            电话咨询
-          </a>
+          <PhoneConsultButton
+            phone={phone || "400-123-4567"}
+            className="w-full justify-center rounded-lg border border-[#2563eb] px-4 py-2.5 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
+            iconClassName="w-4 h-4"
+          />
         </div>
       </div>
 
@@ -299,6 +301,7 @@ export function NewsList({
   pinnedArticles,
   categories,
   newsPage,
+  phone,
 }: NewsListProps) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -394,7 +397,7 @@ export function NewsList({
                     <Link
                       key={article._id}
                       href={`/news/${article.slug.current}`}
-                      className="group bg-white rounded-xl overflow-hidden ring-1 ring-[#e5e7eb] hover:ring-[#2563eb]/30 hover:shadow-lg transition-all flex flex-col sm:flex-row"
+                      className="group bg-white rounded-xl overflow-hidden ring-1 ring-[#e5e7eb] hover:ring-[rgba(37,99,235,0.3)] hover:shadow-lg transition-all flex flex-col sm:flex-row"
                     >
                       {/* 缩略图 */}
                       {article.coverImage?.image ? (
@@ -543,6 +546,7 @@ export function NewsList({
                 <NewsSidebar
                   newsPage={newsPage}
                   pinnedArticles={pinnedArticles}
+                  phone={phone}
                 />
               </div>
             </aside>

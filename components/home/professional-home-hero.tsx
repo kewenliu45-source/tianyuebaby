@@ -55,7 +55,7 @@ export function ProfessionalHomeHero({
           background: `linear-gradient(90deg,rgba(7,30,63,${overlay}) 0%,rgba(13,49,91,${overlay * 0.78}) 39%,rgba(17,54,91,${overlay * 0.2}) 72%,transparent 100%)`,
         }}
       />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#071e3f]/55 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[rgba(7,30,63,0.55)] to-transparent" />
       <div className="relative mx-auto flex min-h-[560px] max-w-[1440px] items-center px-5 pb-28 pt-28 sm:px-8 lg:min-h-[650px] lg:px-12 lg:pb-32">
         <div className="max-w-[680px] text-white">
           <p className="mb-5 text-sm font-bold tracking-[.18em] text-[#bcd6ff] md:text-base">
@@ -67,7 +67,7 @@ export function ProfessionalHomeHero({
           >
             {hero?.title || "以专业判断，为每个家庭规划清晰的生育路径"}
           </h1>
-          <p className="mt-6 max-w-[610px] text-base leading-8 text-white/86 md:text-lg">
+          <p className="mt-6 max-w-[610px] text-base leading-8 text-white/[0.86] md:text-lg">
             {hero?.description ||
               "汇聚专业顾问与全球医疗资源，从需求评估、方案规划到全流程陪伴，为您提供严谨、私密、个性化的咨询支持。"}
           </p>
@@ -75,7 +75,7 @@ export function ProfessionalHomeHero({
             {badges?.slice(0, 4).map((badge) => (
               <span
                 key={badge}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/12 px-3.5 py-2 text-xs font-semibold backdrop-blur-md sm:text-sm"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/[0.12] px-3.5 py-2 text-xs font-semibold backdrop-blur-md sm:text-sm"
               >
                 <Check className="h-3.5 w-3.5 text-[#9fc5ff]" />
                 {badge}
@@ -92,7 +92,7 @@ export function ProfessionalHomeHero({
             </Link>
             <Link
               href={hero?.secondaryButtonLink || "/medical-services"}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 bg-white/10 px-7 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/18"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 bg-white/10 px-7 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/[0.18]"
             >
               {hero?.secondaryButtonText || "了解服务项目"}
               <ArrowRight className="h-4 w-4" />
@@ -100,8 +100,8 @@ export function ProfessionalHomeHero({
           </div>
         </div>
       </div>
-      <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-[#071e3f]/76 backdrop-blur-xl">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-2 divide-x divide-white/12 px-4 sm:grid-cols-4 sm:px-8 lg:px-12">
+      <div className="absolute inset-x-0 bottom-0 border-t border-white/[0.15] bg-[rgba(7,30,63,0.76)] backdrop-blur-xl">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-2 divide-x divide-white/[0.12] px-4 sm:grid-cols-4 sm:px-8 lg:px-12">
           {stats.slice(0, 4).map((stat, index) => (
             <div
               key={`${stat.value}-${index}`}

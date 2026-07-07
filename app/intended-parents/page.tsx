@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
+import { MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { PageBanner } from "@/components/shared/page-banner";
 import { fetchIntendedParentsPageData } from "@/sanity/lib/fetchers";
 import { cn } from "@/lib/utils";
@@ -34,7 +35,6 @@ export default async function IntendedParentsPage() {
     await fetchIntendedParentsPageData();
 
   const phone = siteSettings?.phone || "400-123-4567";
-  const telHref = `tel:${phone.replace(/[\s-]/g, "")}`;
 
   // 默认数据
   const defaultSuitableFor = [
@@ -201,13 +201,10 @@ export default async function IntendedParentsPage() {
               "联系我们，获取专业的助孕咨询服务。"}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={telHref}
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-white text-primary font-semibold hover:bg-white/90 transition-colors"
-            >
-              <Phone className="w-5 h-5" />
-              电话咨询
-            </a>
+            <PhoneConsultButton
+              phone={phone}
+              className="px-8 py-3 rounded-lg bg-white text-primary font-semibold hover:bg-white/90 transition-colors"
+            />
             <Link
               href={intendedParents?.cta?.buttonLink || "/start-your-journey"}
               className="inline-flex items-center gap-2 px-8 py-3 rounded-lg border-2 border-white text-white font-semibold hover:bg-white/10 transition-colors"

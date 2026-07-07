@@ -39,7 +39,7 @@ export function Header({ siteSettings }: HeaderProps) {
     <header
       className={cn(
         "sticky top-0 z-50 w-full",
-        "bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80",
+        "bg-white/80 backdrop-blur-md",
         "border-b border-border"
       )}
     >

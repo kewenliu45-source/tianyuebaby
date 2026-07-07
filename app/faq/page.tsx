@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { PageBanner } from "@/components/shared/page-banner";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { FaqList } from "@/components/shared/faq-list";
@@ -34,7 +35,6 @@ export default async function FaqPage() {
     await fetchFaqPageData();
 
   const phone = siteSettings?.phone || "400-123-4567";
-  const telHref = `tel:${phone.replace(/[\s-]/g, "")}`;
 
   return (
     <>
@@ -96,13 +96,10 @@ export default async function FaqPage() {
               "联系我们，我们的专业顾问将为您解答所有疑问。"}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={telHref}
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-white text-primary font-semibold hover:bg-white/90 transition-colors"
-            >
-              <Phone className="w-5 h-5" />
-              电话咨询
-            </a>
+            <PhoneConsultButton
+              phone={phone}
+              className="px-8 py-3 rounded-lg bg-white text-primary font-semibold hover:bg-white/90 transition-colors"
+            />
             <Link
               href={faqPage?.cta?.buttonLink || "/start-your-journey"}
               className="inline-flex items-center gap-2 px-8 py-3 rounded-lg border-2 border-white text-white font-semibold hover:bg-white/10 transition-colors"

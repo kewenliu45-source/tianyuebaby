@@ -366,7 +366,7 @@ export default async function ThirdGenerationIvfPage() {
                 {hero.badges.map((badge) => (
                   <span
                     key={badge}
-                    className="inline-flex items-center gap-1 rounded-full bg-white/12 px-3 py-1 text-xs font-medium text-white ring-1 ring-white/25 backdrop-blur-sm"
+                    className="inline-flex items-center gap-1 rounded-full bg-white/[0.12] px-3 py-1 text-xs font-medium text-white ring-1 ring-white/25 backdrop-blur-sm"
                   >
                     <Sparkles className="w-3 h-3" />
                     {badge}
@@ -377,7 +377,7 @@ export default async function ThirdGenerationIvfPage() {
                 {hero.title}
               </h1>
               <p className="mb-3 text-lg text-blue-100">{hero.subtitle}</p>
-              <p className="mb-8 text-[15px] leading-relaxed text-blue-50/85">
+              <p className="mb-8 text-[15px] leading-relaxed text-blue-50/[0.85]">
                 {hero.description}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -846,7 +846,7 @@ export default async function ThirdGenerationIvfPage() {
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-[#102c50]/82" />
+        <div className="absolute inset-0 bg-[rgba(16,44,80,0.82)]" />
         <div className="container relative mx-auto max-w-[1180px] px-4 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
             {finalCta.title}

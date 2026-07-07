@@ -134,6 +134,8 @@ export default async function NewsPage() {
   const { siteSettings, newsPage, newsArticles, categories, pinnedArticles } =
     await fetchNewsListPageData();
 
+  const phone = siteSettings?.phone || "400-123-4567";
+
   // 合并 CMS 与默认值
   const hero = {
     title: newsPage?.heroTitle || "新闻资讯",
@@ -200,7 +202,7 @@ export default async function NewsPage() {
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548]/85 via-[#1a3a6b]/75 to-[#1a3a6b]/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.85)] via-[rgba(26,58,107,0.75)] to-[rgba(26,58,107,0.6)]" />
 
         <div
           className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-12 lg:py-16 flex flex-col justify-center"
@@ -299,6 +301,7 @@ export default async function NewsPage() {
           pinnedArticles={pinnedArticles}
           categories={categories}
           newsPage={newsPage}
+          phone={phone}
         />
       </div>
 

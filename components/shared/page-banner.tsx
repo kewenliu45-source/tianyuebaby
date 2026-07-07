@@ -79,12 +79,12 @@ export function PageBanner({ banners, defaultBanner }: PageBannerProps) {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548]/80 via-[#1a3a6b]/60 to-[#1a3a6b]/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.8)] via-[rgba(26,58,107,0.6)] to-[rgba(26,58,107,0.3)]" />
         <div className="relative text-center px-4">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             天悦宝贝（国际）助孕中心
           </h1>
-          <p className="mt-4 text-white/85">
+          <p className="mt-4 text-white/[0.85]">
             专注助孕咨询服务
           </p>
         </div>
@@ -154,7 +154,7 @@ export function PageBanner({ banners, defaultBanner }: PageBannerProps) {
                   />
                 )}
               </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548]/75 via-[#1a3a6b]/45 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.75)] via-[rgba(26,58,107,0.45)] to-transparent" />
 
               {/* 文案内容 */}
               {(banner.title || banner.subtitle || banner.buttonText) && (

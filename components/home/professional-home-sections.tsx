@@ -111,7 +111,7 @@ export function ProfessionalHomeSections({ homePage }: { homePage?: HomePage | n
                   className="object-cover transition duration-500 group-hover:scale-[1.03]"
                   sizes="(max-width:1024px) 55vw, 32vw"
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#071e3f]/85 to-transparent p-5 pt-16 text-sm font-bold text-white">
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[rgba(7,30,63,0.85)] to-transparent p-5 pt-16 text-sm font-bold text-white">
                   {expertise?.mainImage?.caption || "专业顾问团队"}
                 </figcaption>
               </figure>
@@ -215,7 +215,7 @@ function GalleryImage({
         className="object-cover transition duration-500 group-hover:scale-[1.04]"
         sizes="(max-width:1024px) 40vw, 22vw"
       />
-      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#071e3f]/80 to-transparent p-4 pt-10 text-xs font-bold text-white sm:text-sm">
+      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[rgba(7,30,63,0.8)] to-transparent p-4 pt-10 text-xs font-bold text-white sm:text-sm">
         {caption}
       </figcaption>
     </figure>

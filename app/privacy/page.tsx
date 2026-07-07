@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageBanner } from "@/components/shared/page-banner";
 import { PortableTextRenderer } from "@/components/shared/portable-text";
 import { fetchPrivacyPageData } from "@/sanity/lib/fetchers";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 
 const DEFAULT_TITLE = "隐私政策";
 const DEFAULT_DESC =
@@ -92,12 +93,11 @@ export default async function PrivacyPage() {
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
                     电话：
-                    <a
-                      href={`tel:${(siteSettings?.phone || "400-123-4567").replace(/[\s-]/g, "")}`}
-                      className="text-primary underline underline-offset-2"
-                    >
-                      {siteSettings?.phone || "400-123-4567"}
-                    </a>
+                    <PhoneConsultButton
+                      phone={siteSettings?.phone || "400-123-4567"}
+                      className="text-primary underline underline-offset-2 bg-transparent inline"
+                      label={siteSettings?.phone || "400-123-4567"}
+                    />
                   </li>
                   <li>
                     服务时间：{siteSettings?.serviceHours || "周一至周日 9:00-18:00"}

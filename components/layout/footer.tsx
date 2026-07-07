@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { iconImageUrl } from "@/sanity/lib/image";
 import type { SiteSettings } from "@/types/sanity";
 
@@ -88,13 +89,12 @@ export function Footer({ siteSettings }: FooterProps) {
             </h3>
             <ul className="space-y-3">
               <li>
-                <a
-                  href={`tel:${phone.replace(/[\s-]/g, "")}`}
-                  className="flex items-center gap-2 text-sm text-navy-foreground/70 transition-colors duration-200 hover:text-navy-foreground"
-                >
-                  <Phone className="h-4 w-4 flex-shrink-0" />
-                  <span>{phone}</span>
-                </a>
+                <PhoneConsultButton
+                  phone={phone}
+                  className="flex items-center gap-2 text-sm text-navy-foreground/70 transition-colors duration-200 hover:text-navy-foreground bg-transparent"
+                  iconClassName="h-4 w-4 flex-shrink-0"
+                  label={phone}
+                />
               </li>
               <li>
                 <div className="flex items-center gap-2 text-sm text-navy-foreground/70">
@@ -115,7 +115,7 @@ export function Footer({ siteSettings }: FooterProps) {
                     className="block w-full h-auto object-contain"
                   />
                 </div>
-                <p className="mt-2.5 text-sm text-white/85 text-center">
+                <p className="mt-2.5 text-sm text-white/[0.85] text-center">
                   扫码添加微信咨询
                 </p>
               </div>

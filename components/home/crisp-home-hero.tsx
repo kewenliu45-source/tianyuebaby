@@ -78,7 +78,7 @@ function DeprecatedCrispHomeHero() {
                   key={feature.title}
                   className={`text-center ${index > 0 ? "md:border-l md:border-[#d8e5f5]" : ""}`}
                 >
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/82 text-[#3475ed] shadow-[0_12px_30px_rgba(52,117,237,.12)] ring-1 ring-white/85 md:h-20 md:w-20">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/[0.82] text-[#3475ed] shadow-[0_12px_30px_rgba(52,117,237,.12)] ring-1 ring-white/[0.85] md:h-20 md:w-20">
                     <Icon className="h-8 w-8 md:h-10 md:w-10" strokeWidth={2.3} />
                   </div>
                   <h2 className="mt-4 text-base font-bold text-[#233656] md:text-xl">

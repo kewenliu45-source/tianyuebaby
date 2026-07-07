@@ -4,7 +4,6 @@ import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
-  Phone,
   MessageCircle,
   Calendar,
   Tag,
@@ -15,6 +14,7 @@ import {
 } from "lucide-react";
 import { VideoJsonLd } from "@/components/seo/video-json-ld";
 import { PortableTextRenderer } from "@/components/shared/portable-text";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import {
   fetchVideoDetailPageData,
   fetchVideoSlugs,
@@ -139,7 +139,6 @@ export default async function VideoDetailPage({
   }
 
   const phone = siteSettings?.phone || "400-xxx-xxxx";
-  const telHref = `tel:${phone.replace(/[\s-]/g, "")}`;
 
   const disclaimer = videosPage?.medicalDisclaimer ||
     "本视频内容仅供科普参考，不构成医疗建议。每个人的身体状况不同，实际方案需由专业医生根据个人情况进行评估。如需了解适合您的方案，请咨询专业顾问。";
@@ -196,7 +195,7 @@ export default async function VideoDetailPage({
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f2548]/85 via-[#1a3a6b]/75 to-[#1a3a6b]/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.85)] via-[rgba(26,58,107,0.75)] to-[rgba(26,58,107,0.6)]" />
 
         <div
           className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-12 lg:py-16 flex flex-col justify-center"
@@ -230,13 +229,13 @@ export default async function VideoDetailPage({
                 </span>
               )}
               {video.presenter && (
-                <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/80">
+                <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-white/[0.15] text-white/80">
                   <User className="w-3 h-3" />
                   {video.presenter}
                 </span>
               )}
               {video.duration && (
-                <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/80">
+                <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-white/[0.15] text-white/80">
                   <Clock className="w-3 h-3" />
                   {video.duration}
                 </span>
@@ -423,13 +422,11 @@ export default async function VideoDetailPage({
               "每个家庭的情况都是独特的。专业的咨询顾问随时为您服务，帮助您更清晰地了解方案选择，做出适合自己的知情决策。"}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={telHref}
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              电话咨询
-            </a>
+            <PhoneConsultButton
+              phone={phone}
+              className="rounded-lg bg-white px-8 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
+              iconClassName="w-4 h-4"
+            />
             <Link
               href={videosPage?.finalCtaSecondaryButtonLink || "/start-your-journey"}
               className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-8 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"

@@ -219,7 +219,7 @@ export function ServiceRegionsMap({ regions }: ServiceRegionsMapProps) {
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-[#2563eb]/30">
+                    <span className="text-2xl font-bold text-[rgba(37,99,235,0.3)]">
                       {region.name}
                     </span>
                   </div>

@@ -4,8 +4,8 @@ import Image from "next/image";
 import {
   ChevronRight,
   ArrowRight,
-  Phone,
   MessageCircle,
+  Phone,
   Calendar,
   MapPin,
   Users,
@@ -20,6 +20,7 @@ import {
 import { ArticleJsonLd } from "@/components/seo/article-json-ld";
 import { PortableTextRenderer } from "@/components/shared/portable-text";
 import { ConsultationForm } from "@/components/shared/consultation-form";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import {
   fetchNewsDetailPageData,
   fetchNewsSlugs,
@@ -129,9 +130,11 @@ function getServiceIcon(name?: string) {
 function DetailSidebar({
   newsPage,
   relatedArticles,
+  phone,
 }: {
   newsPage?: NewsPage | null;
   relatedArticles: { _id: string; title: string; slug: { current: string } }[];
+  phone?: string;
 }) {
   // A. 在线咨询
   const consult = {
@@ -204,13 +207,11 @@ function DetailSidebar({
             <MessageCircle className="w-4 h-4" />
             {consult.buttonText}
           </Link>
-          <a
-            href="tel:400-xxx-xxxx"
-            className="flex items-center gap-2 w-full justify-center rounded-lg border border-[#2563eb] px-4 py-2.5 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
-          >
-            <Phone className="w-4 h-4" />
-            电话咨询
-          </a>
+          <PhoneConsultButton
+            phone={phone || "400-123-4567"}
+            className="w-full justify-center rounded-lg border border-[#2563eb] px-4 py-2.5 text-sm font-semibold text-[#2563eb] hover:bg-blue-50 transition-colors"
+            iconClassName="w-4 h-4"
+          />
         </div>
       </div>
 
@@ -229,7 +230,7 @@ function DetailSidebar({
           </div>
         ) : (
           <div className="w-full aspect-[16/9] bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-            <MapPin className="w-10 h-10 text-[#2563eb]/20" />
+            <MapPin className="w-10 h-10 text-[rgba(37,99,235,0.2)]" />
           </div>
         )}
         <div className="p-5">
@@ -361,7 +362,6 @@ export default async function NewsDetailPage({
   }
 
   const phone = siteSettings?.phone || "400-123-4567";
-  const telHref = `tel:${phone.replace(/[\s-]/g, "")}`;
 
   // 底部 CTA
   const cta = {
@@ -498,7 +498,7 @@ export default async function NewsDetailPage({
                       <Link
                         key={related._id}
                         href={`/news/${related.slug.current}`}
-                        className="group bg-white rounded-xl overflow-hidden ring-1 ring-[#e5e7eb] hover:ring-[#2563eb]/30 hover:shadow-lg transition-all"
+                        className="group bg-white rounded-xl overflow-hidden ring-1 ring-[#e5e7eb] hover:ring-[rgba(37,99,235,0.3)] hover:shadow-lg transition-all"
                       >
                         <div className="relative aspect-[16/10]">
                           <Image
@@ -536,6 +536,7 @@ export default async function NewsDetailPage({
                 <DetailSidebar
                   newsPage={newsPage}
                   relatedArticles={relatedArticles}
+                  phone={phone}
                 />
               </div>
             </aside>
@@ -576,13 +577,11 @@ export default async function NewsDetailPage({
                 {cta.title}
               </h2>
               <p className="text-blue-200 leading-relaxed">{cta.description}</p>
-              <a
-                href={telHref}
-                className="inline-flex items-center gap-2 mt-6 px-6 py-2.5 rounded-lg border border-white/30 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-              >
-                <Phone className="w-4 h-4" />
-                电话咨询
-              </a>
+              <PhoneConsultButton
+                phone={phone}
+                className="mt-6 px-6 py-2.5 rounded-lg border border-white/30 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+                iconClassName="w-4 h-4"
+              />
             </div>
             <div className="bg-white rounded-xl p-6 lg:p-8 shadow-xl">
               <ConsultationForm source="news-detail" />

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Clock, MessageCircle } from "lucide-react";
+import { Clock, MessageCircle } from "lucide-react";
+import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { PageBanner } from "@/components/shared/page-banner";
 import { ConsultationForm } from "@/components/shared/consultation-form";
 import { fetchAboutTianyuePageData } from "@/sanity/lib/fetchers";
@@ -47,7 +48,6 @@ export default async function AboutTianyuePage() {
   // 使用 Sanity 数据，仅保留最小化 fallback
   const phone =
     p?.phone || siteSettings?.phone || "400-123-4567";
-  const telHref = `tel:${phone.replace(/[\s-]/g, "")}`;
   const serviceHours =
     p?.serviceHours || siteSettings?.serviceHours || "周一至周日 9:00-18:00";
   const wechatQrCode = p?.wechatQrCode || siteSettings?.wechatQrCode;
@@ -151,17 +151,21 @@ export default async function AboutTianyuePage() {
                 {/* 联系电话 */}
                 <div className="bg-white rounded-xl p-6 lg:p-8 text-center">
                   <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <Phone className="w-7 h-7 text-primary" />
+                    <PhoneConsultButton
+                      phone={phone}
+                      className="w-14 h-14 rounded-full bg-transparent text-primary"
+                      iconClassName="w-7 h-7"
+                      label=""
+                    />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-1">
                     电话咨询
                   </h3>
-                  <a
-                    href={telHref}
-                    className="text-xl font-bold text-primary hover:text-primary-hover transition-colors"
-                  >
-                    {phone}
-                  </a>
+                  <PhoneConsultButton
+                    phone={phone}
+                    className="text-xl font-bold text-primary hover:text-primary-hover transition-colors bg-transparent"
+                    label={phone}
+                  />
                   <div className="flex items-center justify-center gap-2 mt-3 text-sm text-muted-foreground">
                     <Clock className="w-4 h-4" />
                     <span>{serviceHours}</span>

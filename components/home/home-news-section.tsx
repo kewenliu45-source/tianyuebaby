@@ -68,7 +68,7 @@ function MainNewsCard({ article }: { article: NewsArticle }) {
             {article.title}
           </h3>
           {article.excerpt && (
-            <p className="text-sm text-white/85 leading-relaxed line-clamp-2 mb-2 drop-shadow-sm">
+            <p className="text-sm text-white/[0.85] leading-relaxed line-clamp-2 mb-2 drop-shadow-sm">
               {article.excerpt}
             </p>
           )}
