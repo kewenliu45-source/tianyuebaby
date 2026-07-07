@@ -1042,6 +1042,24 @@ export interface SuccessCase {
   seo?: Seo;
 }
 
+export interface CaseStudy {
+  _id: string;
+  _type: "caseStudy";
+  title: string;
+  slug?: Slug;
+  coverImage?: ImageWithAlt;
+  treatmentType?: string;
+  ageRange?: string;
+  duration?: string;
+  challenge?: string;
+  result?: string;
+  excerpt?: string;
+  publishedAt?: string;
+  isFeatured?: boolean;
+  sortOrder?: number;
+  seo?: Seo;
+}
+
 // ─────────────────────────────────────────────
 // 医疗服务页面
 // ─────────────────────────────────────────────
