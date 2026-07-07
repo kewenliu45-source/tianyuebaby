@@ -38,66 +38,6 @@ export const structure: StructureResolver = (S) =>
                     .views([S.view.form()])
                 ),
               S.listItem()
-                .id("intended-parents")
-                .title("关于准父母")
-                .child(
-                  S.document()
-                    .id("intended-parents-doc")
-                    .schemaType("intendedParents")
-                    .documentId("intendedParents")
-                    .views([S.view.form()])
-                ),
-              S.listItem()
-                .id("journey")
-                .title("助孕流程")
-                .child(
-                  S.document()
-                    .id("journey-doc")
-                    .schemaType("journey")
-                    .documentId("journey")
-                    .views([S.view.form()])
-                ),
-              S.listItem()
-                .id("why-us")
-                .title("为什么选择我们")
-                .child(
-                  S.document()
-                    .id("why-us-doc")
-                    .schemaType("whyUs")
-                    .documentId("whyUs")
-                    .views([S.view.form()])
-                ),
-              S.listItem()
-                .id("faq-page")
-                .title("常见问题")
-                .child(
-                  S.document()
-                    .id("faq-page-doc")
-                    .schemaType("faqPage")
-                    .documentId("faqPage")
-                    .views([S.view.form()])
-                ),
-              S.listItem()
-                .id("start-journey")
-                .title("踏上为人父母之旅")
-                .child(
-                  S.document()
-                    .id("start-journey-doc")
-                    .schemaType("startJourney")
-                    .documentId("startJourney")
-                    .views([S.view.form()])
-                ),
-              S.listItem()
-                .id("about-tianyue")
-                .title("走进天悦宝贝")
-                .child(
-                  S.document()
-                    .id("about-tianyue-doc")
-                    .schemaType("aboutTianyuePage")
-                    .documentId("aboutTianyuePage")
-                    .views([S.view.form()])
-                ),
-              S.listItem()
                 .id("privacy-page")
                 .title("隐私政策")
                 .child(
@@ -158,16 +98,6 @@ export const structure: StructureResolver = (S) =>
                     .views([S.view.form()])
                 ),
               S.listItem()
-                .id("success-cases-page")
-                .title("成功案例页面")
-                .child(
-                  S.document()
-                    .id("success-cases-page-doc")
-                    .schemaType("successCasesPage")
-                    .documentId("successCasesPage")
-                    .views([S.view.form()])
-                ),
-              S.listItem()
                 .id("news-page")
                 .title("新闻资讯页面")
                 .child(
@@ -185,6 +115,16 @@ export const structure: StructureResolver = (S) =>
                     .id("medical-services-page-doc")
                     .schemaType("medicalServicesPage")
                     .documentId("medicalServicesPage")
+                    .views([S.view.form()])
+                ),
+              S.listItem()
+                .id("videos-page")
+                .title("科普视频页面")
+                .child(
+                  S.document()
+                    .id("videos-page-doc")
+                    .schemaType("videosPage")
+                    .documentId("videosPage")
                     .views([S.view.form()])
                 ),
             ])
@@ -262,17 +202,6 @@ export const structure: StructureResolver = (S) =>
             .id("science-videos-list")
             .title("科普视频中心")
             .items([
-              S.listItem()
-                .id("videos-page")
-                .title("科普视频页面")
-                .child(
-                  S.document()
-                    .id("videos-page-doc")
-                    .schemaType("videosPage")
-                    .documentId("videosPage")
-                    .views([S.view.form()])
-                ),
-              S.divider(),
               S.listItem()
                 .id("science-videos-all")
                 .title("全部视频")
@@ -423,30 +352,22 @@ export const structure: StructureResolver = (S) =>
           ![
             "siteSettings",
             "homePage",
-            "intendedParents",
-            "journey",
-            "whyUs",
-            "faqPage",
-            "startJourney",
             "privacyPage",
-            "newsArticle",
-            "newsCategory",
-            "faqItem",
-            "faqCategory",
-            "consultationLead",
             "thirdGenerationIvfPage",
             "ivfServicesPage",
             "eggSpermFreezingPage",
             "thirdPartyAssistedReproductionPage",
             "privateCustomizationPage",
-            "successCasesPage",
-            "successCase",
             "newsPage",
             "medicalServicesPage",
+            "newsArticle",
+            "newsCategory",
+            "faqItem",
+            "faqCategory",
+            "consultationLead",
             "scienceVideo",
             "videosPage",
             "videoCategory",
-            "aboutTianyuePage",
           ].includes(listItem.getId() ?? "")
       ),
     ]);
