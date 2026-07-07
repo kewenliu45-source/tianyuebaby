@@ -43,7 +43,7 @@ export function SiteHeader({ siteSettings }: { siteSettings?: SiteSettings | nul
     ? "absolute top-0 border-b border-white/30 bg-white/60 shadow-[0_4px_24px_rgba(40,95,160,.06)] backdrop-blur-xl"
     : "sticky top-0 border-b border-blue-100/80 bg-white/[0.92] shadow-[0_8px_30px_rgba(40,95,160,.10)] backdrop-blur-xl"
   }`}>
-    <div className="mx-auto flex min-h-[82px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 py-2 lg:px-8">
+    <div className="mx-auto flex h-[82px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 lg:px-8">
       {/* ── 品牌 Logo ── */}
       <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label={brand}>
         <Image
@@ -65,17 +65,17 @@ export function SiteHeader({ siteSettings }: { siteSettings?: SiteSettings | nul
       </Link>
 
       {/* ── 桌面端导航 ── */}
-      <nav className="hidden min-w-0 flex-1 flex-nowrap items-center justify-end gap-0.5 xl:flex" aria-label="主导航">
+      <nav className="hidden items-center gap-1 xl:flex" aria-label="主导航">
         {links.map(([label, href, hot]) => {
           const active = pathname === href;
-          return <Link key={href} href={href} className={`relative inline-flex items-center whitespace-nowrap rounded-full px-1.5 py-1.5 text-[12px] font-semibold transition-all ${active
+          return <Link key={href} href={href} className={`relative inline-flex items-center whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-semibold transition-all ${active
             ? "bg-[#eef3ff] text-[#1843a0] shadow-[inset_0_0_0_1.5px_rgba(37,99,235,.18)]"
             : transparent
               ? "text-[rgba(26,46,82,0.9)] hover:bg-white/50 hover:text-[#1843a0]"
               : "text-[#1a2e52] hover:bg-blue-50/70 hover:text-[#1843a0]"
           }`}>
             {label}
-            {hot && <span className="ml-1 inline-flex items-center rounded-full bg-red-500 px-1.5 py-0.5 text-[9px] font-bold leading-none text-white shadow-sm">HOT</span>}
+            {hot && <span className="absolute -top-3 -right-4 rounded-full bg-red-500 px-1.5 py-0.5 text-[10px] font-bold leading-none text-white shadow-sm">HOT</span>}
           </Link>;
         })}
       </nav>
