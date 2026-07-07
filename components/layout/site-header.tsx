@@ -65,10 +65,10 @@ export function SiteHeader({ siteSettings }: { siteSettings?: SiteSettings | nul
       </Link>
 
       {/* ── 桌面端导航 ── */}
-      <nav className="hidden min-w-0 flex-1 flex-wrap items-center justify-end gap-x-1 gap-y-1 xl:flex" aria-label="主导航">
+      <nav className="hidden min-w-0 flex-1 flex-nowrap items-center justify-end gap-0.5 xl:flex" aria-label="主导航">
         {links.map(([label, href, hot]) => {
           const active = pathname === href;
-          return <Link key={href} href={href} className={`relative inline-flex items-center whitespace-nowrap rounded-full px-2 py-1.5 text-[13px] font-semibold transition-all ${active
+          return <Link key={href} href={href} className={`relative inline-flex items-center whitespace-nowrap rounded-full px-1.5 py-1.5 text-[12px] font-semibold transition-all ${active
             ? "bg-[#eef3ff] text-[#1843a0] shadow-[inset_0_0_0_1.5px_rgba(37,99,235,.18)]"
             : transparent
               ? "text-[rgba(26,46,82,0.9)] hover:bg-white/50 hover:text-[#1843a0]"
