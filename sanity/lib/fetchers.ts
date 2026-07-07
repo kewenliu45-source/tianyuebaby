@@ -210,24 +210,32 @@ export async function fetchNewsListPageData(): Promise<NewsListPageData> {
   }
 }
 
-/** 新闻详情数据 */
+/** 新闻详情数据（双阶段获取：先缓存，未命中则实时查询） */
 export async function fetchNewsDetailPageData(
   slug: string
 ): Promise<NewsDetailPageData> {
   try {
-    const [article, newsPage] = await Promise.all([
-      sanityFetch<NewsArticle | null>({
+    // 阶段1：带缓存获取
+    let article = await sanityFetch<NewsArticle | null>({
+      query: newsArticleBySlugQuery,
+      params: { slug },
+      cache: "force-cache",
+      revalidate: 60,
+    });
+
+    // 阶段2：缓存未命中（可能是新增内容），实时获取
+    if (!article) {
+      article = await sanityFetch<NewsArticle | null>({
         query: newsArticleBySlugQuery,
         params: { slug },
-        cache: "force-cache",
-        revalidate: 60,
-      }),
-      sanityFetch<NewsPage | null>({
-        query: newsPageQuery,
-        cache: "force-cache",
-        revalidate: 60,
-      }),
-    ]);
+      });
+    }
+
+    const newsPage = await sanityFetch<NewsPage | null>({
+      query: newsPageQuery,
+      cache: "force-cache",
+      revalidate: 60,
+    });
 
     if (!article) {
       return {
@@ -623,17 +631,26 @@ export async function fetchVideosPageData(): Promise<VideosPageData> {
   }
 }
 
-/** 科普视频详情数据 */
+/** 科普视频详情数据（双阶段获取：先缓存，未命中则实时查询） */
 export async function fetchVideoDetailPageData(
   slug: string
 ): Promise<VideoDetailPageData> {
   try {
-    const video = await sanityFetch<ScienceVideo | null>({
+    // 阶段1：带缓存获取
+    let video = await sanityFetch<ScienceVideo | null>({
       query: scienceVideoBySlugQuery,
       params: { slug },
       cache: "force-cache",
       revalidate: 60,
     });
+
+    // 阶段2：缓存未命中（可能是新增内容），实时获取
+    if (!video) {
+      video = await sanityFetch<ScienceVideo | null>({
+        query: scienceVideoBySlugQuery,
+        params: { slug },
+      });
+    }
 
     if (!video) {
       return {
