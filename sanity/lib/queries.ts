@@ -427,7 +427,7 @@ export const newsArticleBySlugQuery = `*[_type == "newsArticle" && slug.current 
   },
   content[]{
     ...,
-    _type == "imageWithAlt"${IMAGE_WITH_ALT}
+    _type == "imageWithAlt" => ${IMAGE_WITH_ALT}
   },
   publishedAt,
   isPinned,
@@ -1155,7 +1155,7 @@ export const privacyPageQuery = `*[_type == "privacyPage"][0]{
   pageTitle,
   content[]{
     ...,
-    _type == "imageWithAlt"${IMAGE_WITH_ALT}
+    _type == "imageWithAlt" => ${IMAGE_WITH_ALT}
   },
   seo${SEO}
 }`;
@@ -1257,7 +1257,7 @@ export const successCaseBySlugQuery = `*[_type == "successCase" && slug.current 
   resultSummary,
   content[]{
     ...,
-    _type == "imageWithAlt"${IMAGE_WITH_ALT}
+    _type == "imageWithAlt" => ${IMAGE_WITH_ALT}
   },
   publishedAt,
   isFeatured,
@@ -1503,7 +1503,7 @@ export const scienceVideoBySlugQuery = `*[_type == "scienceVideo" && slug.curren
   excerpt,
   content[]{
     ...,
-    _type == "imageWithAlt"${IMAGE_WITH_ALT}
+    _type == "imageWithAlt" => ${IMAGE_WITH_ALT}
   },
   coverImage${IMAGE_WITH_ALT},
   category->{
