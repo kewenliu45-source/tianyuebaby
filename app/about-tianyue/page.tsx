@@ -41,6 +41,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // ── Page Component ──
 
+export const dynamic = "force-dynamic";
+
 export default async function AboutTianyuePage() {
   const { siteSettings, aboutTianyuePage: p } =
     await fetchAboutTianyuePageData();

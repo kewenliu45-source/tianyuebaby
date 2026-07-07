@@ -364,8 +364,7 @@ export async function fetchAboutTianyuePageData(): Promise<AboutTianyuePageData>
   try {
     return await sanityFetch<AboutTianyuePageData>({
       query: aboutTianyuePageDataQuery,
-      cache: "force-cache",
-      revalidate: 60,
+      cache: "no-store",
     });
   } catch {
     console.warn("Failed to fetch about Tianyue page data");
