@@ -48,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
         .height(800)
         .format("jpg")
         .url()
-    : `${siteUrl}/images/share.png`;
+    : `${siteUrl}/images/share.jpg`;
 
   // 网站名称和描述
   const siteName = siteSettings?.siteName || "天悦宝贝（国际）助孕中心";
@@ -111,10 +111,8 @@ export default async function RootLayout({
         .height(800)
         .format("jpg")
         .url()
-    : `${siteUrl}/images/share.png`;
-  const shareImageType = siteSettings?.defaultShareImage
-    ? "image/jpeg"
-    : "image/png";
+    : `${siteUrl}/images/share.jpg`;
+  const shareImageType = "image/jpeg";
 
   return (
     <html lang="zh-CN" className={cn("font-sans", geist.variable)}>
