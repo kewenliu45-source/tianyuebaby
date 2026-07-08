@@ -33,12 +33,16 @@ export const richText = defineType({
               defineField({
                 name: "href",
                 title: "链接地址",
+                description:
+                  "前台位置：富文本内超链接。是否建议修改：谨慎改。修改效果：点击文本后跳转到该地址。注意：站内用 /path 形式，不要填不存在的地址；外链需包含 https://。",
                 type: "url",
                 validation: (rule) => rule.required(),
               }),
               defineField({
                 name: "blank",
                 title: "新窗口打开",
+                description:
+                  "前台位置：富文本内超链接。是否建议修改：谨慎改。修改效果：开启后点击链接将在新标签页打开，关闭则在当前页面跳转。注意：外链建议开启，站内链接建议关闭。",
                 type: "boolean",
                 initialValue: false,
               }),
