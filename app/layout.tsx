@@ -75,6 +75,14 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: siteName,
       title: seo?.ogTitle || siteName,
       description: seo?.ogDescription || siteDescription,
+      images: [
+        {
+          url: shareImageUrl,
+          width: 800,
+          height: 800,
+          alt: siteName,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
