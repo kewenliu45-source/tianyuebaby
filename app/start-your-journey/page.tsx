@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function StartJourneyRedirectPage() {
-  redirect("/about-tianyue#consultation");
+  redirect("/about-tianyue#consultation-form");
 }

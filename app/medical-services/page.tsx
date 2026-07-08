@@ -451,7 +451,7 @@ export default async function MedicalServicesPage() {
                 label="电话咨询"
               />
               <Link
-                href="/about-tianyue#consultation"
+                href="/about-tianyue#consultation-form"
                 className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
               >
                 在线咨询

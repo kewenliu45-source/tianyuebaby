@@ -210,7 +210,7 @@ export default async function AboutTianyuePage() {
               </div>
 
               {/* 右栏：咨询表单 */}
-              <div>
+              <div id="consultation-form" className="scroll-mt-24 lg:scroll-mt-28">
                 <ConsultationForm source="about-tianyue" />
               </div>
             </div>

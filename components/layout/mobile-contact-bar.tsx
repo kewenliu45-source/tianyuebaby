@@ -62,7 +62,7 @@ export function MobileContactBar({ siteSettings }: MobileContactBarProps) {
 
           {/* 开始咨询 */}
           <a
-            href="/about-tianyue#consultation"
+            href="/about-tianyue#consultation-form"
             className={cn(
               "flex items-center justify-center",
               "flex-1 h-11 rounded-lg",
