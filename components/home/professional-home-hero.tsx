@@ -34,7 +34,7 @@ export function ProfessionalHomeHero({
 
   return (
     <section
-      className="relative min-h-[560px] overflow-hidden bg-[#eaf2fb] lg:min-h-[650px]"
+      className="relative min-h-[506px] overflow-hidden bg-[#eaf2fb] lg:min-h-[650px]"
       aria-labelledby="home-hero-title"
     >
       <picture>
@@ -56,7 +56,7 @@ export function ProfessionalHomeHero({
         }}
       />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[rgba(7,30,63,0.55)] to-transparent" />
-      <div className="relative mx-auto flex min-h-[560px] max-w-[1440px] items-center px-5 pb-28 pt-28 sm:px-8 lg:min-h-[650px] lg:px-12 lg:pb-32">
+      <div className="relative mx-auto flex min-h-[506px] max-w-[1440px] items-center px-5 pb-28 pt-28 sm:px-8 lg:min-h-[650px] lg:px-12 lg:pb-32">
         <div className="max-w-[680px] text-white">
           <p className="mb-5 text-sm font-bold tracking-[.18em] text-[#bcd6ff] md:text-base">
             {hero?.eyebrow || "国际生育咨询与全流程服务"}
