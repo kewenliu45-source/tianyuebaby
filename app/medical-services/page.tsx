@@ -407,7 +407,7 @@ export default async function MedicalServicesPage() {
       {/* ════════════════════════════════════════
           1. Hero Banner
       ════════════════════════════════════════ */}
-      <section className="relative overflow-hidden" style={{ minHeight: 420 }}>
+      <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
         {heroImageUrl ? (
           <Image
             src={heroImageUrl}
@@ -424,7 +424,7 @@ export default async function MedicalServicesPage() {
 
         <div
           className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-12 lg:py-16 flex flex-col justify-center"
-          style={{ minHeight: 420 }}
+          style={{ minHeight: 500 }}
         >
           {/* 面包屑 */}
           <nav className="flex items-center gap-2 text-sm text-white/60 mb-6">

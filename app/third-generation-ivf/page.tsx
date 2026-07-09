@@ -354,7 +354,7 @@ export default async function ThirdGenerationIvfPage() {
       {/* ════════════════════════════════════════
           1. Hero
       ════════════════════════════════════════ */}
-      <section className="relative min-h-[620px] overflow-hidden bg-[#15365e]">
+      <section className="relative min-h-[500px] overflow-hidden bg-[#15365e]">
         <picture>
           {mobileHeroSrc && <source media="(max-width: 767px)" srcSet={mobileHeroSrc} />}
           <Image
