@@ -709,6 +709,8 @@ export default async function PrivateCustomizationPage() {
   const heroImageUrl =
     getImageUrl(p?.heroImage, "banner") ||
     "/images/site/brand-consult-bg.png";
+  const mobileHeroImageUrl =
+    getImageUrl(p?.mobileHeroImage, "banner") || heroImageUrl;
   const finalCtaBgUrl =
     getImageUrl(p?.finalCtaBackgroundImage, "banner") ||
     "/images/site/brand-consult-bg.png";
@@ -739,14 +741,17 @@ export default async function PrivateCustomizationPage() {
       ════════════════════════════════════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
         {heroImageUrl ? (
-          <Image
-            src={heroImageUrl}
-            alt={p?.heroImage?.alt || hero.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcSet={mobileHeroImageUrl} />
+            <Image
+              src={heroImageUrl}
+              alt={p?.heroImage?.alt || hero.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </picture>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}

@@ -15,6 +15,7 @@ export const ivfServicesPage = defineType({
     defineField({ name: "heroSubtitle", title: "Hero 副标题", type: "string", description: '前台位置：Hero 主标题下方。是否建议修改：建议改。修改效果：补充说明主标题。' }),
     defineField({ name: "heroDescription", title: "Hero 描述", type: "text", rows: 3, description: '前台位置：Hero 区域描述文字。是否建议修改：建议改。修改效果：详细介绍试管服务区域。注意：建议 30-80 字。' }),
     defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: '前台位置：Hero 区域背景图。是否建议修改：建议改。修改效果：影响页面第一印象。注意：建议 1920×800px，500KB 以内。' }),
+    defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 750×600px，留空则使用桌面图。" }),
     defineField({ name: "heroPrimaryButtonText", title: "主按钮文字", type: "string", description: '前台位置：Hero 主按钮文案。是否建议修改：可不改。修改效果：引导用户操作。注意：如「立即咨询」。' }),
     defineField({ name: "heroPrimaryButtonLink", title: "主按钮链接", type: "string", description: '前台位置：Hero 主按钮跳转地址。是否建议修改：谨慎改。修改效果：点击按钮后的跳转目标。注意：站内用 /path 形式。' }),
     defineField({ name: "heroSecondaryButtonText", title: "次按钮文字", type: "string", description: '前台位置：Hero 次按钮文案。是否建议修改：可不改。修改效果：辅助引导用户。' }),

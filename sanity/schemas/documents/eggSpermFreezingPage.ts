@@ -15,6 +15,7 @@ export const eggSpermFreezingPage = defineType({
     defineField({ name: "heroSubtitle", title: "Hero 副标题", type: "string", description: "前台位置：Hero 区域副标题，位于大标题下方。建议改。修改效果：补充说明主标题。" }),
     defineField({ name: "heroDescription", title: "Hero 描述", type: "text", rows: 3, description: "前台位置：Hero 区域描述段落。建议改。修改效果：详细说明服务亮点。" }),
     defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: "前台位置：Hero 区域主图/背景图。建议改。修改效果：页面视觉第一印象。建议尺寸：1920x800px。" }),
+    defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 750×600px，留空则使用桌面图。" }),
     defineField({ name: "publishedAt", title: "发布时间", type: "datetime", description: "前台位置：文章详情页显示发布时间。可不改。修改效果：影响文章排序和时间展示。" }),
     defineField({ name: "readingTime", title: "阅读时长", type: "string", description: "前台位置：Hero 区域显示预估阅读时长。可不改。修改效果：帮助用户判断内容长度。" }),
     defineField({ name: "authorName", title: "作者姓名", type: "string", description: "前台位置：Hero 区域显示作者姓名。建议改。修改效果：增加内容可信度。" }),

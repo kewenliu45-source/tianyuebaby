@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移动端预览</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a1a2e;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      background: #16213e;
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+    .toolbar button {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #0f3460;
+      color: #e0e0e0;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toolbar button:hover { background: #1a5276; }
+    .toolbar button.active { background: #3475ed; color: #fff; }
+    .toolbar .label {
+      color: #888;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      padding: 0 6px;
+    }
+    .phone-frame {
+      position: relative;
+      background: #111;
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 0 0 2px #333;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 28px;
+      background: #111;
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+    .phone-screen {
+      border-radius: 28px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .phone-screen iframe {
+      display: block;
+      border: none;
+    }
+    .phone-home-bar {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: #555;
+      border-radius: 2px;
+    }
+    .size-info {
+      color: #666;
+      font-size: 12px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-container">
+    <div class="toolbar">
+      <span class="label">设备：</span>
+      <button class="active" onclick="setDevice(390, 844, this)">iPhone 15 (390×844)</button>
+      <button onclick="setDevice(375, 667, this)">iPhone SE (375×667)</button>
+      <button onclick="setDevice(430, 932, this)">15 Pro Max (430×932)</button>
+      <button onclick="setDevice(360, 780, this)">Galaxy S24 (360×780)</button>
+    </div>
+    <div class="phone-frame" id="phoneFrame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <iframe id="previewFrame" src="https://zhuyunbaby.com" width="390" height="844"></iframe>
+      </div>
+      <div class="phone-home-bar"></div>
+    </div>
+    <div class="size-info" id="sizeInfo">390 × 844 — iPhone 15</div>
+  </div>
+
+  <script>
+    function setDevice(w, h, btn) {
+      document.getElementById('previewFrame').width = w;
+      document.getElementById('previewFrame').height = h;
+      document.getElementById('sizeInfo').textContent = w + ' × ' + h + ' — ' + btn.textContent.split('(')[0].trim();
+      document.querySelectorAll('.toolbar button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -474,6 +474,7 @@ export interface ThirdGenerationIvfPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   heroPrimaryButtonText?: string;
   heroPrimaryButtonLink?: string;
   heroSecondaryButtonText?: string;
@@ -585,6 +586,7 @@ export interface EggSpermFreezingPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   publishedAt?: string;
   readingTime?: string;
   authorName?: string;
@@ -683,6 +685,7 @@ export interface ThirdPartyAssistedReproductionPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   publishedAt?: string;
   readingTime?: string;
   authorName?: string;
@@ -781,6 +784,7 @@ export interface PrivateCustomizationPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   publishedAt?: string;
   readingTime?: string;
   authorName?: string;
@@ -879,6 +883,7 @@ export interface IvfServicesPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   heroPrimaryButtonText?: string;
   heroPrimaryButtonLink?: string;
   heroSecondaryButtonText?: string;

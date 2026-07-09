@@ -335,6 +335,9 @@ export default async function ThirdGenerationIvfPage() {
     secondaryButtonText: p?.finalCtaSecondaryButtonText || DEFAULT_FINAL_CTA.secondaryButtonText,
     secondaryButtonLink: p?.finalCtaSecondaryButtonLink || DEFAULT_FINAL_CTA.secondaryButtonLink,
   };
+  const mobileHeroSrc = p?.mobileHeroImage?.image
+    ? contentImageUrl(p.mobileHeroImage.image as unknown as Parameters<typeof contentImageUrl>[0])
+    : undefined;
 
   return (
     <>
@@ -352,14 +355,17 @@ export default async function ThirdGenerationIvfPage() {
           1. Hero
       ════════════════════════════════════════ */}
       <section className="relative min-h-[620px] overflow-hidden bg-[#15365e]">
-        <Image
-          src={cmsImageUrl(p?.heroImage, DEFAULT_IMAGES.hero)}
-          alt={p?.heroImage?.alt || "胚胎实验室与辅助生殖技术工作场景"}
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+        <picture>
+          {mobileHeroSrc && <source media="(max-width: 767px)" srcSet={mobileHeroSrc} />}
+          <Image
+            src={cmsImageUrl(p?.heroImage, DEFAULT_IMAGES.hero)}
+            alt={p?.heroImage?.alt || "胚胎实验室与辅助生殖技术工作场景"}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </picture>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,35,67,.92)_0%,rgba(10,35,67,.76)_48%,rgba(10,35,67,.42)_100%)]" />
         <div className="container relative mx-auto max-w-[1180px] px-4 py-16 lg:px-8 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
