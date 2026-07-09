@@ -4,6 +4,7 @@ import type { SchemaTypeDefinition } from "sanity";
 import { bannerSlide } from "./objects/bannerSlide";
 import { cta } from "./objects/cta";
 import { imageWithAlt } from "./objects/imageWithAlt";
+import { portableImage } from "./objects/portableImage";
 import { link } from "./objects/link";
 import { richText } from "./objects/richText";
 import { seo } from "./objects/seo";
@@ -40,6 +41,7 @@ import { aboutTianyuePage } from "./documents/aboutTianyuePage";
 export const objectTypes: SchemaTypeDefinition[] = [
   seo,
   imageWithAlt,
+  portableImage,
   richText,
   link,
   cta,

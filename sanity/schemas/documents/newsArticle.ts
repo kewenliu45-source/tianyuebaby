@@ -58,7 +58,7 @@ export const newsArticle = defineType({
       type: "array",
       of: [
         { type: "block" },
-        { type: "imageWithAlt" },
+        { type: "portableImage" },
       ],
       description:
         "前台位置：文章详情页正文内容。是否建议修改：建议改。修改效果：决定文章详情页的完整内容。注意：支持富文本和内嵌图片，图片建议宽度不超过 800 像素。",

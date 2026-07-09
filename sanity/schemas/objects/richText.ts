@@ -51,9 +51,9 @@ export const richText = defineType({
         ],
       },
     },
-    // 内嵌图片
+    // 内嵌图片（使用简化类型绕过 portable text 上传 bug）
     {
-      type: "imageWithAlt",
+      type: "portableImage",
     },
   ],
 });
