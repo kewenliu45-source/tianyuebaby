@@ -5,7 +5,7 @@ import {
 } from "@/sanity/lib/fetchers";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://tiancibaobei.com";
+  const baseUrl = "https://zhuyunbaby.com";
 
   // 固定页面
   const fixedPages: MetadataRoute.Sitemap = [

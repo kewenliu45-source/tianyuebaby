@@ -15,7 +15,7 @@ export function OrganizationJsonLd({
     name,
     description,
     telephone: phone,
-    url: "https://tiancibaobei.com",
+    url: "https://zhuyunbaby.com",
   };
 
   return (

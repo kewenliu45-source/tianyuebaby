@@ -395,7 +395,7 @@ export default async function NewsDetailPage({
         }
         datePublished={article.publishedAt}
         authorName="天悦宝贝"
-        url={`https://tiancibaobei.com/news/${slug}`}
+        url={`https://zhuyunbaby.com/news/${slug}`}
       />
 
       {/* ════════════════════════════════════════

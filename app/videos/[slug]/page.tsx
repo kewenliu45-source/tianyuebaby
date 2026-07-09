@@ -177,7 +177,7 @@ export default async function VideoDetailPage({
             : undefined
         }
         presenter={video.presenter}
-        url={`https://tiancibaobei.com/videos/${slug}`}
+        url={`https://zhuyunbaby.com/videos/${slug}`}
       />
 
       {/* Hero */}

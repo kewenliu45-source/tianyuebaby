@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/studio/", "/api/"],
     },
-    sitemap: "https://tiancibaobei.com/sitemap.xml",
+    sitemap: "https://zhuyunbaby.com/sitemap.xml",
   };
 }

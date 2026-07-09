@@ -56,7 +56,7 @@ export const seo = defineType({
       name: "canonicalUrl",
       title: "规范链接（Canonical URL）",
       type: "url",
-      description: "前台位置：不直接显示，告诉搜索引擎哪个 URL 是权威版本。是否建议修改：谨慎改。修改效果：解决重复内容问题，集中页面权重。注意：通常留空即可，仅在有多个 URL 指向同一内容时填写，填写完整 URL 如 https://tiancibaobei.com/page",
+      description: "前台位置：不直接显示，告诉搜索引擎哪个 URL 是权威版本。是否建议修改：谨慎改。修改效果：解决重复内容问题，集中页面权重。注意：通常留空即可，仅在有多个 URL 指向同一内容时填写，填写完整 URL 如 https://zhuyunbaby.com/page",
     }),
     defineField({
       name: "noIndex",
