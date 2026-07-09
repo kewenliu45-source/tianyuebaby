@@ -3,13 +3,20 @@ import { defineField, defineType } from "sanity";
 /**
  * 专用于富文本编辑器的图片类型
  * 绕过 imageWithAlt 在 portable text 中上传时的 progress bug
+ * 使用 object 类型 + image 字段，而非直接 type: "image"
  */
 export const portableImage = defineType({
   name: "portableImage",
   title: "图片",
-  type: "image",
-  options: { hotspot: true },
+  type: "object",
   fields: [
+    defineField({
+      name: "image",
+      title: "图片",
+      type: "image",
+      options: { hotspot: true },
+      validation: (rule) => rule.required(),
+    }),
     defineField({
       name: "alt",
       title: "替代文本",
@@ -20,7 +27,7 @@ export const portableImage = defineType({
   ],
   preview: {
     select: {
-      media: "asset",
+      media: "image",
       title: "alt",
     },
   },
