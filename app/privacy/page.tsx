@@ -96,6 +96,7 @@ export default async function PrivacyPage() {
                     <PhoneConsultButton
                       phone={siteSettings?.phone || "400-123-4567"}
                       className="text-primary underline underline-offset-2 bg-transparent inline"
+                      iconClassName="hidden"
                       label={siteSettings?.phone || "400-123-4567"}
                     />
                   </li>
