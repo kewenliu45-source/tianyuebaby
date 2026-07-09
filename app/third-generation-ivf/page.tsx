@@ -17,9 +17,7 @@ import {
   Headphones,
   Star,
   CheckCircle2,
-  Sparkles,
 } from "lucide-react";
-import { ConsultationForm } from "@/components/shared/consultation-form";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchThirdGenerationIvfPageData } from "@/sanity/lib/fetchers";
@@ -335,9 +333,7 @@ export default async function ThirdGenerationIvfPage() {
     secondaryButtonText: p?.finalCtaSecondaryButtonText || DEFAULT_FINAL_CTA.secondaryButtonText,
     secondaryButtonLink: p?.finalCtaSecondaryButtonLink || DEFAULT_FINAL_CTA.secondaryButtonLink,
   };
-  const mobileHeroSrc = p?.mobileHeroImage?.image
-    ? contentImageUrl(p.mobileHeroImage.image as unknown as Parameters<typeof contentImageUrl>[0])
-    : undefined;
+  const heroImageUrl = cmsImageUrl(p?.heroImage, DEFAULT_IMAGES.hero);
 
   return (
     <>
@@ -352,62 +348,58 @@ export default async function ThirdGenerationIvfPage() {
       )}
 
       {/* ════════════════════════════════════════
-          1. Hero
+          1. Hero Banner
       ════════════════════════════════════════ */}
-      <section className="relative min-h-[500px] overflow-hidden bg-[#15365e]">
-        <picture>
-          {mobileHeroSrc && <source media="(max-width: 767px)" srcSet={mobileHeroSrc} />}
+      <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
+        {heroImageUrl ? (
           <Image
-            src={cmsImageUrl(p?.heroImage, DEFAULT_IMAGES.hero)}
-            alt={p?.heroImage?.alt || "胚胎实验室与辅助生殖技术工作场景"}
+            src={heroImageUrl}
+            alt={p?.heroImage?.alt || hero.title}
             fill
-            priority
             className="object-cover"
+            priority
             sizes="100vw"
           />
-        </picture>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,35,67,.92)_0%,rgba(10,35,67,.76)_48%,rgba(10,35,67,.42)_100%)]" />
-        <div className="container relative mx-auto max-w-[1180px] px-4 py-16 lg:px-8 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            {/* 左侧文案 */}
-            <div>
-              <div className="flex flex-wrap gap-2 mb-5">
-                {hero.badges.map((badge) => (
-                  <span
-                    key={badge}
-                    className="inline-flex items-center gap-1 rounded-full bg-white/[0.12] px-3 py-1 text-xs font-medium text-white ring-1 ring-white/25 backdrop-blur-sm"
-                  >
-                    <Sparkles className="w-3 h-3" />
-                    {badge}
-                  </span>
-                ))}
-              </div>
-              <h1 className="mb-4 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-[2.75rem]">
-                {hero.title}
-              </h1>
-              <p className="mb-3 text-lg text-blue-100">{hero.subtitle}</p>
-              <p className="mb-8 text-[15px] leading-relaxed text-blue-50/[0.85]">
-                {hero.description}
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <PhoneConsultButton
-                  phone={phone}
-                  className="rounded-lg bg-[#2563eb] px-7 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-[#1d4ed8] transition-colors"
-                  iconClassName="w-4 h-4"
-                  label={hero.primaryButtonText}
-                />
-                <Link
-                  href={hero.secondaryButtonLink}
-                  className="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-                >
-                  {hero.secondaryButtonText}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-            {/* 右侧表单 */}
-            <div id="consultation">
-              <ConsultationForm source="third-generation-ivf" />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.85)] via-[rgba(26,58,107,0.75)] to-[rgba(26,58,107,0.6)]" />
+
+        <div
+          className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-16 lg:py-20 flex flex-col justify-center"
+          style={{ minHeight: 500 }}
+        >
+          {/* 面包屑 */}
+          <nav className="flex items-center gap-2 text-sm text-white/60 mb-8">
+            <Link href="/" className="hover:text-white transition-colors">
+              首页
+            </Link>
+            <span>/</span>
+            <span className="text-white/90 font-medium">三代试管婴儿</span>
+          </nav>
+
+          <div className="max-w-2xl">
+            <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-4">
+              {hero.title}
+            </h1>
+            <p className="text-lg text-blue-200 mb-3">{hero.subtitle}</p>
+            <p className="text-[15px] text-white/70 leading-relaxed mb-8">
+              {hero.description}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <PhoneConsultButton
+                phone={phone}
+                className="rounded-lg bg-white px-7 py-3 text-sm font-bold text-[#1a3a6b] shadow-lg hover:bg-blue-50 transition-colors"
+                iconClassName="w-4 h-4"
+                label={hero.primaryButtonText}
+              />
+              <Link
+                href={hero.secondaryButtonLink}
+                className="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+              >
+                {hero.secondaryButtonText}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>
