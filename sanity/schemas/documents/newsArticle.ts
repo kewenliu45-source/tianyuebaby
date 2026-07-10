@@ -58,23 +58,7 @@ export const newsArticle = defineType({
       type: "array",
       of: [
         { type: "block" },
-        {
-          type: "image",
-          title: "图片",
-          options: {
-            hotspot: true,
-            modal: { type: "dialog", width: 1 },
-          },
-          fields: [
-            defineField({
-              name: "alt",
-              title: "替代文本",
-              type: "string",
-              description: "图片加载失败时显示，也是屏幕阅读器读取的内容。",
-              validation: (rule) => rule.max(125),
-            }),
-          ],
-        },
+        { type: "portableImage" },
       ],
       description:
         "前台位置：文章详情页正文内容。是否建议修改：建议改。修改效果：决定文章详情页的完整内容。注意：支持富文本和内嵌图片，图片建议宽度不超过 800 像素。",

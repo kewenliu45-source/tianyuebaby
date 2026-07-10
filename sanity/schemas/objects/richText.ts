@@ -51,23 +51,9 @@ export const richText = defineType({
         ],
       },
     },
-    // 内嵌图片：使用 dialog 编辑器，避免上传/选图时 popover 因焦点变化自动关闭
+    // 内嵌图片（使用自定义组件阻止事件冒泡，防止编辑面板自动关闭）
     {
-      type: "image",
-      title: "图片",
-      options: {
-        hotspot: true,
-        modal: { type: "dialog", width: 1 },
-      },
-      fields: [
-        defineField({
-          name: "alt",
-          title: "替代文本",
-          type: "string",
-          description: "图片加载失败时显示，也是屏幕阅读器读取的内容。",
-          validation: (rule) => rule.max(125),
-        }),
-      ],
+      type: "portableImage",
     },
   ],
 });

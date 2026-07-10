@@ -1,21 +1,26 @@
 import { defineField, defineType } from "sanity";
+import { PortableImageInput } from "../../components/PortableImageInput";
 
 /**
- * Image member used inside Portable Text.
- *
- * Keep this as Sanity's native image type. Wrapping image in a custom object
- * causes the Portable Text edit dialog to be recreated during upload progress
- * patches, which closes the editor while users upload or edit inline images.
+ * 专用于富文本编辑器的图片类型
+ * 使用自定义 PortableImageInput 组件，通过 stopPropagation 阻止事件冒泡，
+ * 解决 PTE 编辑内嵌图片时 popover 自动关闭的问题
  */
 export const portableImage = defineType({
   name: "portableImage",
   title: "图片",
-  type: "image",
-  options: {
-    hotspot: true,
-    modal: { type: "dialog", width: 1 },
+  type: "object",
+  components: {
+    input: PortableImageInput,
   },
   fields: [
+    defineField({
+      name: "image",
+      title: "图片",
+      type: "image",
+      options: { hotspot: true },
+      validation: (rule) => rule.required(),
+    }),
     defineField({
       name: "alt",
       title: "替代文本",
@@ -26,7 +31,7 @@ export const portableImage = defineType({
   ],
   preview: {
     select: {
-      media: "asset",
+      media: "image",
       title: "alt",
     },
   },
