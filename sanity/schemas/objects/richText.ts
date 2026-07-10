@@ -51,9 +51,12 @@ export const richText = defineType({
         ],
       },
     },
-    // 内嵌图片（使用简化类型绕过 portable text 上传 bug）
+    // 内嵌图片（使用 dialog 模式编辑，避免 popover 焦点管理问题）
     {
       type: "portableImage",
+      options: {
+        modal: { type: "dialog" },
+      },
     },
   ],
 });

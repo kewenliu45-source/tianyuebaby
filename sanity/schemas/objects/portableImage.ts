@@ -1,17 +1,15 @@
 import { defineField, defineType } from "sanity";
-import { DebugPortableImageInput } from "../../components/DebugPortableImageInput";
 
 /**
  * 专用于富文本编辑器的图片类型
- * 绕过 imageWithAlt 在 portable text 中上传时的 progress bug
- * 使用 object 类型 + image 字段，而非直接 type: "image"
+ * 使用 dialog 模式编辑，避免 popover 的焦点管理问题
  */
 export const portableImage = defineType({
   name: "portableImage",
   title: "图片",
   type: "object",
-  components: {
-    input: DebugPortableImageInput,
+  options: {
+    modal: { type: "dialog" },
   },
   fields: [
     defineField({
