@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { DebugPortableImageInput } from "../../components/DebugPortableImageInput";
 
 /**
  * 专用于富文本编辑器的图片类型
@@ -9,6 +10,9 @@ export const portableImage = defineType({
   name: "portableImage",
   title: "图片",
   type: "object",
+  components: {
+    input: DebugPortableImageInput,
+  },
   fields: [
     defineField({
       name: "image",
