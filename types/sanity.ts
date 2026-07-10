@@ -1213,6 +1213,7 @@ export interface VideosPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   heroPrimaryButtonText?: string;
   heroPrimaryButtonLink?: string;
   featuredTitle?: string;
