@@ -334,6 +334,7 @@ export default async function ThirdGenerationIvfPage() {
     secondaryButtonLink: p?.finalCtaSecondaryButtonLink || DEFAULT_FINAL_CTA.secondaryButtonLink,
   };
   const heroImageUrl = cmsImageUrl(p?.heroImage, DEFAULT_IMAGES.hero);
+  const mobileHeroImageUrl = cmsImageUrl(p?.mobileHeroImage, DEFAULT_IMAGES.hero) || heroImageUrl;
 
   return (
     <>
@@ -352,14 +353,17 @@ export default async function ThirdGenerationIvfPage() {
       ════════════════════════════════════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
         {heroImageUrl ? (
-          <Image
-            src={heroImageUrl}
-            alt={p?.heroImage?.alt || hero.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcSet={mobileHeroImageUrl} />
+            <Image
+              src={heroImageUrl}
+              alt={p?.heroImage?.alt || hero.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </picture>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}
