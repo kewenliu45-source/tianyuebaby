@@ -20,7 +20,6 @@ import {
   fetchVideoSlugs,
 } from "@/sanity/lib/fetchers";
 import { urlForImage, articleImageUrl, cardImageUrl } from "@/sanity/lib/image";
-import { projectId, dataset } from "@/sanity/env";
 
 // ── 可信外部视频域名白名单 ──
 const TRUSTED_EMBED_DOMAINS = [
@@ -43,16 +42,6 @@ function toIsoDuration(raw?: string): string | undefined {
   if (parts.length === 2) return `PT${parts[0]}M${parts[1]}S`;
   if (parts.length === 3) return `PT${parts[0]}H${parts[1]}M${parts[2]}S`;
   return undefined;
-}
-
-/** 将 Sanity file asset _ref 转为可访问的 CDN URL */
-function getSanityFileUrl(ref: string): string {
-  // ref 格式: file-<hash>-<ext>  (如 file-abc123-mp4)
-  // CDN URL 格式: https://cdn.sanity.io/files/{projectId}/{dataset}/file-<hash>.<ext>
-  // 需要将最后一个连字符改为点号
-  const lastHyphen = ref.lastIndexOf("-");
-  const filePath = ref.substring(0, lastHyphen) + "." + ref.substring(lastHyphen + 1);
-  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${filePath}`;
 }
 
 function getEmbedUrl(url: string): string | null {
@@ -166,8 +155,8 @@ export default async function VideoDetailPage({
         uploadDate={video.publishedAt}
         duration={toIsoDuration(video.duration)}
         contentUrl={
-          video.videoSource === "upload" && video.videoFile?.asset?._ref
-            ? getSanityFileUrl(video.videoFile.asset._ref)
+          video.videoSource === "upload" && video.videoFile?.asset?.url
+            ? video.videoFile.asset.url
             : video.videoSource === "external"
               ? video.externalUrl
               : undefined
@@ -308,7 +297,7 @@ export default async function VideoDetailPage({
                     </div>
                   );
                 })()
-              ) : video.videoSource === "upload" && video.videoFile?.asset?._ref ? (
+              ) : video.videoSource === "upload" && video.videoFile?.asset?.url ? (
                 <div className="relative aspect-video rounded-xl overflow-hidden bg-black shadow-lg">
                   <video
                     controls
@@ -316,7 +305,7 @@ export default async function VideoDetailPage({
                     preload="metadata"
                   >
                     <source
-                      src={getSanityFileUrl(video.videoFile.asset._ref)}
+                      src={video.videoFile.asset.url}
                       type="video/mp4"
                     />
                     <p className="text-sm text-white/70 p-4">

@@ -1198,7 +1198,7 @@ export interface ScienceVideo {
   duration?: string;
   videoSource: "external" | "upload";
   externalUrl?: string;
-  videoFile?: { asset: { _ref: string; _type: "reference" } };
+  videoFile?: { asset: { _ref: string; _type: "reference"; url?: string } };
   publishedAt: string;
   isFeatured?: boolean;
   sortOrder?: number;
