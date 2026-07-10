@@ -61,7 +61,10 @@ export const newsArticle = defineType({
         {
           type: "image",
           title: "图片",
-          options: { hotspot: true },
+          options: {
+            hotspot: true,
+            modal: { type: "dialog", width: 1 },
+          },
           fields: [
             defineField({
               name: "alt",

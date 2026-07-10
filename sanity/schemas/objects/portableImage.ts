@@ -11,7 +11,10 @@ export const portableImage = defineType({
   name: "portableImage",
   title: "图片",
   type: "image",
-  options: { hotspot: true },
+  options: {
+    hotspot: true,
+    modal: { type: "dialog", width: 1 },
+  },
   fields: [
     defineField({
       name: "alt",

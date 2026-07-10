@@ -51,11 +51,14 @@ export const richText = defineType({
         ],
       },
     },
-    // 内嵌图片：直接使用 Sanity 原生 image，避免自定义对象在编辑弹窗中重渲染
+    // 内嵌图片：使用 dialog 编辑器，避免上传/选图时 popover 因焦点变化自动关闭
     {
       type: "image",
       title: "图片",
-      options: { hotspot: true },
+      options: {
+        hotspot: true,
+        modal: { type: "dialog", width: 1 },
+      },
       fields: [
         defineField({
           name: "alt",
