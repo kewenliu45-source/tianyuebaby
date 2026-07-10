@@ -1,18 +1,15 @@
 import { defineField, defineType } from "sanity";
-import { PortableImageInput } from "../../components/PortableImageInput";
+import { StopPropagationInput } from "../../components/StopPropagationInput";
 
 /**
  * 专用于富文本编辑器的图片类型
- * 使用自定义 PortableImageInput 组件，通过 stopPropagation 阻止事件冒泡，
- * 解决 PTE 编辑内嵌图片时 popover 自动关闭的问题
+ * alt 字段使用自定义输入组件，阻止事件冒泡到 PTE 编辑器，
+ * 解决编辑内嵌图片时 popover 自动关闭的问题
  */
 export const portableImage = defineType({
   name: "portableImage",
   title: "图片",
   type: "object",
-  components: {
-    input: PortableImageInput,
-  },
   fields: [
     defineField({
       name: "image",
@@ -27,6 +24,9 @@ export const portableImage = defineType({
       type: "string",
       description: "图片加载失败时显示，也是屏幕阅读器读取的内容。",
       validation: (rule) => rule.max(125),
+      components: {
+        input: StopPropagationInput,
+      },
     }),
   ],
   preview: {
