@@ -47,11 +47,9 @@ function toIsoDuration(raw?: string): string | undefined {
 
 /** 将 Sanity file asset _ref 转为可访问的 CDN URL */
 function getSanityFileUrl(ref: string): string {
-  // ref 格式: file-<hash>-<ext>  →  https://cdn.sanity.io/files/{projectId}/{dataset}/{hash}.{ext}
-  const parts = ref.replace(/^file-/, "").split("-");
-  const ext = parts.pop();
-  const hash = parts.join("-");
-  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${hash}.${ext}`;
+  // ref 格式: file-<hash>-<ext>
+  // Sanity CDN URL 格式: https://cdn.sanity.io/files/{projectId}/{dataset}/{完整ref}
+  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${ref}`;
 }
 
 function getEmbedUrl(url: string): string | null {
