@@ -4,15 +4,10 @@ import { Stack, Text, TextInput } from "@sanity/ui";
 
 /**
  * 自定义 PortableImage 输入组件
- *
- * 根因：Sanity PTE 在内嵌 object 的值变化时会重新渲染整个节点，
- * 导致编辑 popover 关闭。
- *
- * 方案：alt 字段用本地 state + PatchEvent 精准更新，
- * 只更新 alt 路径，不触发整个 object 的重渲染。
+ * alt 字段用本地 state + PatchEvent 精准更新，避免 PTE 编辑面板关闭
  */
 export function PortableImageInput(props: ObjectInputProps) {
-  const { value, onChange, members = [], renderField } = props;
+  const { value, onChange, members = [], renderField, renderInput } = props;
 
   const [localAlt, setLocalAlt] = useState(value?.alt || "");
   const isInternalChange = useRef(false);
@@ -41,10 +36,10 @@ export function PortableImageInput(props: ObjectInputProps) {
 
   return (
     <Stack space={3}>
-      {/* image 字段使用默认渲染 */}
-      {imageMember && renderField && renderField(imageMember as any)}
+      {/* image 字段使用 renderInput 渲染（比 renderField 更轻量） */}
+      {imageMember && renderInput && renderInput(imageMember as any)}
 
-      {/* alt 字段用本地 state，避免触发 PTE 重渲染 */}
+      {/* alt 字段用本地 state */}
       <Stack space={2}>
         <Text size={1} weight="medium">
           替代文本
