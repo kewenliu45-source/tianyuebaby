@@ -51,7 +51,7 @@ export const richText = defineType({
         ],
       },
     },
-    // 内嵌图片（使用自定义组件阻止事件冒泡，防止编辑面板自动关闭）
+    // 内嵌图片（使用简化类型绕过 portable text 上传 bug）
     {
       type: "portableImage",
     },

@@ -83,30 +83,13 @@ const components: PortableTextComponents = {
         </figure>
       );
     },
-    image: ({ value }) => {
-      if (!value?.asset) return null;
-      return (
-        <figure className="my-6">
-          <div className="relative aspect-video rounded-lg overflow-hidden">
-            <Image
-              src={articleImageUrl(value as unknown as Parameters<typeof articleImageUrl>[0])}
-              alt={value.alt || ""}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 768px"
-            />
-          </div>
-        </figure>
-      );
-    },
     portableImage: ({ value }) => {
-      const image = value?.image || value;
-      if (!image?.asset) return null;
+      if (!value?.image) return null;
       return (
         <figure className="my-6">
           <div className="relative aspect-video rounded-lg overflow-hidden">
             <Image
-              src={articleImageUrl(image as unknown as Parameters<typeof articleImageUrl>[0])}
+              src={articleImageUrl(value.image as unknown as Parameters<typeof articleImageUrl>[0])}
               alt={value.alt || ""}
               fill
               className="object-cover"
