@@ -81,25 +81,25 @@ export default async function AboutTianyuePage() {
       <section className="py-16 lg:py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-10 items-center max-w-6xl mx-auto">
-            <div className="text-center lg:text-left">
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+            <div className="lg:text-left">
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-center lg:text-left">
                 {brandTitle}
               </h1>
               {brandDescription ? (
                 brandDescription.split("\n").map((para, i) => (
                   <p
                     key={i}
-                    className="text-muted-foreground leading-relaxed mb-4"
+                    className="text-muted-foreground leading-relaxed mb-4 text-left"
                   >
                     {para}
                   </p>
                 ))
               ) : (
                 <>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
+                  <p className="text-muted-foreground leading-relaxed mb-4 text-left">
                     天悦宝贝（国际）助孕中心是一家专注于助孕咨询服务的机构。我们秉承&ldquo;专业、贴心、科学、安全&rdquo;的服务理念，致力于为有需要的家庭提供高质量的助孕方案咨询与全程陪伴服务。
                   </p>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed text-left">
                     凭借多年的行业经验和广泛的资源网络，天悦宝贝已成为众多家庭信赖的选择。
                   </p>
                 </>
