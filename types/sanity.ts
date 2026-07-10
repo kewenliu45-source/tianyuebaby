@@ -377,6 +377,7 @@ export interface NewsPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   heroPrimaryButtonText?: string;
   heroPrimaryButtonLink?: string;
   timelineTitle?: string;
@@ -1079,6 +1080,7 @@ export interface MedicalServicesPage {
   heroSubtitle?: string;
   heroDescription?: string;
   heroImage?: ImageWithAlt;
+  mobileHeroImage?: ImageWithAlt;
   heroPrimaryButtonText?: string;
   heroPrimaryButtonLink?: string;
   timelineTitle?: string;

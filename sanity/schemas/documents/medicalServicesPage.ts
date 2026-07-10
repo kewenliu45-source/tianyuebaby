@@ -53,6 +53,12 @@ export const medicalServicesPage = defineType({
       description: "前台位置：页面顶部大图区域的背景图。是否建议修改：建议改。修改效果：直接影响页面视觉效果和用户第一印象。注意：建议尺寸 1920x800 像素，文件不超过 500KB。",
     }),
     defineField({
+      name: "mobileHeroImage",
+      title: "移动端 Hero 图片",
+      type: "imageWithAlt",
+      description: "前台位置：手机端 Hero 背景图。是否建议修改：建议改。修改效果：优化手机端首屏视觉。注意：建议 750×600px，留空则使用桌面图。",
+    }),
+    defineField({
       name: "heroPrimaryButtonText",
       title: "Hero 主按钮文字",
       type: "string",

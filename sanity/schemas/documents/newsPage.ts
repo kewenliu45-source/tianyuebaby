@@ -60,6 +60,13 @@ export const newsPage = defineType({
         '前台位置：新闻页面顶部背景图。是否建议修改：建议改。修改效果：影响页面第一印象。注意：建议 1920×600px，500KB 以内。',
     }),
     defineField({
+      name: "mobileHeroImage",
+      title: "移动端 Hero 图片",
+      type: "imageWithAlt",
+      description:
+        '前台位置：手机端 Hero 背景图。是否建议修改：建议改。修改效果：优化手机端首屏视觉。注意：建议 750×600px，留空则使用桌面图。',
+    }),
+    defineField({
       name: "heroPrimaryButtonText",
       title: "Hero 主按钮文字",
       type: "string",

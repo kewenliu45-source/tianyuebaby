@@ -330,6 +330,7 @@ export default async function MedicalServicesPage() {
     secondaryButtonLink: DEFAULT_HERO.secondaryButtonLink,
   };
   const heroImageUrl = getImageUrl(p?.heroImage, "banner") || "/images/site/fertility-hero.png";
+  const mobileHeroImageUrl = getImageUrl(p?.mobileHeroImage, "banner") || heroImageUrl;
   const breadcrumbLabel = p?.breadcrumbCurrentLabel || "医疗服务";
 
   const timelineTitle = p?.timelineTitle || "天悦宝贝发展历程";
@@ -409,14 +410,17 @@ export default async function MedicalServicesPage() {
       ════════════════════════════════════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
         {heroImageUrl ? (
-          <Image
-            src={heroImageUrl}
-            alt={p?.heroImage?.alt || hero.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcSet={mobileHeroImageUrl} />
+            <Image
+              src={heroImageUrl}
+              alt={p?.heroImage?.alt || hero.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </picture>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}

@@ -152,6 +152,7 @@ export default async function NewsPage() {
   };
 
   const heroImageUrl = getImageUrl(newsPage?.heroImage, "banner") || "/images/site/fertility-hero.png";
+  const mobileHeroImageUrl = getImageUrl(newsPage?.mobileHeroImage, "banner") || heroImageUrl;
   const breadcrumbLabel = newsPage?.breadcrumbCurrentLabel || "新闻资讯";
 
   const timelineTitle =
@@ -193,14 +194,17 @@ export default async function NewsPage() {
       ════════════════════════════════════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
         {heroImageUrl ? (
-          <Image
-            src={heroImageUrl}
-            alt={newsPage?.heroImage?.alt || hero.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcSet={mobileHeroImageUrl} />
+            <Image
+              src={heroImageUrl}
+              alt={newsPage?.heroImage?.alt || hero.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </picture>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}
