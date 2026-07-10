@@ -84,12 +84,13 @@ const components: PortableTextComponents = {
       );
     },
     portableImage: ({ value }) => {
-      if (!value?.image) return null;
+      const image = value?.image || value;
+      if (!image?.asset) return null;
       return (
         <figure className="my-6">
           <div className="relative aspect-video rounded-lg overflow-hidden">
             <Image
-              src={articleImageUrl(value.image as unknown as Parameters<typeof articleImageUrl>[0])}
+              src={articleImageUrl(image as unknown as Parameters<typeof articleImageUrl>[0])}
               alt={value.alt || ""}
               fill
               className="object-cover"

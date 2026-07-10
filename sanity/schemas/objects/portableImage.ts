@@ -1,26 +1,18 @@
 import { defineField, defineType } from "sanity";
-import { PortableImageInput } from "../../components/PortableImageInput";
 
 /**
- * 专用于富文本编辑器的图片类型
- * 绕过 imageWithAlt 在 portable text 中上传时的 progress bug
- * 使用 object 类型 + image 字段，而非直接 type: "image"
+ * Image member used inside Portable Text.
+ *
+ * Keep this as Sanity's native image type. Wrapping image in a custom object
+ * causes the Portable Text edit dialog to be recreated during upload progress
+ * patches, which closes the editor while users upload or edit inline images.
  */
 export const portableImage = defineType({
   name: "portableImage",
   title: "图片",
-  type: "object",
-  components: {
-    input: PortableImageInput,
-  },
+  type: "image",
+  options: { hotspot: true },
   fields: [
-    defineField({
-      name: "image",
-      title: "图片",
-      type: "image",
-      options: { hotspot: true },
-      validation: (rule) => rule.required(),
-    }),
     defineField({
       name: "alt",
       title: "替代文本",
@@ -31,7 +23,7 @@ export const portableImage = defineType({
   ],
   preview: {
     select: {
-      media: "image",
+      media: "asset",
       title: "alt",
     },
   },
