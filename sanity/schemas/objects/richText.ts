@@ -51,9 +51,20 @@ export const richText = defineType({
         ],
       },
     },
-    // 内嵌图片（使用简化类型绕过 portable text 上传 bug）
+    // 内嵌图片：直接使用 Sanity 原生 image，避免自定义对象在编辑弹窗中重渲染
     {
-      type: "portableImage",
+      type: "image",
+      title: "图片",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "替代文本",
+          type: "string",
+          description: "图片加载失败时显示，也是屏幕阅读器读取的内容。",
+          validation: (rule) => rule.max(125),
+        }),
+      ],
     },
   ],
 });
