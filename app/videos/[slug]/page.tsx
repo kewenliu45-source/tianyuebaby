@@ -47,9 +47,12 @@ function toIsoDuration(raw?: string): string | undefined {
 
 /** 将 Sanity file asset _ref 转为可访问的 CDN URL */
 function getSanityFileUrl(ref: string): string {
-  // ref 格式: file-<hash>-<ext>
-  // Sanity CDN URL 格式: https://cdn.sanity.io/files/{projectId}/{dataset}/{完整ref}
-  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${ref}`;
+  // ref 格式: file-<hash>-<ext>  (如 file-abc123-mp4)
+  // CDN URL 格式: https://cdn.sanity.io/files/{projectId}/{dataset}/file-<hash>.<ext>
+  // 需要将最后一个连字符改为点号
+  const lastHyphen = ref.lastIndexOf("-");
+  const filePath = ref.substring(0, lastHyphen) + "." + ref.substring(lastHyphen + 1);
+  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${filePath}`;
 }
 
 function getEmbedUrl(url: string): string | null {
