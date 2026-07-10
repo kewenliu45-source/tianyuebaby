@@ -143,6 +143,7 @@ export default async function VideosPage() {
   };
 
   const heroImageUrl = getImageUrl(p?.heroImage, "banner") || "/images/site/fertility-hero.png";
+  const mobileHeroImageUrl = getImageUrl(p?.mobileHeroImage, "banner") || heroImageUrl;
   const ctaBgUrl = getImageUrl(p?.finalCtaBackgroundImage, "banner") || "/images/site/brand-consult-bg.png";
 
   const videos = scienceVideos.length > 0 ? scienceVideos : [];
@@ -171,14 +172,17 @@ export default async function VideosPage() {
       ════════════════════════════════════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
         {heroImageUrl ? (
-          <Image
-            src={heroImageUrl}
-            alt={p?.heroImage?.alt || hero.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcSet={mobileHeroImageUrl} />
+            <Image
+              src={heroImageUrl}
+              alt={p?.heroImage?.alt || hero.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </picture>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}

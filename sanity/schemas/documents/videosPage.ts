@@ -15,6 +15,7 @@ export const videosPage = defineType({
     defineField({ name: "heroSubtitle", title: "Hero 副标题", type: "string", description: "前台位置：页面顶部大图区域副标题。是否建议修改：建议改。修改效果：补充说明主标题内容。注意：建议控制在 30 字以内。" }),
     defineField({ name: "heroDescription", title: "Hero 描述", type: "text", rows: 3, description: "前台位置：页面顶部大图区域描述文字。是否建议修改：建议改。修改效果：详细说明科普视频内容。注意：建议 50-100 字。" }),
     defineField({ name: "heroImage", title: "Hero 背景图", type: "imageWithAlt", description: "前台位置：页面顶部大图区域背景图。是否建议修改：建议改。修改效果：影响页面首屏视觉效果。注意：建议尺寸 1920×600 像素，大小不超过 500KB。" }),
+    defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 750×600px，留空则使用桌面图。" }),
     defineField({ name: "heroPrimaryButtonText", title: "主按钮文字", type: "string", description: "前台位置：Hero 区域主按钮文案。是否建议修改：可不改。修改效果：影响用户点击行为。注意：建议 4-6 字，如「立即咨询」「了解更多」。" }),
     defineField({ name: "heroPrimaryButtonLink", title: "主按钮链接", type: "string", description: "前台位置：Hero 区域主按钮跳转地址。是否建议修改：谨慎改。修改效果：点击按钮后跳转到指定页面。注意：站内用 /path 形式，不要填不存在的地址。" }),
 
