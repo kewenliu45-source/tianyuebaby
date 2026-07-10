@@ -10,12 +10,11 @@ import { Stack, Text, TextInput } from "@sanity/ui";
  * 1. alt 字段用本地 state 管理，不直接触发 onChange
  * 2. 用 React.memo 减少不必要的重渲染
  * 3. 用 ref 追踪 onChange 来源，避免循环更新
- * 4. image 字段渲染结果用 useMemo 缓存
  */
 export const PortableImageInput = React.memo(function PortableImageInput(
   props: ObjectInputProps
 ) {
-  const { value, onChange, members, renderField } = props;
+  const { value, onChange, members = [], renderField, renderInput } = props;
 
   const [localAlt, setLocalAlt] = useState(value?.alt || "");
   const isInternalChange = useRef(false);
@@ -38,17 +37,21 @@ export const PortableImageInput = React.memo(function PortableImageInput(
     [onChange]
   );
 
-  // 缓存 image member 引用
+  // 找到 image 字段的 member
   const imageMember = useMemo(
-    () => members.find((m) => m.kind === "field" && m.name === "image"),
+    () => (members || []).find((m) => m.kind === "field" && m.name === "image"),
     [members]
   );
 
-  // 缓存 image 字段的渲染结果，避免每次 alt 输入变化时重新渲染 image 字段
-  const imageFieldElement = useMemo(
-    () => imageMember && renderField(imageMember as any),
-    [imageMember, renderField]
-  );
+  // 渲染 image 字段
+  const imageFieldElement = useMemo(() => {
+    if (!imageMember || !renderField) return null;
+    try {
+      return renderField(imageMember as any);
+    } catch {
+      return null;
+    }
+  }, [imageMember, renderField]);
 
   return (
     <Stack space={3}>
