@@ -12,6 +12,7 @@ import { structureTool } from "sanity/structure";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemas";
 import { structure } from "./sanity/structure";
+import { PortableImageEditProvider } from "./sanity/components/PortableImageEditProvider";
 
 export default defineConfig({
   basePath: "/studio",
@@ -22,4 +23,13 @@ export default defineConfig({
     structureTool({ structure }),
     visionTool({ defaultApiVersion: apiVersion }),
   ],
+  studio: {
+    components: {
+      layout: (props) => (
+        <PortableImageEditProvider>
+          {props.renderDefault(props)}
+        </PortableImageEditProvider>
+      ),
+    },
+  },
 });

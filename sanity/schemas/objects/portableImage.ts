@@ -1,8 +1,9 @@
 import { defineField, defineType } from "sanity";
+import { PortableImageInput } from "../../components/PortableImageInput";
 
 /**
  * 专用于富文本编辑器的图片类型
- * 使用 dialog 模式编辑，避免 popover 的焦点管理问题
+ * 使用独立 Dialog 管理编辑状态，不依赖 Sanity 的 member.open
  */
 export const portableImage = defineType({
   name: "portableImage",
@@ -10,6 +11,9 @@ export const portableImage = defineType({
   type: "object",
   options: {
     modal: { type: "dialog" },
+  },
+  components: {
+    input: PortableImageInput,
   },
   fields: [
     defineField({
