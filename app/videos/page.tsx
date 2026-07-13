@@ -170,7 +170,7 @@ export default async function VideosPage() {
       {/* ════════════════════════════════════════
           1. Hero Banner
       ════════════════════════════════════════ */}
-      <section className="relative overflow-hidden" style={{ minHeight: 500 }}>
+      <section className="relative overflow-hidden min-h-[400px] md:min-h-[500px]">
         {heroImageUrl ? (
           <picture>
             <source media="(max-width: 767px)" srcSet={mobileHeroImageUrl} />
@@ -178,7 +178,7 @@ export default async function VideosPage() {
               src={heroImageUrl}
               alt={p?.heroImage?.alt || hero.title}
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
               sizes="100vw"
             />
@@ -189,8 +189,7 @@ export default async function VideosPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.85)] via-[rgba(26,58,107,0.75)] to-[rgba(26,58,107,0.6)]" />
 
         <div
-          className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-16 lg:py-20 flex flex-col justify-center"
-          style={{ minHeight: 500 }}
+          className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-12 md:py-16 lg:py-20 flex flex-col justify-center min-h-[400px] md:min-h-[500px]"
         >
           {/* 面包屑 */}
           <nav className="flex items-center gap-2 text-sm text-white/60 mb-8">
