@@ -1460,6 +1460,7 @@ export const videosPageQuery = `*[_type == "videosPage"][0]{
   heroSubtitle,
   heroDescription,
   heroImage${IMAGE_WITH_ALT},
+  mobileHeroImage${IMAGE_WITH_ALT},
   heroPrimaryButtonText,
   heroPrimaryButtonLink,
   featuredTitle,
