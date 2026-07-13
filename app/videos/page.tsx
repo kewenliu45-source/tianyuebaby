@@ -170,26 +170,39 @@ export default async function VideosPage() {
       {/* ════════════════════════════════════════
           1. Hero Banner
       ════════════════════════════════════════ */}
-      <section className="relative overflow-hidden min-h-[400px] md:min-h-[500px]">
+      <section className="relative overflow-hidden">
         {heroImageUrl ? (
-          <picture>
-            <source media="(max-width: 767px)" srcSet={mobileHeroImageUrl} />
-            <Image
-              src={heroImageUrl}
-              alt={p?.heroImage?.alt || hero.title}
-              fill
-              className="object-cover object-center"
-              priority
-              sizes="100vw"
-            />
-          </picture>
+          <>
+            {/* 移动端：object-contain 显示完整图片 */}
+            <div className="md:hidden relative w-full" style={{ aspectRatio: '700 / 600' }}>
+              <Image
+                src={mobileHeroImageUrl}
+                alt={p?.heroImage?.alt || hero.title}
+                fill
+                className="object-contain"
+                priority
+                sizes="100vw"
+              />
+            </div>
+            {/* 桌面端：object-cover 裁剪填满 */}
+            <div className="hidden md:block relative w-full min-h-[500px]">
+              <Image
+                src={heroImageUrl}
+                alt={p?.heroImage?.alt || hero.title}
+                fill
+                className="object-cover object-center"
+                priority
+                sizes="100vw"
+              />
+            </div>
+          </>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#e8f0fe] via-white to-[#f0f6ff]" />
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,37,72,0.85)] via-[rgba(26,58,107,0.75)] to-[rgba(26,58,107,0.6)]" />
 
         <div
-          className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-12 md:py-16 lg:py-20 flex flex-col justify-center min-h-[400px] md:min-h-[500px]"
+          className="container relative mx-auto max-w-[1200px] px-4 lg:px-8 py-12 md:py-16 lg:py-20 flex flex-col justify-center"
         >
           {/* 面包屑 */}
           <nav className="flex items-center gap-2 text-sm text-white/60 mb-8">
