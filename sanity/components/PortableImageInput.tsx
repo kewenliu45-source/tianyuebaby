@@ -11,7 +11,7 @@
  * 但 store 中的数据保留，Dialog 继续工作。
  */
 
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 import { ObjectInputProps } from "sanity";
 import { useDocumentPane } from "sanity/structure";
 import {
@@ -21,16 +21,10 @@ import {
 } from "./portableImageEditorStore";
 
 export function PortableImageInput(props: ObjectInputProps) {
-  const renderCount = useRef(0);
-  renderCount.current++;
-  const renderId = renderCount.current;
-
   const pane = useDocumentPane();
   const imageKey = (props.value as Record<string, any>)?._key;
 
   // 从 props.path 推导 fieldPath
-  // props.path = ['content', {_key: 'xxx'}]
-  // fieldPath = ['content']（去掉最后一个 {_key} 段）
   const fieldPath = (props.path || []).slice(0, -1).filter(
     (seg) => typeof seg === "string"
   ) as string[];
@@ -38,11 +32,6 @@ export function PortableImageInput(props: ObjectInputProps) {
   // 注册编辑器信息（mount 时和 value 变化时）
   useEffect(() => {
     if (!imageKey) return;
-
-    console.log(
-      `[PortableImageInput #${renderId}] 📝 Registering editor (key=${imageKey})`
-    );
-
     registerEditor({
       documentId: pane.documentId,
       documentType: pane.documentType,
@@ -63,28 +52,9 @@ export function PortableImageInput(props: ObjectInputProps) {
   // 打开自定义 Dialog
   const handleOpenDialog = useCallback(() => {
     if (imageKey) {
-      console.log(
-        `[PortableImageInput #${renderId}] 🔓 Opening dialog (key=${imageKey})`
-      );
       openEditor(imageKey);
     }
   }, [imageKey]);
-
-  // 生命周期日志
-  useEffect(() => {
-    console.log(
-      `[PortableImageInput #${renderId}] ✅ MOUNT (key=${imageKey})`
-    );
-    return () => {
-      console.log(
-        `[PortableImageInput #${renderId}] ❌ UNMOUNT (key=${imageKey})`
-      );
-    };
-  }, []);
-
-  console.log(
-    `[PortableImageInput #${renderId}] 🔄 RENDER (key=${imageKey})`
-  );
 
   return (
     <div>
