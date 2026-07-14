@@ -27,7 +27,6 @@ import {
 } from "@/sanity/lib/fetchers";
 import {
   urlForImage,
-  articleImageUrl,
   cardImageUrl,
   contentImageUrl,
 } from "@/sanity/lib/image";
@@ -451,26 +450,6 @@ export default async function NewsDetailPage({
                   )}
                 </div>
               </header>
-
-              {/* 封面图 */}
-              <div className="relative aspect-video rounded-xl overflow-hidden mb-8">
-                <Image
-                  src={
-                    article.coverImage?.image
-                      ? articleImageUrl(
-                          article.coverImage.image as unknown as Parameters<
-                            typeof articleImageUrl
-                          >[0]
-                        )
-                      : "/images/site/documents-review.png"
-                  }
-                  alt={article.coverImage?.alt || article.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 820px"
-                  priority
-                />
-              </div>
 
               {/* 正文 */}
               <div className="bg-white rounded-xl ring-1 ring-[#e5e7eb] p-6 lg:p-8">
