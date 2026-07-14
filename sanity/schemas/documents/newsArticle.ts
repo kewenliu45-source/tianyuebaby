@@ -38,13 +38,6 @@ export const newsArticle = defineType({
         "前台位置：新闻列表页卡片缩略图。是否建议修改：建议改。修改效果：影响文章在列表中的视觉吸引力。注意：建议尺寸 750×500 像素，比例 3:2，大小不超过 2MB。",
     }),
     defineField({
-      name: "banner",
-      title: "文章 Banner",
-      type: "bannerSlide",
-      description:
-        "前台位置：文章详情页顶部大图横幅。是否建议修改：可不改。修改效果：为该文章设置专属顶部 Banner；留空则使用全站默认 Banner。注意：Banner 图片建议宽度 1920 像素，高度 400-500 像素。",
-    }),
-    defineField({
       name: "excerpt",
       title: "摘要",
       type: "text",
