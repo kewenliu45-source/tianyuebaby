@@ -190,7 +190,7 @@ export const homePageQuery = `*[_type == "homePage"][0]{
 }`;
 
 /** 首页推荐新闻 */
-export const featuredNewsQuery = `*[_type == "newsArticle" && isFeatured == true] | order(publishedAt desc)[0...7]{
+export const featuredNewsQuery = `*[_type == "newsArticle"] | order(publishedAt desc)[0...7]{
   _id,
   _type,
   title,
@@ -207,7 +207,7 @@ export const featuredNewsQuery = `*[_type == "newsArticle" && isFeatured == true
 }`;
 
 /** 首页精选 FAQ */
-export const featuredFaqsQuery = `*[_type == "faqItem" && isFeatured == true] | order(sortOrder asc)[0...5]{
+export const featuredFaqsQuery = `*[_type == "faqItem"] | order(publishedAt desc)[0...5]{
   _id,
   _type,
   question,
@@ -512,7 +512,7 @@ export const faqPageQuery = `*[_type == "faqPage"][0]{
 }`;
 
 /** FAQ 列表 */
-export const faqItemsQuery = `*[_type == "faqItem"] | order(sortOrder asc){
+export const faqItemsQuery = `*[_type == "faqItem"] | order(publishedAt desc){
   _id,
   _type,
   question,
@@ -1219,7 +1219,7 @@ export const successCasesPageQuery = `*[_type == "successCasesPage"][0]{
 }`;
 
 /** 全部成功案例列表 */
-export const successCasesListQuery = `*[_type == "successCase"] | order(sortOrder asc, publishedAt desc){
+export const successCasesListQuery = `*[_type == "successCase"] | order(publishedAt desc){
   _id,
   _type,
   title,
@@ -1236,7 +1236,7 @@ export const successCasesListQuery = `*[_type == "successCase"] | order(sortOrde
 }`;
 
 /** 推荐成功案例 */
-export const featuredSuccessCasesQuery = `*[_type == "successCase" && isFeatured == true] | order(sortOrder asc, publishedAt desc){
+export const featuredSuccessCasesQuery = `*[_type == "successCase"] | order(publishedAt desc){
   _id,
   _type,
   title,
@@ -1435,10 +1435,10 @@ const SCIENCE_VIDEO_FIELDS = `{
 }`;
 
 /** 视频列表 */
-export const scienceVideosQuery = `*[_type == "scienceVideo"] | order(isFeatured desc, sortOrder asc, publishedAt desc)${SCIENCE_VIDEO_FIELDS}`;
+export const scienceVideosQuery = `*[_type == "scienceVideo"] | order(publishedAt desc)${SCIENCE_VIDEO_FIELDS}`;
 
 /** 推荐视频 */
-export const featuredVideosQuery = `*[_type == "scienceVideo" && isFeatured == true] | order(sortOrder asc, publishedAt desc)[0...6]${SCIENCE_VIDEO_FIELDS}`;
+export const featuredVideosQuery = `*[_type == "scienceVideo"] | order(publishedAt desc)[0...6]${SCIENCE_VIDEO_FIELDS}`;
 
 /** 视频分类列表 */
 export const videoCategoriesQuery = `*[_type == "videoCategory"] | order(sortOrder asc){
