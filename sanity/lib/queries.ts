@@ -1438,7 +1438,7 @@ const SCIENCE_VIDEO_FIELDS = `{
 export const scienceVideosQuery = `*[_type == "scienceVideo"] | order(publishedAt desc)${SCIENCE_VIDEO_FIELDS}`;
 
 /** 推荐视频 */
-export const featuredVideosQuery = `*[_type == "scienceVideo"] | order(publishedAt desc)[0...6]${SCIENCE_VIDEO_FIELDS}`;
+export const featuredVideosQuery = `*[_type == "scienceVideo"] | order(publishedAt desc)[0...3]${SCIENCE_VIDEO_FIELDS}`;
 
 /** 视频分类列表 */
 export const videoCategoriesQuery = `*[_type == "videoCategory"] | order(sortOrder asc){
