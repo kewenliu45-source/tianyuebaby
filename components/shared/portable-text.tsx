@@ -62,6 +62,27 @@ const components: PortableTextComponents = {
     ),
   },
   types: {
+    image: ({ value }) => {
+      if (!value?.asset) return null;
+      return (
+        <figure className="my-6">
+          <div className="relative aspect-video rounded-lg overflow-hidden">
+            <Image
+              src={articleImageUrl(value as Parameters<typeof articleImageUrl>[0])}
+              alt={value.alt || ""}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
+          {value.caption && (
+            <figcaption className="text-sm text-muted-foreground text-center mt-2">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
     imageWithAlt: ({ value }) => {
       if (!value?.image) return null;
       return (
@@ -96,6 +117,11 @@ const components: PortableTextComponents = {
               sizes="(max-width: 768px) 100vw, 768px"
             />
           </div>
+          {value.caption && (
+            <figcaption className="text-sm text-muted-foreground text-center mt-2">
+              {value.caption}
+            </figcaption>
+          )}
         </figure>
       );
     },

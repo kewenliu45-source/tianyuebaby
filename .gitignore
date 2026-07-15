@@ -6,6 +6,7 @@
 
 # testing
 /coverage
+/tmp/migration-backups/
 
 # next.js
 /.next/

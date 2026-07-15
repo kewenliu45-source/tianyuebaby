@@ -30,11 +30,18 @@ export const portableImage = defineType({
       description: "图片加载失败时显示，也是屏幕阅读器读取的内容。",
       validation: (rule) => rule.max(125),
     }),
+    defineField({
+      name: "caption",
+      title: "图片说明",
+      type: "string",
+      description: "可选。显示在图片下方，适合填写图片来源或简短说明。",
+    }),
   ],
   preview: {
     select: {
       media: "image",
       title: "alt",
+      subtitle: "caption",
     },
   },
 });

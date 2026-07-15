@@ -51,7 +51,6 @@ export const newsArticle = defineType({
       type: "array",
       of: [
         { type: "block" },
-        { type: "imageWithAlt" },
         {
           type: "portableImage",
           options: {
