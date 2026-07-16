@@ -23,6 +23,7 @@ import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchThirdGenerationIvfPageData } from "@/sanity/lib/fetchers";
 import { contentImageUrl, iconImageUrl } from "@/sanity/lib/image";
 import type { ImageWithAlt } from "@/types/sanity";
+import { buildPageMetadata } from "@/lib/social-metadata";
 
 // ── 默认数据 ──
 
@@ -225,28 +226,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const { thirdGenerationIvfPage: p, siteSettings } =
     await fetchThirdGenerationIvfPageData();
   const seo = p?.seo;
-  const fallback = siteSettings?.defaultSeo;
-
-  return {
-    title:
-      seo?.metaTitle ||
-      p?.pageTitle ||
-      "三代试管婴儿咨询与方案评估 | 天悦宝贝",
+  return buildPageMetadata({
+    title: p?.pageTitle || "三代试管婴儿咨询与方案评估 | 天悦宝贝",
     description:
-      seo?.metaDescription ||
       p?.pageDescription ||
       DEFAULT_HERO.description,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || p?.pageTitle,
-      description:
-        seo?.ogDescription ||
-        seo?.metaDescription ||
-        p?.pageDescription,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+    pathname: "/third-generation-ivf",
+    seo,
+    siteSettings,
+    image: p?.heroImage?.image,
+    imageAlt: p?.heroImage?.alt,
+  });
 }
 
 // ── Page Component ──

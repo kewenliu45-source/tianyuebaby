@@ -5,6 +5,7 @@ import { MessageCircle } from "lucide-react";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { PageBanner } from "@/components/shared/page-banner";
 import { fetchJourneyPageData } from "@/sanity/lib/fetchers";
+import { buildPageMetadata, getBannerShareImage } from "@/lib/social-metadata";
 
 const DEFAULT_TITLE = "助孕流程";
 const DEFAULT_DESC =
@@ -13,19 +14,15 @@ const DEFAULT_DESC =
 export async function generateMetadata(): Promise<Metadata> {
   const { journey, siteSettings } = await fetchJourneyPageData();
   const seo = journey?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || DEFAULT_TITLE,
-    description: seo?.metaDescription || DEFAULT_DESC,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || DEFAULT_TITLE,
-      description: seo?.ogDescription || seo?.metaDescription || DEFAULT_DESC,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESC,
+    pathname: "/journey",
+    seo,
+    siteSettings,
+    image: getBannerShareImage(journey?.banners),
+  });
 }
 
 export default async function JourneyPage() {

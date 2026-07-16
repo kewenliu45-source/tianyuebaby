@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { fetchSiteSettings } from "@/sanity/lib/fetchers";
+import { buildPageMetadata } from "@/lib/social-metadata";
 
-export const metadata: Metadata = {
-  title: "海外生殖",
-  description:
-    "天悦宝贝为您提供海外辅助生殖咨询服务，覆盖美国、泰国、日本、格鲁吉亚等多个国家和地区的优质生殖医疗资源。",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await fetchSiteSettings();
+
+  return buildPageMetadata({
+    title: "海外生殖",
+    description:
+      "天悦宝贝为您提供海外辅助生殖咨询服务，覆盖美国、泰国、日本、格鲁吉亚等多个国家和地区的优质生殖医疗资源。",
+    pathname: "/overseas-fertility",
+    siteSettings,
+  });
+}
 
 export default function OverseasFertilityPage() {
   return (

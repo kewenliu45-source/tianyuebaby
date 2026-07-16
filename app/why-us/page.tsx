@@ -6,6 +6,7 @@ import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { PageBanner } from "@/components/shared/page-banner";
 import { fetchWhyUsPageData } from "@/sanity/lib/fetchers";
 import { cn } from "@/lib/utils";
+import { buildPageMetadata, getBannerShareImage } from "@/lib/social-metadata";
 
 const DEFAULT_TITLE = "为什么选择我们";
 const DEFAULT_DESC =
@@ -14,19 +15,15 @@ const DEFAULT_DESC =
 export async function generateMetadata(): Promise<Metadata> {
   const { whyUs, siteSettings } = await fetchWhyUsPageData();
   const seo = whyUs?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || DEFAULT_TITLE,
-    description: seo?.metaDescription || DEFAULT_DESC,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || DEFAULT_TITLE,
-      description: seo?.ogDescription || seo?.metaDescription || DEFAULT_DESC,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESC,
+    pathname: "/why-us",
+    seo,
+    siteSettings,
+    image: getBannerShareImage(whyUs?.banners),
+  });
 }
 
 export default async function WhyUsPage() {

@@ -7,6 +7,7 @@ import { PageBanner } from "@/components/shared/page-banner";
 import { ConsultationForm } from "@/components/shared/consultation-form";
 import { fetchAboutTianyuePageData } from "@/sanity/lib/fetchers";
 import { iconImageUrl, contentImageUrl } from "@/sanity/lib/image";
+import { buildPageMetadata, getBannerShareImage } from "@/lib/social-metadata";
 
 // ── 最小化 SEO Fallback ──
 
@@ -22,21 +23,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const { aboutTianyuePage: p, siteSettings } =
     await fetchAboutTianyuePageData();
   const seo = p?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || p?.pageTitle || FALLBACK_SEO.title,
-    description:
-      seo?.metaDescription || p?.pageDescription || FALLBACK_SEO.description,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || p?.pageTitle,
-      description:
-        seo?.ogDescription || seo?.metaDescription || p?.pageDescription,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: p?.pageTitle || FALLBACK_SEO.title,
+    description: p?.pageDescription || FALLBACK_SEO.description,
+    pathname: "/about-tianyue",
+    seo,
+    siteSettings,
+    image: getBannerShareImage(p?.banners) || p?.brandImage?.image,
+  });
 }
 
 // ── Page Component ──

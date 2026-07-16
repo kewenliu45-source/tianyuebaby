@@ -3,6 +3,7 @@ import { PageBanner } from "@/components/shared/page-banner";
 import { PortableTextRenderer } from "@/components/shared/portable-text";
 import { fetchPrivacyPageData } from "@/sanity/lib/fetchers";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
+import { buildPageMetadata, getBannerShareImage } from "@/lib/social-metadata";
 
 const DEFAULT_TITLE = "隐私政策";
 const DEFAULT_DESC =
@@ -11,19 +12,15 @@ const DEFAULT_DESC =
 export async function generateMetadata(): Promise<Metadata> {
   const { privacyPage, siteSettings } = await fetchPrivacyPageData();
   const seo = privacyPage?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || DEFAULT_TITLE,
-    description: seo?.metaDescription || DEFAULT_DESC,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || DEFAULT_TITLE,
-      description: seo?.ogDescription || seo?.metaDescription || DEFAULT_DESC,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: privacyPage?.pageTitle || DEFAULT_TITLE,
+    description: DEFAULT_DESC,
+    pathname: "/privacy",
+    seo,
+    siteSettings,
+    image: getBannerShareImage(privacyPage?.banners),
+  });
 }
 
 export default async function PrivacyPage() {

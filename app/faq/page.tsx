@@ -7,6 +7,7 @@ import { PageBanner } from "@/components/shared/page-banner";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { FaqList } from "@/components/shared/faq-list";
 import { fetchFaqPageData } from "@/sanity/lib/fetchers";
+import { buildPageMetadata, getBannerShareImage } from "@/lib/social-metadata";
 
 const DEFAULT_TITLE = "常见问题";
 const DEFAULT_DESC =
@@ -15,19 +16,15 @@ const DEFAULT_DESC =
 export async function generateMetadata(): Promise<Metadata> {
   const { faqPage, siteSettings } = await fetchFaqPageData();
   const seo = faqPage?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || DEFAULT_TITLE,
-    description: seo?.metaDescription || DEFAULT_DESC,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || DEFAULT_TITLE,
-      description: seo?.ogDescription || seo?.metaDescription || DEFAULT_DESC,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: faqPage?.pageTitle || DEFAULT_TITLE,
+    description: faqPage?.pageDescription || DEFAULT_DESC,
+    pathname: "/faq",
+    seo,
+    siteSettings,
+    image: getBannerShareImage(faqPage?.banners),
+  });
 }
 
 export default async function FaqPage() {

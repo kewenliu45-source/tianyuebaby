@@ -25,6 +25,7 @@ import {
   fetchNewsDetailPageData,
   fetchNewsSlugs,
 } from "@/sanity/lib/fetchers";
+import { buildPageMetadata } from "@/lib/social-metadata";
 import {
   urlForImage,
   cardImageUrl,
@@ -331,23 +332,25 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { article } = await fetchNewsDetailPageData(slug);
+  const { article, siteSettings } = await fetchNewsDetailPageData(slug);
 
   if (!article) {
     return { title: "文章未找到" };
   }
 
   const seo = article.seo;
-  return {
-    title: seo?.metaTitle || article.title,
-    description: seo?.metaDescription || article.excerpt,
-    keywords: seo?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || article.title,
-      description: seo?.ogDescription || article.excerpt,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-  };
+  return buildPageMetadata({
+    title: article.title,
+    description: article.excerpt,
+    pathname: `/news/${slug}`,
+    seo,
+    siteSettings,
+    image: article.coverImage?.image || article.banner?.desktopImage,
+    imageAlt: article.coverImage?.alt || article.banner?.alt,
+    type: "article",
+    publishedTime: article.publishedAt,
+    modifiedTime: article._updatedAt,
+  });
 }
 
 export default async function NewsDetailPage({

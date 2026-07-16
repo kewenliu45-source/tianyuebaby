@@ -20,6 +20,7 @@ import {
   fetchVideoSlugs,
 } from "@/sanity/lib/fetchers";
 import { urlForImage, articleImageUrl, cardImageUrl } from "@/sanity/lib/image";
+import { buildPageMetadata } from "@/lib/social-metadata";
 
 // ── 可信外部视频域名白名单 ──
 const TRUSTED_EMBED_DOMAINS = [
@@ -99,23 +100,25 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { video } = await fetchVideoDetailPageData(slug);
+  const { video, siteSettings } = await fetchVideoDetailPageData(slug);
 
   if (!video) {
     return { title: "视频未找到" };
   }
 
   const seo = video.seo;
-  return {
-    title: seo?.metaTitle || `${video.title} | 科普视频`,
-    description: seo?.metaDescription || video.excerpt,
-    keywords: seo?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || video.title,
-      description: seo?.ogDescription || video.excerpt,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-  };
+  return buildPageMetadata({
+    title: `${video.title} | 科普视频`,
+    description: video.excerpt,
+    pathname: `/videos/${slug}`,
+    seo,
+    siteSettings,
+    image: video.coverImage?.image,
+    imageAlt: video.coverImage?.alt,
+    type: "article",
+    publishedTime: video.publishedAt,
+    modifiedTime: video._updatedAt,
+  });
 }
 
 export default async function VideoDetailPage({

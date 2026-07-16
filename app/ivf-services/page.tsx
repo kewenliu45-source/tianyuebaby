@@ -23,6 +23,7 @@ import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { ServiceRegionsMap } from "@/components/shared/service-regions-map";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchIvfServicesPageData } from "@/sanity/lib/fetchers";
+import { buildPageMetadata } from "@/lib/social-metadata";
 import { contentImageUrl } from "@/sanity/lib/image";
 import type { ImageWithAlt } from "@/types/sanity";
 
@@ -76,21 +77,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const { ivfServicesPage: p, siteSettings } =
     await fetchIvfServicesPageData();
   const seo = p?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || p?.pageTitle || FALLBACK_SEO.title,
-    description:
-      seo?.metaDescription || p?.pageDescription || FALLBACK_SEO.description,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || p?.pageTitle,
-      description:
-        seo?.ogDescription || seo?.metaDescription || p?.pageDescription,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: p?.pageTitle || FALLBACK_SEO.title,
+    description: p?.pageDescription || FALLBACK_SEO.description,
+    pathname: "/ivf-services",
+    seo,
+    siteSettings,
+    image: p?.heroImage?.image,
+    imageAlt: p?.heroImage?.alt,
+  });
 }
 
 // ── Page Component ──

@@ -16,6 +16,7 @@ import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchVideosPageData } from "@/sanity/lib/fetchers";
 import { cardImageUrl, bannerImageUrl, contentImageUrl } from "@/sanity/lib/image";
 import type { VideosPage, ScienceVideo, ImageWithAlt } from "@/types/sanity";
+import { buildPageMetadata } from "@/lib/social-metadata";
 
 // ── 默认 SEO ──
 
@@ -86,21 +87,16 @@ function formatDate(dateStr?: string): string {
 export async function generateMetadata(): Promise<Metadata> {
   const { videosPage: p, siteSettings } = await fetchVideosPageData();
   const seo = p?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || p?.pageTitle || DEFAULT_SEO.title,
-    description:
-      seo?.metaDescription || p?.pageDescription || DEFAULT_SEO.description,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || p?.pageTitle,
-      description:
-        seo?.ogDescription || seo?.metaDescription || p?.pageDescription,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: p?.pageTitle || DEFAULT_SEO.title,
+    description: p?.pageDescription || DEFAULT_SEO.description,
+    pathname: "/videos",
+    seo,
+    siteSettings,
+    image: p?.heroImage?.image,
+    imageAlt: p?.heroImage?.alt,
+  });
 }
 
 // ── Page Component ──

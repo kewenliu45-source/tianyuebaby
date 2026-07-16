@@ -19,6 +19,7 @@ import { fetchHomePageData } from "@/sanity/lib/fetchers";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { contentImageUrl } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils";
+import { buildPageMetadata, getBannerShareImage } from "@/lib/social-metadata";
 
 // ── 最小化 SEO Fallback ──
 
@@ -33,25 +34,22 @@ const FALLBACK_SEO = {
 export async function generateMetadata(): Promise<Metadata> {
   const { homePage, siteSettings } = await fetchHomePageData();
   const seo = homePage?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || siteSettings?.siteName || FALLBACK_SEO.title,
+  return buildPageMetadata({
+    title: siteSettings?.siteName || FALLBACK_SEO.title,
     description:
-      seo?.metaDescription ||
       siteSettings?.description ||
       FALLBACK_SEO.description,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || siteSettings?.siteName,
-      description:
-        seo?.ogDescription ||
-        seo?.metaDescription ||
-        siteSettings?.description,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+    pathname: "/",
+    seo,
+    siteSettings,
+    image:
+      homePage?.hero?.desktopImage?.image ||
+      homePage?.heroImage?.image ||
+      getBannerShareImage(homePage?.banners),
+    imageAlt:
+      homePage?.hero?.desktopImage?.alt || homePage?.heroImage?.alt,
+  });
 }
 
 // ── Icon 映射 ──

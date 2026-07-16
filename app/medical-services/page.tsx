@@ -23,6 +23,7 @@ import {
 import { ConsultationForm } from "@/components/shared/consultation-form";
 import { fetchMedicalServicesPageData } from "@/sanity/lib/fetchers";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
+import { buildPageMetadata } from "@/lib/social-metadata";
 import { bannerImageUrl, contentImageUrl } from "@/sanity/lib/image";
 import type {
   MedicalServicesPage,
@@ -294,21 +295,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const { medicalServicesPage: p, siteSettings } =
     await fetchMedicalServicesPageData();
   const seo = p?.seo;
-  const fallback = siteSettings?.defaultSeo;
-
-  return {
-    title: seo?.metaTitle || p?.pageTitle || DEFAULT_SEO.title,
-    description:
-      seo?.metaDescription || p?.pageDescription || DEFAULT_SEO.description,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || p?.pageTitle,
-      description:
-        seo?.ogDescription || seo?.metaDescription || p?.pageDescription,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: p?.pageTitle || DEFAULT_SEO.title,
+    description: p?.pageDescription || DEFAULT_SEO.description,
+    pathname: "/medical-services",
+    seo,
+    siteSettings,
+    image: p?.heroImage?.image,
+    imageAlt: p?.heroImage?.alt,
+  });
 }
 
 // ── Page Component ──

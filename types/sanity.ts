@@ -354,6 +354,7 @@ export interface PrivacyPage {
 export interface NewsArticle {
   _id: string;
   _type: "newsArticle";
+  _updatedAt?: string;
   title: string;
   slug: Slug;
   category?: NewsCategoryRef;
@@ -1188,6 +1189,7 @@ export interface VideoCategoryRef {
 export interface ScienceVideo {
   _id: string;
   _type: "scienceVideo";
+  _updatedAt?: string;
   title: string;
   slug: Slug;
   excerpt?: string;

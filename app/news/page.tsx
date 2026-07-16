@@ -16,6 +16,7 @@ import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchNewsListPageData } from "@/sanity/lib/fetchers";
 import { bannerImageUrl, contentImageUrl } from "@/sanity/lib/image";
 import type { ImageWithAlt } from "@/types/sanity";
+import { buildPageMetadata } from "@/lib/social-metadata";
 
 // ── 默认 SEO ──
 
@@ -113,21 +114,16 @@ function getTimelineIcon(iconName?: string) {
 export async function generateMetadata(): Promise<Metadata> {
   const { siteSettings, newsPage } = await fetchNewsListPageData();
   const seo = newsPage?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || newsPage?.pageTitle || DEFAULT_TITLE,
-    description:
-      seo?.metaDescription || newsPage?.pageDescription || DEFAULT_DESC,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || newsPage?.pageTitle,
-      description:
-        seo?.ogDescription || seo?.metaDescription || newsPage?.pageDescription,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: newsPage?.pageTitle || DEFAULT_TITLE,
+    description: newsPage?.pageDescription || DEFAULT_DESC,
+    pathname: "/news",
+    seo,
+    siteSettings,
+    image: newsPage?.heroImage?.image,
+    imageAlt: newsPage?.heroImage?.alt,
+  });
 }
 
 // ── Page Component ──

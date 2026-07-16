@@ -415,6 +415,7 @@ export const newsListPageQuery = `{
 export const newsArticleBySlugQuery = `*[_type == "newsArticle" && slug.current == $slug][0]{
   _id,
   _type,
+  _updatedAt,
   title,
   slug,
   excerpt,
@@ -1506,6 +1507,7 @@ export const videosPageDataQuery = `{
 export const scienceVideoBySlugQuery = `*[_type == "scienceVideo" && slug.current == $slug][0]{
   _id,
   _type,
+  _updatedAt,
   title,
   slug,
   excerpt,

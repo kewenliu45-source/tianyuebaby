@@ -6,6 +6,7 @@ import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { PageBanner } from "@/components/shared/page-banner";
 import { fetchIntendedParentsPageData } from "@/sanity/lib/fetchers";
 import { cn } from "@/lib/utils";
+import { buildPageMetadata, getBannerShareImage } from "@/lib/social-metadata";
 
 const DEFAULT_TITLE = "关于准父母";
 const DEFAULT_DESC =
@@ -15,19 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const { intendedParents, siteSettings } =
     await fetchIntendedParentsPageData();
   const seo = intendedParents?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || DEFAULT_TITLE,
-    description: seo?.metaDescription || DEFAULT_DESC,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || DEFAULT_TITLE,
-      description: seo?.ogDescription || seo?.metaDescription || DEFAULT_DESC,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESC,
+    pathname: "/intended-parents",
+    seo,
+    siteSettings,
+    image: getBannerShareImage(intendedParents?.banners),
+  });
 }
 
 export default async function IntendedParentsPage() {

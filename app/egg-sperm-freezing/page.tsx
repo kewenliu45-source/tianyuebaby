@@ -23,6 +23,7 @@ import { ConsultationForm } from "@/components/shared/consultation-form";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { ArticleJsonLd } from "@/components/seo/article-json-ld";
+import { buildPageMetadata } from "@/lib/social-metadata";
 import { fetchEggSpermFreezingPageData } from "@/sanity/lib/fetchers";
 import { contentImageUrl, bannerImageUrl } from "@/sanity/lib/image";
 import type { EggSpermFreezingPage, ImageWithAlt } from "@/types/sanity";
@@ -122,21 +123,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const { eggSpermFreezingPage: p, siteSettings } =
     await fetchEggSpermFreezingPageData();
   const seo = p?.seo;
-  const fallback = siteSettings?.defaultSeo;
 
-  return {
-    title: seo?.metaTitle || p?.pageTitle || FALLBACK_SEO.title,
-    description:
-      seo?.metaDescription || p?.pageDescription || FALLBACK_SEO.description,
-    keywords: seo?.keywords || fallback?.keywords,
-    openGraph: {
-      title: seo?.ogTitle || seo?.metaTitle || p?.pageTitle,
-      description:
-        seo?.ogDescription || seo?.metaDescription || p?.pageDescription,
-    },
-    robots: seo?.noIndex ? "noindex" : "index, follow",
-    ...(seo?.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
-  };
+  return buildPageMetadata({
+    title: p?.pageTitle || FALLBACK_SEO.title,
+    description: p?.pageDescription || FALLBACK_SEO.description,
+    pathname: "/egg-sperm-freezing",
+    seo,
+    siteSettings,
+    image: p?.heroImage?.image,
+    imageAlt: p?.heroImage?.alt,
+  });
 }
 
 // ── Content Block 渲染器 ──
