@@ -1,7 +1,7 @@
 interface ArticleJsonLdProps {
   title: string;
   description: string;
-  image?: string;
+  image?: string | string[];
   datePublished: string;
   dateModified?: string;
   authorName?: string;

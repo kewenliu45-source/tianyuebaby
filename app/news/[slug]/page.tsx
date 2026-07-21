@@ -125,6 +125,15 @@ function getServiceIcon(name?: string) {
   }
 }
 
+function getArticleImageUrl(image: unknown, width: number, height: number) {
+  return urlForImage(image as Parameters<typeof urlForImage>[0])
+    .width(width)
+    .height(height)
+    .fit("crop")
+    .format("jpg")
+    .url();
+}
+
 // ── Sidebar 组件（服务端） ──
 
 function DetailSidebar({
@@ -380,22 +389,29 @@ export default async function NewsDetailPage({
         >[0]
       )
     : "/images/site/brand-consult-bg.png";
+  const articleImageSource =
+    article.coverImage?.image || article.banner?.desktopImage;
+  const articleImageAlt =
+    article.coverImage?.alt || article.banner?.alt || article.title;
+  const articleCoverImageUrl = articleImageSource
+    ? getArticleImageUrl(articleImageSource, 1200, 675)
+    : null;
+  const structuredArticleImages = articleImageSource
+    ? [
+        getArticleImageUrl(articleImageSource, 1200, 630),
+        getArticleImageUrl(articleImageSource, 800, 800),
+        getArticleImageUrl(articleImageSource, 1200, 900),
+      ]
+    : undefined;
 
   return (
     <>
       <ArticleJsonLd
         title={article.title}
         description={article.excerpt || ""}
-        image={
-          article.coverImage?.image
-            ? urlForImage(
-                article.coverImage.image as unknown as Parameters<
-                  typeof urlForImage
-                >[0]
-              ).url()
-            : undefined
-        }
+        image={structuredArticleImages}
         datePublished={article.publishedAt}
+        dateModified={article._updatedAt}
         authorName="天悦宝贝"
         url={`https://zhuyunbaby.com/news/${slug}`}
       />
@@ -453,6 +469,19 @@ export default async function NewsDetailPage({
                   )}
                 </div>
               </header>
+
+              {articleCoverImageUrl && (
+                <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-xl bg-white ring-1 ring-[#e5e7eb]">
+                  <Image
+                    src={articleCoverImageUrl}
+                    alt={articleImageAlt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 860px"
+                    priority
+                  />
+                </div>
+              )}
 
               {/* 正文 */}
               <div className="bg-white rounded-xl ring-1 ring-[#e5e7eb] p-6 lg:p-8">
