@@ -391,11 +391,6 @@ export default async function NewsDetailPage({
     : "/images/site/brand-consult-bg.png";
   const articleImageSource =
     article.coverImage?.image || article.banner?.desktopImage;
-  const articleImageAlt =
-    article.coverImage?.alt || article.banner?.alt || article.title;
-  const articleCoverImageUrl = articleImageSource
-    ? getArticleImageUrl(articleImageSource, 1200, 675)
-    : null;
   const structuredArticleImages = articleImageSource
     ? [
         getArticleImageUrl(articleImageSource, 1200, 630),
@@ -469,19 +464,6 @@ export default async function NewsDetailPage({
                   )}
                 </div>
               </header>
-
-              {articleCoverImageUrl && (
-                <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-xl bg-white ring-1 ring-[#e5e7eb]">
-                  <Image
-                    src={articleCoverImageUrl}
-                    alt={articleImageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 860px"
-                    priority
-                  />
-                </div>
-              )}
 
               {/* 正文 */}
               <div className="bg-white rounded-xl ring-1 ring-[#e5e7eb] p-6 lg:p-8">
