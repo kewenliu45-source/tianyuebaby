@@ -43,6 +43,12 @@ export async function generateMetadata(): Promise<Metadata> {
     pathname: "/",
     seo,
     siteSettings,
+    staticImage: {
+      url: "/images/share.jpg",
+      width: 600,
+      height: 600,
+      alt: siteSettings?.siteName || FALLBACK_SEO.title,
+    },
     image:
       homePage?.hero?.desktopImage?.image ||
       homePage?.heroImage?.image ||

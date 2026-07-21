@@ -2,14 +2,18 @@ interface OrganizationJsonLdProps {
   name: string;
   description: string;
   phone: string;
+  logo?: string;
+  image?: string;
 }
 
 export function OrganizationJsonLd({
   name,
   description,
   phone,
+  logo,
+  image,
 }: OrganizationJsonLdProps) {
-  const jsonLd = {
+  const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name,
@@ -17,6 +21,13 @@ export function OrganizationJsonLd({
     telephone: phone,
     url: "https://zhuyunbaby.com",
   };
+
+  if (logo) {
+    jsonLd.logo = logo;
+  }
+  if (image) {
+    jsonLd.image = image;
+  }
 
   return (
     <script

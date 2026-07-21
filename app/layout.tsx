@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { DesktopWechatFloat } from "@/components/layout/desktop-wechat-float";
 import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
+import { WebSiteJsonLd } from "@/components/seo/website-json-ld";
 import { fetchLayoutData } from "@/sanity/lib/fetchers";
 import { urlForImage } from "@/sanity/lib/image";
 import { buildPageMetadata, getPublicSiteUrl } from "@/lib/social-metadata";
@@ -60,6 +61,9 @@ export default async function RootLayout({
 
   const brandName = siteSettings?.siteName || "天悦宝贝（国际）助孕中心";
   const phone = siteSettings?.phone || "400-123-4567";
+  const siteUrl = getPublicSiteUrl();
+  const logoUrl = `${siteUrl}/images/site/tianyue-logo-mark.png`;
+  const shareImageUrl = `${siteUrl}/images/share.jpg`;
 
   return (
     <html lang="zh-CN" className={cn("font-sans", geist.variable)}>
@@ -71,6 +75,13 @@ export default async function RootLayout({
             "专注助孕咨询服务，为有需要的家庭提供专业、贴心的助孕方案咨询与全程陪伴服务。"
           }
           phone={phone}
+          logo={logoUrl}
+          image={shareImageUrl}
+        />
+        <WebSiteJsonLd
+          name={brandName}
+          url={siteUrl}
+          image={shareImageUrl}
         />
         <SiteHeader siteSettings={siteSettings} />
         <div className="flex-1">{children}</div>

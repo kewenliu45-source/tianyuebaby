@@ -21,6 +21,7 @@ interface BuildPageMetadataOptions {
   seo?: Seo | null;
   siteSettings?: SiteSettings | null;
   image?: SanityImage | null;
+  staticImage?: Partial<SocialImage> & { url: string };
   imageAlt?: string;
   type?: PageType;
   publishedTime?: string;
@@ -80,16 +81,30 @@ function buildSanityImage(
 }
 
 function resolveSocialImages({
+  staticImage,
   pageImage,
   defaultImage,
   alt,
   siteUrl,
 }: {
+  staticImage?: Partial<SocialImage> & { url: string };
   pageImage?: SanityImage | null;
   defaultImage?: SanityImage | null;
   alt: string;
   siteUrl: string;
 }): { openGraph: SocialImage; twitter: SocialImage } {
+  if (staticImage) {
+    const image = {
+      url: toAbsoluteUrl(staticImage.url, siteUrl),
+      width: staticImage.width || 600,
+      height: staticImage.height || 600,
+      type: staticImage.type || ("image/jpeg" as const),
+      alt: staticImage.alt || alt,
+    };
+
+    return { openGraph: image, twitter: image };
+  }
+
   const image = pageImage || defaultImage;
 
   if (image) {
@@ -122,6 +137,7 @@ export function buildPageMetadata({
   seo,
   siteSettings,
   image,
+  staticImage,
   imageAlt,
   type = "website",
   publishedTime,
@@ -135,6 +151,7 @@ export function buildPageMetadata({
   const canonical = seo?.canonicalUrl || toAbsoluteUrl(pathname, siteUrl);
   const alt = imageAlt || socialTitle;
   const images = resolveSocialImages({
+    staticImage,
     pageImage: seo?.ogImage || image,
     defaultImage: siteSettings?.defaultShareImage,
     alt,
