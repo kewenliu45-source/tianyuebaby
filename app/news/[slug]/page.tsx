@@ -390,7 +390,9 @@ export default async function NewsDetailPage({
       )
     : "/images/site/brand-consult-bg.png";
   const articleImageSource =
-    article.coverImage?.image || article.banner?.desktopImage;
+    article.seo?.ogImage ||
+    article.coverImage?.image ||
+    article.banner?.desktopImage;
   const structuredArticleImages = articleImageSource
     ? [
         getArticleImageUrl(articleImageSource, 1200, 630),
