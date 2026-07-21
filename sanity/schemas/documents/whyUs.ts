@@ -11,7 +11,7 @@ export const whyUs = defineType({
       title: "Banner 轮播",
       type: "array",
       of: [{ type: "bannerSlide" }],
-      description: '前台位置：页面顶部轮播大图。是否建议修改：建议改。修改效果：影响页面首屏视觉。注意：建议 1-3 张，桌面图 1920×600px。',
+      description: '前台位置：页面顶部轮播大图。是否建议修改：建议改。修改效果：影响页面首屏视觉。注意：建议 1-3 张，桌面图 1920×600px，手机图 750×600px。',
     }),
 
     // ── 机构介绍 ──

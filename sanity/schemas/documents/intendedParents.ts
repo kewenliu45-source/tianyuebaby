@@ -9,7 +9,7 @@ export const intendedParents = defineType({
     defineField({
       name: "banners",
       title: "Banner 轮播",
-      description: "前台位置：页面顶部轮播图。可不改。修改效果：更换页面顶部大图。",
+      description: "前台位置：页面顶部轮播图。是否建议修改：建议改。修改效果：更换页面顶部大图和文案。注意：桌面图建议 1920×600 像素，手机图建议 750×600 像素，手机图留空则使用桌面图。",
       type: "array",
       of: [{ type: "bannerSlide" }],
     }),

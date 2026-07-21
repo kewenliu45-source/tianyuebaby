@@ -15,7 +15,7 @@ export const thirdPartyAssistedReproductionPage = defineType({
     defineField({ name: "heroSubtitle", title: "Hero 副标题", type: "string", description: "前台位置：Hero 主标题下方的补充说明。是否建议改：建议改。修改效果：补充说明核心服务优势。注意：建议 15-30 字。" }),
     defineField({ name: "heroDescription", title: "Hero 描述", type: "text", rows: 3, description: "前台位置：Hero 区域的详细描述文字。是否建议改：建议改。修改效果：进一步介绍服务内容和优势。注意：建议 50-100 字。" }),
     defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: "前台位置：页面顶部大图背景。是否建议改：必改。修改效果：直接影响页面视觉效果和用户第一印象。注意：建议尺寸 1920x800px，文件大小不超过 500KB，格式为 JPG 或 WebP。" }),
-    defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 700×1000px（竖版），留空则使用桌面图。" }),
+    defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 900×1200px 竖图，主体居中，留空则使用桌面图。" }),
     defineField({ name: "publishedAt", title: "发布时间", type: "datetime", description: "前台位置：文章顶部显示的发布日期。是否建议改：可不改。修改效果：显示文章发布时间，增强可信度。注意：默认使用文档创建时间。" }),
     defineField({ name: "readingTime", title: "阅读时长", type: "string", description: "前台位置：文章顶部显示的预计阅读时间。是否建议改：可不改。修改效果：帮助用户预估阅读时间。注意：填写格式如\"5 分钟\"。" }),
     defineField({ name: "authorName", title: "作者姓名", type: "string", description: "前台位置：文章顶部显示的作者名称。是否建议改：建议改。修改效果：显示文章作者，增强专业性和可信度。注意：建议使用医生或专家真实姓名。" }),

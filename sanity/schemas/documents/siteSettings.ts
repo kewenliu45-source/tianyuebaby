@@ -147,7 +147,7 @@ export const siteSettings = defineType({
       title: "默认 Banner",
       type: "bannerSlide",
       description:
-        '前台位置：未配置专属 Banner 的页面顶部轮播区。是否建议修改：建议改。修改效果：作为全站默认的顶部大图。注意：建议桌面图 2400×800px。',
+        '前台位置：未配置专属 Banner 的页面顶部轮播区。是否建议修改：建议改。修改效果：作为全站默认的顶部大图。注意：桌面图建议 1920×600px，手机图建议 750×600px。',
     }),
 
     // ── 导航显示文字 ──

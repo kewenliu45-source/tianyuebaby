@@ -11,7 +11,7 @@ export const homePage = defineType({
       title: "Banner 轮播",
       type: "array",
       of: [{ type: "bannerSlide" }],
-      description: "前台位置：首页顶部轮播区域。是否建议修改：建议改。修改效果：替换首页最上方的轮播图和文案。注意：建议保留 2-4 张，图片尺寸保持一致（建议 2400×800 px）。",
+      description: "前台位置：首页顶部轮播区域。是否建议修改：建议改。修改效果：替换首页最上方的轮播图和文案。注意：建议保留 2-4 张；普通轮播桌面图建议 1920×600px，手机图建议 750×600px，图片尺寸保持一致。",
     }),
 
     // ── 首屏 Hero 图 ──
@@ -39,7 +39,7 @@ export const homePage = defineType({
           name: "mobileImage",
           title: "移动端大图",
           type: "imageWithAlt",
-          description: "前台位置：手机端首屏全屏背景图。是否建议修改：必改。修改效果：决定手机访客首屏视觉体验。注意：建议 900×1200 px，主体居中，300KB 以内，WebP/JPG 格式。",
+          description: "前台位置：手机端首屏全屏背景图。是否建议修改：必改。修改效果：决定手机访客首屏视觉体验。注意：建议 900×1200px 竖图，主体居中，300KB 以内，WebP/JPG 格式。",
         }),
         defineField({
           name: "overlayStrength",

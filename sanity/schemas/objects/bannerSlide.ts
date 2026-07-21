@@ -18,7 +18,7 @@ export const bannerSlide = defineType({
       title: "移动端图片",
       type: "image",
       options: { hotspot: true },
-      description: '前台位置：手机端 Banner 大图。是否建议修改：建议改。修改效果：影响手机端页面顶部视觉。注意：建议 750×600px，留空则使用桌面图。',
+      description: '前台位置：手机端 Banner 大图。是否建议修改：建议改。修改效果：影响手机端页面顶部视觉。注意：建议 750×600px，WebP/JPG 格式，留空则使用桌面图片。',
     }),
     defineField({
       name: "alt",

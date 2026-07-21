@@ -15,7 +15,7 @@ export const privateCustomizationPage = defineType({
     defineField({ name: "heroSubtitle", title: "Hero 副标题", type: "string", description: '前台位置：Hero 主标题下方。是否建议修改：建议改。修改效果：补充说明主标题。' }),
     defineField({ name: "heroDescription", title: "Hero 描述", type: "text", rows: 3, description: '前台位置：Hero 区域描述文字。是否建议修改：建议改。修改效果：详细介绍私人订制服务。注意：建议 30-80 字。' }),
     defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: '前台位置：Hero 区域背景图。是否建议修改：建议改。修改效果：影响页面第一印象。注意：建议 1920×800px，500KB 以内。' }),
-    defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 700×1000px（竖版），留空则使用桌面图。" }),
+    defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 900×1200px 竖图，主体居中，留空则使用桌面图。" }),
     defineField({ name: "publishedAt", title: "发布时间", type: "datetime", description: '前台位置：页面发布时间显示。是否建议修改：可不改。修改效果：展示内容发布时间。' }),
     defineField({ name: "readingTime", title: "阅读时长", type: "string", description: '前台位置：页面阅读时长标识。是否建议修改：可不改。修改效果：告知用户预计阅读时间。注意：如「12 分钟」。' }),
     defineField({ name: "authorName", title: "作者姓名", type: "string", description: '前台位置：页面作者姓名。是否建议修改：建议改。修改效果：展示内容作者。' }),

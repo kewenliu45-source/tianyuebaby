@@ -11,7 +11,7 @@ export const startJourney = defineType({
       title: "Banner 轮播",
       type: "array",
       of: [{ type: "bannerSlide" }],
-      description: "前台位置：页面顶部轮播图区域。是否建议修改：建议改。修改效果：更换或增删页面顶部的轮播幻灯片。注意：每张幻灯片需设置桌面图和 Alt 文本。",
+      description: "前台位置：页面顶部轮播图区域。是否建议修改：建议改。修改效果：更换或增删页面顶部的轮播幻灯片。注意：桌面图建议 1920×600 像素，手机图建议 750×600 像素；每张幻灯片需设置桌面图和 Alt 文本。",
     }),
 
     // ── 联系信息 ──
