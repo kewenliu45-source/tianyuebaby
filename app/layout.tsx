@@ -49,6 +49,9 @@ export async function generateMetadata(): Promise<Metadata> {
           apple: faviconUrl,
         }
       : undefined,
+    other: {
+      sogou_site_verification: "neLbgHn7i1",
+    },
   };
 }
 
