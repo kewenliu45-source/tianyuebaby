@@ -78,7 +78,7 @@ export default async function AboutTianyuePage() {
       <section className="py-10 lg:py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-6 lg:gap-10 items-center max-w-6xl mx-auto">
-            <div className="flow-root max-w-[34rem] mx-auto lg:max-w-none lg:mx-0 lg:text-left">
+            <div className="relative max-w-[34rem] mx-auto lg:max-w-none lg:mx-0 lg:text-left">
               <h1 className="text-[1.75rem] md:text-4xl font-bold text-foreground leading-tight mb-5 text-center lg:text-left">
                 {brandTitle}
               </h1>
@@ -87,27 +87,24 @@ export default async function AboutTianyuePage() {
                 alt={brandImageAlt}
                 width={320}
                 height={420}
-                className="float-right mb-1 ml-4 h-auto w-[46vw] min-w-[9.5rem] max-w-[14rem] object-contain object-top lg:hidden"
-                sizes="(max-width: 1024px) 46vw"
+                className="absolute right-0 top-[4.5rem] h-auto w-[52vw] min-w-[11rem] max-w-[16rem] object-contain object-top lg:hidden"
+                sizes="(max-width: 1024px) 52vw"
                 loading="lazy"
-                style={{
-                  shapeMargin: "0.5rem",
-                  shapeOutside:
-                    "polygon(42% 0, 100% 0, 100% 100%, 48% 100%, 34% 76%, 0 62%, 0 34%)",
-                }}
               />
               {brandDescription ? (
                 brandDescription.split("\n").map((para, i) => (
                   <p
                     key={i}
-                    className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left"
+                    className={`text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left ${
+                      i === 0 ? "min-h-[15rem] pr-[50vw] lg:min-h-0 lg:pr-0" : ""
+                    }`}
                   >
                     {para}
                   </p>
                 ))
               ) : (
                 <>
-                  <p className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left">
+                  <p className="min-h-[15rem] pr-[50vw] text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left lg:min-h-0 lg:pr-0">
                     天悦宝贝（国际）助孕中心是一家专注于助孕咨询服务的机构。我们秉承&ldquo;专业、贴心、科学、安全&rdquo;的服务理念，致力于为有需要的家庭提供高质量的助孕方案咨询与全程陪伴服务。
                   </p>
                   <p className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed text-left">
