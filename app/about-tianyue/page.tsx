@@ -73,41 +73,41 @@ export default async function AboutTianyuePage() {
       />
 
       {/* 品牌介绍 */}
-      <section className="py-16 lg:py-20 bg-white">
+      <section className="py-10 lg:py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-10 items-center max-w-6xl mx-auto">
-            <div className="lg:text-left">
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-center lg:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-6 lg:gap-10 items-center max-w-6xl mx-auto">
+            <div className="max-w-[34rem] mx-auto lg:max-w-none lg:mx-0 lg:text-left">
+              <h1 className="text-[1.75rem] md:text-4xl font-bold text-foreground leading-tight mb-5 text-center lg:text-left">
                 {brandTitle}
               </h1>
               {brandDescription ? (
                 brandDescription.split("\n").map((para, i) => (
                   <p
                     key={i}
-                    className="text-muted-foreground leading-relaxed mb-4 text-left"
+                    className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left"
                   >
                     {para}
                   </p>
                 ))
               ) : (
                 <>
-                  <p className="text-muted-foreground leading-relaxed mb-4 text-left">
+                  <p className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left">
                     天悦宝贝（国际）助孕中心是一家专注于助孕咨询服务的机构。我们秉承&ldquo;专业、贴心、科学、安全&rdquo;的服务理念，致力于为有需要的家庭提供高质量的助孕方案咨询与全程陪伴服务。
                   </p>
-                  <p className="text-muted-foreground leading-relaxed text-left">
+                  <p className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed text-left">
                     凭借多年的行业经验和广泛的资源网络，天悦宝贝已成为众多家庭信赖的选择。
                   </p>
                 </>
               )}
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-[17rem] overflow-hidden rounded-xl lg:max-w-none">
               {brandImageUrl ? (
                 <Image
                   src={brandImageUrl}
                   alt={p?.brandImage?.alt || "天悦宝贝顾问团队"}
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 420px"
+                  className="object-contain lg:object-cover"
+                  sizes="(max-width: 1024px) 272px, 420px"
                   loading="lazy"
                 />
               ) : (
@@ -115,8 +115,8 @@ export default async function AboutTianyuePage() {
                   src="/images/site/care-team.png"
                   alt="天悦宝贝顾问团队"
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 420px"
+                  className="object-contain lg:object-cover"
+                  sizes="(max-width: 1024px) 272px, 420px"
                   loading="lazy"
                 />
               )}
