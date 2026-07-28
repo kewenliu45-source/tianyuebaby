@@ -82,13 +82,20 @@ export default async function AboutTianyuePage() {
               <h1 className="text-[1.75rem] md:text-4xl font-bold text-foreground leading-tight mb-5 text-center lg:text-left">
                 {brandTitle}
               </h1>
-              <div className="relative float-right mb-2 ml-4 aspect-[3/4] w-[38vw] min-w-[8rem] max-w-[11rem] overflow-hidden rounded-xl lg:hidden">
+              <div
+                className="relative float-right mb-1 ml-4 aspect-[5/6] w-[36vw] min-w-[7.75rem] max-w-[10.5rem] overflow-hidden rounded-xl lg:hidden"
+                style={{
+                  shapeMargin: "0.5rem",
+                  shapeOutside:
+                    "polygon(42% 0, 100% 0, 100% 100%, 48% 100%, 34% 76%, 0 62%, 0 34%)",
+                }}
+              >
                 <Image
                   src={brandImageSrc}
                   alt={brandImageAlt}
                   fill
-                  className="object-contain"
-                  sizes="(max-width: 1024px) 42vw"
+                  className="object-contain object-top"
+                  sizes="(max-width: 1024px) 36vw"
                   loading="lazy"
                 />
               </div>
