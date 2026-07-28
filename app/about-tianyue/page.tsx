@@ -82,23 +82,20 @@ export default async function AboutTianyuePage() {
               <h1 className="text-[1.75rem] md:text-4xl font-bold text-foreground leading-tight mb-5 text-center lg:text-left">
                 {brandTitle}
               </h1>
-              <div
-                className="relative float-right mb-1 ml-4 aspect-[4/5] w-[44vw] min-w-[9rem] max-w-[13rem] overflow-hidden rounded-xl lg:hidden"
+              <Image
+                src={brandImageSrc}
+                alt={brandImageAlt}
+                width={320}
+                height={420}
+                className="float-right mb-1 ml-4 h-auto w-[46vw] min-w-[9.5rem] max-w-[14rem] object-contain object-top lg:hidden"
+                sizes="(max-width: 1024px) 46vw"
+                loading="lazy"
                 style={{
                   shapeMargin: "0.5rem",
                   shapeOutside:
                     "polygon(42% 0, 100% 0, 100% 100%, 48% 100%, 34% 76%, 0 62%, 0 34%)",
                 }}
-              >
-                <Image
-                  src={brandImageSrc}
-                  alt={brandImageAlt}
-                  fill
-                  className="object-contain object-top"
-                  sizes="(max-width: 1024px) 44vw"
-                  loading="lazy"
-                />
-              </div>
+              />
               {brandDescription ? (
                 brandDescription.split("\n").map((para, i) => (
                   <p
