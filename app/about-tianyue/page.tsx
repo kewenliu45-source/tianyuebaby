@@ -60,6 +60,8 @@ export default async function AboutTianyuePage() {
         p.brandImage.image as unknown as Parameters<typeof contentImageUrl>[0]
       )
     : null;
+  const brandImageSrc = brandImageUrl || "/images/site/care-team.png";
+  const brandImageAlt = p?.brandImage?.alt || "天悦宝贝顾问团队";
 
   // 联系模块
   const contactTitle = p?.contactTitle || "联系我们";
@@ -76,10 +78,20 @@ export default async function AboutTianyuePage() {
       <section className="py-10 lg:py-20 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-6 lg:gap-10 items-center max-w-6xl mx-auto">
-            <div className="max-w-[34rem] mx-auto lg:max-w-none lg:mx-0 lg:text-left">
+            <div className="flow-root max-w-[34rem] mx-auto lg:max-w-none lg:mx-0 lg:text-left">
               <h1 className="text-[1.75rem] md:text-4xl font-bold text-foreground leading-tight mb-5 text-center lg:text-left">
                 {brandTitle}
               </h1>
+              <div className="relative float-right mb-2 ml-4 aspect-[3/4] w-[38vw] min-w-[8rem] max-w-[11rem] overflow-hidden rounded-xl lg:hidden">
+                <Image
+                  src={brandImageSrc}
+                  alt={brandImageAlt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 42vw"
+                  loading="lazy"
+                />
+              </div>
               {brandDescription ? (
                 brandDescription.split("\n").map((para, i) => (
                   <p
@@ -100,26 +112,15 @@ export default async function AboutTianyuePage() {
                 </>
               )}
             </div>
-            <div className="relative mx-auto aspect-[4/3] w-full max-w-[17rem] overflow-hidden rounded-xl lg:max-w-none">
-              {brandImageUrl ? (
-                <Image
-                  src={brandImageUrl}
-                  alt={p?.brandImage?.alt || "天悦宝贝顾问团队"}
-                  fill
-                  className="object-contain lg:object-cover"
-                  sizes="(max-width: 1024px) 272px, 420px"
-                  loading="lazy"
-                />
-              ) : (
-                <Image
-                  src="/images/site/care-team.png"
-                  alt="天悦宝贝顾问团队"
-                  fill
-                  className="object-contain lg:object-cover"
-                  sizes="(max-width: 1024px) 272px, 420px"
-                  loading="lazy"
-                />
-              )}
+            <div className="relative hidden aspect-[4/3] overflow-hidden rounded-xl lg:block">
+              <Image
+                src={brandImageSrc}
+                alt={brandImageAlt}
+                fill
+                className="object-cover"
+                sizes="420px"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
