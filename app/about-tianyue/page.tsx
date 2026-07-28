@@ -83,7 +83,7 @@ export default async function AboutTianyuePage() {
                 {brandTitle}
               </h1>
               <div
-                className="relative float-right mb-1 ml-4 aspect-[5/6] w-[36vw] min-w-[7.75rem] max-w-[10.5rem] overflow-hidden rounded-xl lg:hidden"
+                className="relative float-right mb-1 ml-4 aspect-[4/5] w-[44vw] min-w-[9rem] max-w-[13rem] overflow-hidden rounded-xl lg:hidden"
                 style={{
                   shapeMargin: "0.5rem",
                   shapeOutside:
@@ -95,7 +95,7 @@ export default async function AboutTianyuePage() {
                   alt={brandImageAlt}
                   fill
                   className="object-contain object-top"
-                  sizes="(max-width: 1024px) 36vw"
+                  sizes="(max-width: 1024px) 44vw"
                   loading="lazy"
                 />
               </div>
