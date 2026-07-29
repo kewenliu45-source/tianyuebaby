@@ -34,7 +34,7 @@ export function ProfessionalHomeHero({
 
   return (
     <section
-      className="relative aspect-[3/4] overflow-hidden bg-[#eaf2fb] md:aspect-auto md:min-h-[506px] lg:min-h-[650px]"
+      className="relative min-h-[calc(100vh-82px)] min-h-[calc(100svh-82px)] overflow-hidden bg-[#eaf2fb] md:min-h-[506px] lg:min-h-[650px]"
       aria-labelledby="home-hero-title"
     >
       <picture>
@@ -56,18 +56,18 @@ export function ProfessionalHomeHero({
         }}
       />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[rgba(7,30,63,0.55)] to-transparent" />
-      <div className="relative mx-auto flex min-h-full max-w-[1440px] items-center px-5 pb-28 pt-28 sm:px-8 md:min-h-[506px] lg:min-h-[650px] lg:px-12 lg:pb-32">
+      <div className="relative mx-auto flex min-h-[calc(100vh-82px)] min-h-[calc(100svh-82px)] max-w-[1440px] items-start px-5 pb-40 pt-24 sm:px-8 sm:pt-28 md:min-h-[506px] md:items-center md:pb-28 md:pt-28 lg:min-h-[650px] lg:px-12 lg:pb-32">
         <div className="max-w-[680px] text-white">
           <p className="mb-5 text-sm font-bold tracking-[.18em] text-[#bcd6ff] md:text-base">
             {hero?.eyebrow || "国际生育咨询与全流程服务"}
           </p>
           <h1
             id="home-hero-title"
-            className="text-[2.35rem] font-bold leading-[1.15] tracking-tight drop-shadow-sm sm:text-5xl lg:text-[3.65rem]"
+            className="text-[2rem] font-bold leading-[1.16] tracking-tight drop-shadow-sm sm:text-5xl sm:leading-[1.15] lg:text-[3.65rem]"
           >
             {hero?.title || "以专业判断，为每个家庭规划清晰的生育路径"}
           </h1>
-          <p className="mt-6 max-w-[610px] text-base leading-8 text-white/[0.86] md:text-lg">
+          <p className="mt-5 max-w-[610px] text-[15px] leading-7 text-white/[0.86] md:mt-6 md:text-lg md:leading-8">
             {hero?.description ||
               "汇聚专业顾问与全球医疗资源，从需求评估、方案规划到全流程陪伴，为您提供严谨、私密、个性化的咨询支持。"}
           </p>
