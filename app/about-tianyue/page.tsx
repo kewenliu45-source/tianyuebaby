@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import { Clock, MessageCircle } from "lucide-react";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
@@ -62,6 +61,12 @@ export default async function AboutTianyuePage() {
     : null;
   const brandImageSrc = brandImageUrl || "/images/site/care-team.png";
   const brandImageAlt = p?.brandImage?.alt || "天悦宝贝顾问团队";
+  const brandParagraphs = brandDescription
+    ? brandDescription.split("\n").filter(Boolean)
+    : [
+        "天悦宝贝（国际）助孕中心是一家专注于助孕咨询服务的机构。我们秉承“专业、贴心、科学、安全”的服务理念，致力于为有需要的家庭提供高质量的助孕方案咨询与全程陪伴服务。",
+        "凭借多年的行业经验和广泛的资源网络，天悦宝贝已成为众多家庭信赖的选择。",
+      ];
 
   // 联系模块
   const contactTitle = p?.contactTitle || "联系我们";
@@ -75,50 +80,30 @@ export default async function AboutTianyuePage() {
       />
 
       {/* 品牌介绍 */}
-      <section className="py-10 lg:py-20 bg-white">
+      <section className="bg-white py-8 lg:py-20">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-6 lg:gap-10 items-center max-w-6xl mx-auto">
-            <div className="relative max-w-[34rem] mx-auto lg:max-w-none lg:mx-0 lg:text-left">
-              <h1 className="text-[1.75rem] md:text-4xl font-bold text-foreground leading-tight mb-5 text-center lg:text-left">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-12">
+            <div className="mx-auto max-w-[37rem] lg:mx-0 lg:max-w-none lg:text-left">
+              <h1 className="mb-5 text-center text-[1.65rem] font-bold leading-tight text-foreground md:text-4xl lg:mb-6 lg:text-left">
                 {brandTitle}
               </h1>
-              <Image
-                src={brandImageSrc}
-                alt={brandImageAlt}
-                width={320}
-                height={420}
-                className="absolute right-0 top-[4.5rem] h-auto w-[52vw] min-w-[11rem] max-w-[16rem] object-contain object-top lg:hidden"
-                sizes="(max-width: 1024px) 52vw"
-                loading="lazy"
-              />
-              {brandDescription ? (
-                brandDescription.split("\n").map((para, i) => (
+              <div className="space-y-4">
+                {brandParagraphs.map((para, i) => (
                   <p
                     key={i}
-                    className={`text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left ${
-                      i === 0 ? "min-h-[15rem] pr-[50vw] lg:min-h-0 lg:pr-0" : ""
-                    }`}
+                    className="text-left text-[15px] leading-[1.9] text-muted-foreground md:text-base md:leading-relaxed"
                   >
                     {para}
                   </p>
-                ))
-              ) : (
-                <>
-                  <p className="min-h-[15rem] pr-[50vw] text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left lg:min-h-0 lg:pr-0">
-                    天悦宝贝（国际）助孕中心是一家专注于助孕咨询服务的机构。我们秉承&ldquo;专业、贴心、科学、安全&rdquo;的服务理念，致力于为有需要的家庭提供高质量的助孕方案咨询与全程陪伴服务。
-                  </p>
-                  <p className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed text-left">
-                    凭借多年的行业经验和广泛的资源网络，天悦宝贝已成为众多家庭信赖的选择。
-                  </p>
-                </>
-              )}
+                ))}
+              </div>
             </div>
-            <div className="relative hidden aspect-[4/3] overflow-hidden rounded-xl lg:block">
+            <div className="relative hidden aspect-[4/5] overflow-hidden rounded-lg border border-primary/10 bg-[linear-gradient(150deg,rgb(var(--secondary))_0%,#ffffff_58%,rgba(79,111,232,0.1)_100%)] lg:block">
               <Image
                 src={brandImageSrc}
                 alt={brandImageAlt}
                 fill
-                className="object-cover"
+                className="object-contain object-bottom p-6"
                 sizes="420px"
                 loading="lazy"
               />
