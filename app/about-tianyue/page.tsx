@@ -96,7 +96,7 @@ export default async function AboutTianyuePage() {
                   <p
                     key={i}
                     className={`text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left ${
-                      i === 0 ? "min-h-[15rem] pr-[50vw] lg:min-h-0 lg:pr-0" : ""
+                      i === 0 ? "pr-[50vw] lg:pr-0" : ""
                     }`}
                   >
                     {para}
@@ -104,7 +104,7 @@ export default async function AboutTianyuePage() {
                 ))
               ) : (
                 <>
-                  <p className="min-h-[15rem] pr-[50vw] text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left lg:min-h-0 lg:pr-0">
+                  <p className="pr-[50vw] text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed mb-4 text-left lg:pr-0">
                     天悦宝贝（国际）助孕中心是一家专注于助孕咨询服务的机构。我们秉承&ldquo;专业、贴心、科学、安全&rdquo;的服务理念，致力于为有需要的家庭提供高质量的助孕方案咨询与全程陪伴服务。
                   </p>
                   <p className="text-[15px] md:text-base text-muted-foreground leading-[1.85] md:leading-relaxed text-left">
