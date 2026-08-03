@@ -21,6 +21,8 @@ export const portableImage = defineType({
       title: "图片",
       type: "image",
       options: { hotspot: true },
+      description:
+        "前台位置：富文本正文内嵌图片。是否建议修改：建议改。修改效果：替换正文中的配图。注意：前台按 16:9 显示并使用 object-cover，建议 1280×720、1600×900 或 1920×1080，主体居中。",
       validation: (rule) => rule.required(),
     }),
     defineField({

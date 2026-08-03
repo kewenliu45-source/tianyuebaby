@@ -14,7 +14,7 @@ export const successCasesPage = defineType({
     defineField({ name: "heroTitle", title: "Hero 标题", type: "string", description: "前台位置：页面顶部横幅大标题。是否建议修改：建议改。修改效果：影响首屏视觉重点。" }),
     defineField({ name: "heroSubtitle", title: "Hero 副标题", type: "string", description: "前台位置：Hero 大标题下方的副标题。是否建议修改：建议改。修改效果：补充说明首屏信息。" }),
     defineField({ name: "heroDescription", title: "Hero 描述", type: "text", rows: 3, description: "前台位置：Hero 区域描述文字。是否建议修改：建议改。修改效果：首屏详细说明。" }),
-    defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: "前台位置：页面顶部横幅背景图。是否建议修改：建议改。修改效果：影响首屏视觉效果，建议尺寸 1920×800 像素以上。" }),
+    defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: "前台位置：页面顶部横幅背景图。是否建议修改：建议改。修改效果：影响首屏视觉效果。建议尺寸 1920×800 像素以上；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。" }),
     defineField({ name: "heroPrimaryButtonText", title: "主按钮文字", type: "string", description: "前台位置：Hero 区域主按钮文案。是否建议修改：可不改。修改效果：影响按钮显示文字。" }),
     defineField({ name: "heroPrimaryButtonLink", title: "主按钮链接", type: "string", description: "前台位置：Hero 主按钮跳转地址。是否建议修改：谨慎改。修改效果：影响按钮跳转目标。注意：站内用 /path 形式，不要填不存在的地址。" }),
 
@@ -83,7 +83,7 @@ export const successCasesPage = defineType({
     defineField({ name: "finalCtaDescription", title: "最终 CTA - 描述", type: "text", rows: 3, description: "前台位置：页面底部行动号召描述。是否建议修改：建议改。修改效果：影响底部引导说明文案。" }),
     defineField({ name: "finalCtaPrimaryButtonText", title: "主按钮文字", type: "string", description: "前台位置：底部 CTA 主按钮文案。是否建议修改：可不改。修改效果：影响按钮显示文字。" }),
     defineField({ name: "finalCtaPrimaryButtonLink", title: "主按钮链接", type: "string", description: "前台位置：底部 CTA 主按钮跳转地址。是否建议修改：谨慎改。修改效果：影响按钮跳转目标。注意：站内用 /path 形式，不要填不存在的地址。" }),
-    defineField({ name: "finalCtaBackgroundImage", title: "背景图片", type: "imageWithAlt", description: "前台位置：底部 CTA 区域背景图。是否建议修改：建议改。修改效果：影响底部视觉效果，建议尺寸 1920×600 像素以上。" }),
+    defineField({ name: "finalCtaBackgroundImage", title: "背景图片", type: "imageWithAlt", description: "前台位置：底部 CTA 区域背景图。是否建议修改：建议改。修改效果：影响底部视觉效果。建议尺寸 1920×600 像素以上；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。" }),
   ],
   preview: {
     prepare() {

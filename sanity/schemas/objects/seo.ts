@@ -50,7 +50,7 @@ export const seo = defineType({
       title: "社交分享图片（OG Image）",
       type: "image",
       options: { hotspot: true },
-      description: "当前页面在微信、微博、Twitter 等平台分享时优先使用此图。建议主体放在画面中央，微信会显示小方形缩略图；推荐上传不小于 800×800 的清晰 JPG/PNG，系统会按平台自动裁切。",
+      description: "当前页面在微信、微博、Twitter 等平台分享时优先使用此图。若主要用于微信缩略图，建议不小于 800×800；若用于标准社交分享，建议 1200×630。主体放在画面中央，系统和平台可能自动裁切。",
     }),
     defineField({
       name: "canonicalUrl",

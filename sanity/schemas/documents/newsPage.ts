@@ -57,7 +57,7 @@ export const newsPage = defineType({
       title: "Hero 背景图",
       type: "imageWithAlt",
       description:
-        '前台位置：新闻页面顶部背景图。是否建议修改：建议改。修改效果：影响页面第一印象。注意：建议 1920×600px，500KB 以内。',
+        '前台位置：新闻页面顶部背景图。是否建议修改：建议改。修改效果：影响页面第一印象。注意：建议 1920×600px，500KB 以内；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。',
     }),
     defineField({
       name: "mobileHeroImage",
@@ -110,7 +110,7 @@ export const newsPage = defineType({
             defineField({ name: "year", title: "年份", type: "string", description: '前台位置：时间轴节点年份标识。是否建议修改：建议改。修改效果：标识时间节点。注意：如「2020」或「2020年」。' }),
             defineField({ name: "title", title: "标题", type: "string", description: '前台位置：时间轴节点标题。是否建议修改：建议改。修改效果：概括该年重要事件。注意：建议 5-15 字。' }),
             defineField({ name: "description", title: "描述", type: "text", description: '前台位置：时间轴节点详细描述。是否建议修改：建议改。修改效果：补充说明事件详情。注意：建议 20-50 字。' }),
-            defineField({ name: "image", title: "图片", type: "imageWithAlt", description: '前台位置：时间轴节点配图。是否建议修改：建议改。修改效果：增强视觉表现力。注意：建议 400×300px。' }),
+            defineField({ name: "image", title: "图片", type: "imageWithAlt", description: '前台位置：时间轴节点配图。是否建议修改：建议改。修改效果：增强视觉表现力。注意：建议 400×300px，4:3 比例，主体居中。' }),
           ],
         },
       ],
@@ -194,7 +194,7 @@ export const newsPage = defineType({
       title: "侧栏资源图片",
       type: "imageWithAlt",
       description:
-        '前台位置：侧栏资源卡片配图。是否建议修改：建议改。修改效果：资源卡片的视觉展示。注意：建议 400×300px。',
+        '前台位置：侧栏资源卡片配图。是否建议修改：建议改。修改效果：资源卡片的视觉展示。注意：前台侧栏资源图按 16:9 object-cover 显示，建议 800×450 或 1200×675px，主体居中。',
     }),
 
     // ── Sidebar 专家 ──
@@ -292,7 +292,7 @@ export const newsPage = defineType({
       title: "品牌沉淀区背景图",
       type: "imageWithAlt",
       description:
-        '前台位置：品牌沉淀区背景大图。是否建议修改：建议改。修改效果：影响品牌沉淀区视觉效果。注意：建议 1920×800px。',
+        '前台位置：品牌沉淀区背景大图。是否建议修改：建议改。修改效果：影响品牌沉淀区视觉效果。注意：建议 1920×800px；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。',
     }),
 
     // ── 在线咨询区 ──
@@ -316,7 +316,7 @@ export const newsPage = defineType({
       title: "在线咨询区背景图",
       type: "imageWithAlt",
       description:
-        '前台位置：在线咨询 CTA 背景图。是否建议修改：建议改。修改效果：影响在线咨询区视觉效果。注意：建议 1920×600px。',
+        '前台位置：在线咨询 CTA 背景图。是否建议修改：建议改。修改效果：影响在线咨询区视觉效果。注意：建议 1920×600px；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。',
     }),
   ],
   preview: {

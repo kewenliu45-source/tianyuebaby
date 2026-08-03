@@ -50,7 +50,7 @@ export const medicalServicesPage = defineType({
       name: "heroImage",
       title: "Hero 背景图",
       type: "imageWithAlt",
-      description: "前台位置：页面顶部大图区域的背景图。是否建议修改：建议改。修改效果：直接影响页面视觉效果和用户第一印象。注意：建议尺寸 1920x800 像素，文件不超过 500KB。",
+      description: "前台位置：页面顶部大图区域的背景图。是否建议修改：建议改。修改效果：直接影响页面视觉效果和用户第一印象。注意：建议尺寸 1920x800 像素，文件不超过 500KB；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。",
     }),
     defineField({
       name: "mobileHeroImage",
@@ -97,7 +97,7 @@ export const medicalServicesPage = defineType({
             defineField({ name: "year", title: "年份", type: "string", description: "前台位置：时间轴节点显示的年份。是否建议修改：建议改。修改效果：标识时间节点。注意：格式如 2020、2021。" }),
             defineField({ name: "title", title: "标题", type: "string", description: "前台位置：时间轴节点的标题。是否建议修改：建议改。修改效果：概括该时间节点的核心事件。" }),
             defineField({ name: "description", title: "描述", type: "text", description: "前台位置：时间轴节点的详细描述。是否建议修改：建议改。修改效果：补充说明该时间节点的具体内容。" }),
-            defineField({ name: "image", title: "图片", type: "imageWithAlt", description: "前台位置：时间轴节点的配图。是否建议修改：建议改。修改效果：增强视觉展示效果。注意：建议尺寸 800x600 像素。" }),
+            defineField({ name: "image", title: "图片", type: "imageWithAlt", description: "前台位置：时间轴节点的配图。是否建议修改：建议改。修改效果：增强视觉展示效果。注意：前台显示为小图标/缩略图，建议使用 400x400 正方形图片或图标，主体居中，透明 PNG/WebP 优先。" }),
           ],
         },
       ],
@@ -129,7 +129,7 @@ export const medicalServicesPage = defineType({
       name: "introImage",
       title: "导语图片",
       type: "imageWithAlt",
-      description: "前台位置：导语区域的配图。是否建议修改：建议改。修改效果：增强页面视觉吸引力。注意：建议尺寸 800x600 像素。",
+      description: "前台位置：导语区域的配图。是否建议修改：建议改。修改效果：增强页面视觉吸引力。注意：前台导语图按 16:7 宽图显示，建议 1600x700 或 1920x840 像素，主体居中。",
     }),
 
     // ── 核心服务模块 ──
@@ -146,7 +146,7 @@ export const medicalServicesPage = defineType({
             defineField({ name: "title", title: "标题", type: "string", description: "前台位置：服务模块的主标题。是否建议修改：建议改。修改效果：概括该服务的核心内容。" }),
             defineField({ name: "subtitle", title: "副标题", type: "string", description: "前台位置：服务模块标题下方的副标题。是否建议修改：建议改。修改效果：补充说明服务特点。" }),
             defineField({ name: "body", title: "正文", type: "text", rows: 4, description: "前台位置：服务模块的详细描述文字。是否建议修改：建议改。修改效果：向用户介绍该服务的具体内容。注意：建议 100-300 字。" }),
-            defineField({ name: "image", title: "图片", type: "imageWithAlt", description: "前台位置：服务模块的配图。是否建议修改：建议改。修改效果：增强服务展示的视觉效果。注意：建议尺寸 800x600 像素。" }),
+            defineField({ name: "image", title: "图片", type: "imageWithAlt", description: "前台位置：服务模块的配图。是否建议修改：建议改。修改效果：增强服务展示的视觉效果。注意：建议尺寸 800x600 像素，4:3 比例，主体居中。" }),
             defineField({
               name: "imagePosition",
               title: "图片位置",
@@ -174,7 +174,7 @@ export const medicalServicesPage = defineType({
                     defineField({ name: "description", title: "描述", type: "text", description: "前台位置：子项的描述文字。是否建议修改：建议改。修改效果：说明该子项的具体内容。" }),
                     defineField({ name: "value", title: "数值", type: "string", description: "前台位置：子项显示的数值（如成功率、数量等）。是否建议修改：建议改。修改效果：用数据增强说服力。" }),
                     defineField({ name: "icon", title: "图标", type: "string", description: "前台位置：子项显示的图标名称。是否可不改：可不改。修改效果：增强视觉识别度。注意：需使用系统支持的图标名称。" }),
-                    defineField({ name: "image", title: "图片", type: "imageWithAlt", description: "前台位置：子项的配图。是否建议修改：建议改。修改效果：增强子项的视觉展示。注意：建议尺寸 400x300 像素。" }),
+                    defineField({ name: "image", title: "图片", type: "imageWithAlt", description: "前台位置：子项的配图。是否建议修改：建议改。修改效果：增强子项的视觉展示。注意：前台子项图按 16:10 显示，建议 800x500 或 400x250 像素，主体居中。" }),
                   ],
                 },
               ],
@@ -202,7 +202,7 @@ export const medicalServicesPage = defineType({
       name: "advantagesImage",
       title: "优势图片",
       type: "imageWithAlt",
-      description: "前台位置：优势展示区域的配图。是否建议修改：建议改。修改效果：增强优势区域的视觉效果。注意：建议尺寸 800x600 像素。",
+      description: "前台位置：优势展示区域的配图。是否建议修改：建议改。修改效果：增强优势区域的视觉效果。注意：建议尺寸 800x600 像素；前台为 object-cover 显示，主体请放中间安全区。",
     }),
     defineField({
       name: "advantageItems",
@@ -321,7 +321,7 @@ export const medicalServicesPage = defineType({
       name: "sidebarResourceImage",
       title: "侧栏资源图片",
       type: "imageWithAlt",
-      description: "前台位置：侧栏资源模块的配图。是否建议修改：建议改。修改效果：增强资源区域的视觉效果。注意：建议尺寸 600x400 像素。",
+      description: "前台位置：侧栏资源模块的配图。是否建议修改：建议改。修改效果：增强资源区域的视觉效果。注意：前台侧栏图片按 16:9 显示，建议 800x450 或 1200x675 像素，主体居中。",
     }),
 
     // ── Sidebar 专家 ──
@@ -373,7 +373,7 @@ export const medicalServicesPage = defineType({
       name: "sidebarFeaturedCaseImage",
       title: "侧栏精选案例图片",
       type: "imageWithAlt",
-      description: "前台位置：侧栏精选案例的封面图。是否建议修改：建议改。修改效果：增强案例的视觉吸引力。注意：建议尺寸 600x400 像素。",
+      description: "前台位置：侧栏精选案例的封面图。是否建议修改：建议改。修改效果：增强案例的视觉吸引力。注意：前台侧栏精选案例图按 16:9 显示，建议 800x450 或 1200x675 像素，主体居中。",
     }),
     defineField({
       name: "sidebarFeaturedCaseLink",
@@ -430,7 +430,7 @@ export const medicalServicesPage = defineType({
       name: "brandSectionBackgroundImage",
       title: "品牌沉淀区背景图",
       type: "imageWithAlt",
-      description: "前台位置：品牌沉淀区域的背景图。是否建议修改：建议改。修改效果：增强品牌区域的视觉效果和氛围感。注意：建议尺寸 1920x800 像素，文件不超过 500KB。",
+      description: "前台位置：品牌沉淀区域的背景图。是否建议修改：建议改。修改效果：增强品牌区域的视觉效果和氛围感。注意：建议尺寸 1920x800 像素，文件不超过 500KB；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。",
     }),
 
     // ── 在线咨询区 ──
@@ -451,7 +451,7 @@ export const medicalServicesPage = defineType({
       name: "consultationBackgroundImage",
       title: "在线咨询区背景图",
       type: "imageWithAlt",
-      description: "前台位置：在线咨询区域的背景图。是否建议修改：建议改。修改效果：增强在线咨询区域的视觉吸引力。注意：建议尺寸 1920x600 像素，文件不超过 500KB。",
+      description: "前台位置：在线咨询区域的背景图。是否建议修改：建议改。修改效果：增强在线咨询区域的视觉吸引力。注意：建议尺寸 1920x600 像素，文件不超过 500KB；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。",
     }),
   ],
   preview: {

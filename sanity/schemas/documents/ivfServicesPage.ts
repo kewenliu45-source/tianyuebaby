@@ -14,7 +14,7 @@ export const ivfServicesPage = defineType({
     defineField({ name: "heroTitle", title: "Hero 标题", type: "string", description: '前台位置：页面顶部大标题。是否建议修改：建议改。修改效果：用户进入页面第一眼看到的主标题。注意：建议 10-25 字。' }),
     defineField({ name: "heroSubtitle", title: "Hero 副标题", type: "string", description: '前台位置：Hero 主标题下方。是否建议修改：建议改。修改效果：补充说明主标题。' }),
     defineField({ name: "heroDescription", title: "Hero 描述", type: "text", rows: 3, description: '前台位置：Hero 区域描述文字。是否建议修改：建议改。修改效果：详细介绍试管服务区域。注意：建议 30-80 字。' }),
-    defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: '前台位置：Hero 区域背景图。是否建议修改：建议改。修改效果：影响页面第一印象。注意：建议 1920×800px，500KB 以内。' }),
+    defineField({ name: "heroImage", title: "Hero 图片", type: "imageWithAlt", description: '前台位置：Hero 区域右侧主图。是否建议修改：建议改。修改效果：影响页面第一印象。注意：前台当前显示为右侧 4:3 图片，不是全宽背景；建议 1200×900 或 1600×1200px，500KB 以内，主体居中。' }),
     defineField({ name: "mobileHeroImage", title: "移动端 Hero 图片", type: "imageWithAlt", description: "前台位置：手机端 Hero 背景图。是否建议改：建议改。修改效果：优化手机端首屏视觉。注意：建议 900×1200px 竖图，主体居中，留空则使用桌面图。" }),
     defineField({ name: "heroPrimaryButtonText", title: "主按钮文字", type: "string", description: '前台位置：Hero 主按钮文案。是否建议修改：可不改。修改效果：引导用户操作。注意：如「立即咨询」。' }),
     defineField({ name: "heroPrimaryButtonLink", title: "主按钮链接", type: "string", description: '前台位置：Hero 主按钮跳转地址。是否建议修改：谨慎改。修改效果：点击按钮后的跳转目标。注意：站内用 /path 形式。' }),
@@ -55,7 +55,7 @@ export const ivfServicesPage = defineType({
           defineField({ name: "description", title: "描述", type: "text" }),
           defineField({ name: "serviceHighlights", title: "服务亮点", type: "array", of: [{ type: "string" }] }),
           defineField({ name: "commonNeeds", title: "常见需求", type: "array", of: [{ type: "string" }] }),
-          defineField({ name: "image", title: "图片", type: "imageWithAlt" }),
+          defineField({ name: "image", title: "图片", type: "imageWithAlt", description: "前台位置：旧版地区卡片配图（兼容字段，当前后台隐藏）。是否建议修改：可不改。注意：如启用旧版地区卡片，前台按 16:9 显示，建议 1200×675px，主体居中。" }),
           defineField({ name: "ctaText", title: "按钮文字", type: "string" }),
           defineField({ name: "ctaLink", title: "按钮链接", type: "string" }),
         ],
@@ -74,7 +74,7 @@ export const ivfServicesPage = defineType({
           defineField({ name: "name", title: "地区名称", type: "string", validation: (r) => r.required(), description: '前台位置：区域卡片名称。是否建议修改：建议改。修改效果：展示地区名称。' }),
           defineField({ name: "subtitle", title: "副标题", type: "string", description: '前台位置：区域卡片副标题。是否建议修改：建议改。修改效果：补充说明地区特色。' }),
           defineField({ name: "description", title: "简介", type: "text", rows: 3, description: '前台位置：区域卡片简介。是否建议修改：建议改。修改效果：详细介绍该地区服务。' }),
-          defineField({ name: "image", title: "地区图片", type: "imageWithAlt", description: '前台位置：区域卡片配图。是否建议修改：建议改。修改效果：增强区域的视觉展示。注意：建议 800×600px。' }),
+          defineField({ name: "image", title: "地区图片", type: "imageWithAlt", description: '前台位置：区域卡片配图。是否建议修改：建议改。修改效果：增强区域的视觉展示。注意：前台地区卡片按 16:9 显示，建议 1200×675px，主体居中。' }),
           defineField({ name: "serviceHighlights", title: "服务标签", type: "array", of: [{ type: "string" }], description: '前台位置：区域卡片服务标签。是否建议修改：建议改。修改效果：展示该地区服务特色。' }),
           defineField({ name: "ctaText", title: "按钮文字", type: "string", description: '前台位置：区域卡片按钮文案。是否建议修改：可不改。修改效果：按钮文字。' }),
           defineField({ name: "ctaLink", title: "按钮链接", type: "string", description: '前台位置：区域卡片按钮跳转地址。是否建议修改：谨慎改。修改效果：点击按钮后的跳转目标。注意：站内用 /path 形式。' }),
@@ -167,7 +167,7 @@ export const ivfServicesPage = defineType({
     defineField({ name: "conversionFields", title: "表单字段", type: "array", of: [{ type: "string" }], options: { layout: "tags" }, description: '前台位置：转化表单字段名称列表。是否建议修改：谨慎改。修改效果：改变表单收集的信息。注意：建议包含「姓名」「电话」。' }),
     defineField({ name: "conversionButtonText", title: "按钮文字", type: "string", description: '前台位置：转化表单按钮文案。是否建议修改：可不改。修改效果：按钮文字。' }),
     defineField({ name: "conversionImage", title: "配图", type: "imageWithAlt", description: '前台位置：转化模块配图。是否建议修改：建议改。修改效果：增强模块视觉展示。注意：建议 800×600px。' }),
-    defineField({ name: "conversionBackgroundImage", title: "背景图", type: "imageWithAlt", description: '前台位置：转化模块背景大图。是否建议修改：建议改。修改效果：影响转化区视觉效果。注意：建议 1920×600px。' }),
+    defineField({ name: "conversionBackgroundImage", title: "背景图", type: "imageWithAlt", description: '前台位置：转化模块背景大图。是否建议修改：建议改。修改效果：影响转化区视觉效果。注意：建议 1920×600px；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。' }),
 
     // ── 区域案例 ──
     defineField({ name: "regionalCasesTitle", title: "区域案例 - 标题", type: "string", description: '前台位置：区域案例模块标题。是否建议修改：可不改。修改效果：模块主标题。' }),
@@ -186,7 +186,7 @@ export const ivfServicesPage = defineType({
           defineField({ name: "challenge", title: "面临挑战", type: "text", description: '前台位置：案例卡片挑战描述。是否建议修改：建议改。修改效果：描述客户面临的困难。' }),
           defineField({ name: "serviceSupport", title: "服务支持", type: "text", description: '前台位置：案例卡片服务支持描述。是否建议修改：建议改。修改效果：描述提供的服务支持。' }),
           defineField({ name: "resultDescription", title: "结果说明", type: "text", description: '前台位置：案例结果说明。是否建议修改：谨慎改。修改效果：描述案例结果。注意：必须去隐私化，不得使用承诺性语言。' }),
-          defineField({ name: "image", title: "图片", type: "imageWithAlt", description: '前台位置：案例卡片配图。是否建议修改：建议改。修改效果：增强案例的视觉展示。注意：需确保已获客户授权。' }),
+          defineField({ name: "image", title: "图片", type: "imageWithAlt", description: '前台位置：案例卡片配图。是否建议修改：建议改。修改效果：增强案例的视觉展示。注意：前台按 16:9 显示，建议 1200×675px，主体居中；需确保已获客户授权。' }),
           defineField({ name: "buttonText", title: "按钮文字", type: "string", description: '前台位置：案例卡片按钮文案。是否建议修改：可不改。修改效果：按钮文字。' }),
           defineField({ name: "buttonLink", title: "按钮链接", type: "string", description: '前台位置：案例卡片按钮跳转地址。是否建议修改：谨慎改。修改效果：点击按钮后的跳转目标。注意：站内用 /path 形式。' }),
         ],
@@ -215,7 +215,7 @@ export const ivfServicesPage = defineType({
     defineField({ name: "appointmentDescription", title: "预约模块 - 描述", type: "text", rows: 3, description: '前台位置：预约模块描述。是否建议修改：建议改。修改效果：引导用户预约的说明文字。' }),
     defineField({ name: "appointmentFields", title: "预约表单字段", type: "array", of: [{ type: "string" }], options: { layout: "tags" }, description: '前台位置：预约表单字段名称列表。是否建议修改：谨慎改。修改效果：改变表单收集的信息。注意：建议包含「姓名」「电话」。' }),
     defineField({ name: "appointmentButtonText", title: "预约按钮文字", type: "string", description: '前台位置：预约表单按钮文案。是否建议修改：可不改。修改效果：按钮文字。' }),
-    defineField({ name: "appointmentBackgroundImage", title: "预约背景图", type: "imageWithAlt", description: '前台位置：预约模块背景大图。是否建议修改：建议改。修改效果：影响预约区视觉效果。注意：建议 1920×600px。' }),
+    defineField({ name: "appointmentBackgroundImage", title: "预约背景图", type: "imageWithAlt", description: '前台位置：预约模块背景大图。是否建议修改：建议改。修改效果：影响预约区视觉效果。注意：建议 1920×600px；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。' }),
   ],
   preview: {
     prepare() {

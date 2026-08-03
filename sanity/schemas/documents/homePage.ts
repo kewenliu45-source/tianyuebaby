@@ -11,7 +11,7 @@ export const homePage = defineType({
       title: "Banner 轮播",
       type: "array",
       of: [{ type: "bannerSlide" }],
-      description: "前台位置：首页顶部轮播区域。是否建议修改：建议改。修改效果：替换首页最上方的轮播图和文案。注意：建议保留 2-4 张；普通轮播桌面图建议 1920×600px，手机图建议 750×600px，图片尺寸保持一致。",
+      description: "前台位置：首页顶部轮播区域。是否建议修改：建议改。修改效果：替换首页最上方的轮播图和文案。注意：建议保留 2-4 张；普通轮播桌面图建议 1920×600px，手机图建议 750×600px；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放中间安全区。",
     }),
 
     // ── 首屏 Hero 图 ──
@@ -19,7 +19,7 @@ export const homePage = defineType({
       name: "heroImage",
       title: "首屏 Hero 图",
       type: "imageWithAlt",
-      description: "前台位置：首页首屏大图（旧版）。是否建议修改：建议改。修改效果：替换首页最上方的全屏背景图。注意：建议 2400×1200 px，WebP/JPG 格式，300KB 以内。若已填写下方「专业首屏」则优先使用新版本。",
+      description: "前台位置：首页首屏大图（旧版）。是否建议修改：建议改。修改效果：替换首页最上方的全屏背景图。注意：建议 2400×1200 px，WebP/JPG 格式，300KB 以内；前台为响应式 object-cover 背景图，会随屏幕宽高裁剪，主体请放安全区。若已填写下方「专业首屏」则优先使用新版本。",
     }),
     defineField({
       name: "hero",
@@ -33,13 +33,13 @@ export const homePage = defineType({
           name: "desktopImage",
           title: "桌面端大图",
           type: "imageWithAlt",
-          description: "前台位置：首屏左侧文字区右侧的桌面端大图。是否建议修改：必改。修改效果：决定桌面端访客首屏视觉体验。注意：建议 2400×1200 px，人物或视觉主体放在右侧（左侧会被半透明遮罩覆盖），500KB 以内，WebP/JPG 格式。",
+          description: "前台位置：首屏左侧文字区右侧的桌面端大图。是否建议修改：必改。修改效果：决定桌面端访客首屏视觉体验。注意：建议 2400×1200 px，人物或视觉主体放在右侧安全区（左侧会被半透明遮罩覆盖），500KB 以内，WebP/JPG 格式；前台为 object-cover，边缘可能被裁剪。",
         }),
         defineField({
           name: "mobileImage",
           title: "移动端大图",
           type: "imageWithAlt",
-          description: "前台位置：手机端首屏全屏背景图。是否建议修改：必改。修改效果：决定手机访客首屏视觉体验。注意：建议 900×1200px 竖图，主体居中，300KB 以内，WebP/JPG 格式。",
+          description: "前台位置：手机端首屏全屏背景图。是否建议修改：必改。修改效果：决定手机访客首屏视觉体验。注意：建议 900×1200px 竖图，主体居中并留出边缘安全区，300KB 以内，WebP/JPG 格式。",
         }),
         defineField({
           name: "overlayStrength",
@@ -242,7 +242,7 @@ export const homePage = defineType({
       name: "brandIntroImage",
       title: "品牌简介图片",
       type: "imageWithAlt",
-      description: "前台位置：品牌简介区域配图。是否建议修改：建议改。修改效果：展示机构环境或团队形象。注意：建议 1200×800 px，WebP/JPG 格式，500KB 以内。",
+      description: "前台位置：品牌简介区域配图。是否建议修改：建议改。修改效果：展示机构环境或团队形象。注意：建议 1600×1000 或 1800×1200 px，WebP/JPG 格式，500KB 以内；前台为响应式 object-cover，主体居中，边缘可能裁剪。",
     }),
 
     // ── 第三代试管服务介绍 ──
@@ -397,7 +397,7 @@ export const homePage = defineType({
       name: "statsBackgroundImage",
       title: "数据区背景图",
       type: "imageWithAlt",
-      description: "前台位置：服务数据区的全屏背景图。是否建议修改：建议改。修改效果：为数据展示提供视觉背景。注意：建议 2400×1200 px，WebP/JPG 格式，500KB 以内，选择温馨场景。",
+      description: "前台位置：服务数据区的全屏背景图。是否建议修改：建议改。修改效果：为数据展示提供视觉背景。注意：建议 2400×1200 px，WebP/JPG 格式，500KB 以内，选择温馨场景；前台作为背景图 object-cover 显示，会随屏幕裁剪，主体请放中间安全区。",
     }),
     defineField({
       name: "statsButtonText",

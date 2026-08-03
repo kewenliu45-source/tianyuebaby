@@ -11,14 +11,14 @@ export const bannerSlide = defineType({
       type: "image",
       options: { hotspot: true },
       validation: (rule) => rule.required(),
-      description: '前台位置：PC 端 Banner 大图。是否建议修改：建议改。修改效果：影响电脑端页面顶部视觉。注意：建议 1920×600px，WebP/JPG 格式，800KB 以内。',
+      description: '前台位置：PC 端 Banner 大图。是否建议修改：建议改。修改效果：影响电脑端页面顶部视觉。注意：建议 1920×600px，WebP/JPG 格式，800KB 以内；前台为响应式 object-cover 背景图，会随屏幕宽高轻微裁剪，主体请放在中间安全区。',
     }),
     defineField({
       name: "mobileImage",
       title: "移动端图片",
       type: "image",
       options: { hotspot: true },
-      description: '前台位置：手机端 Banner 大图。是否建议修改：建议改。修改效果：影响手机端页面顶部视觉。注意：建议 750×600px，WebP/JPG 格式，留空则使用桌面图片。',
+      description: '前台位置：手机端 Banner 大图。是否建议修改：建议改。修改效果：影响手机端页面顶部视觉。注意：建议 750×600px，WebP/JPG 格式；前台为移动端 object-cover 背景图，主体居中并留出边缘安全区，留空则使用桌面图片。',
     }),
     defineField({
       name: "alt",

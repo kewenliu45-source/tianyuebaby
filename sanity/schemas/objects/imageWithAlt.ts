@@ -11,7 +11,7 @@ export const imageWithAlt = defineType({
       type: "image",
       options: { hotspot: true },
       description:
-        "前台位置：被引用的页面/模块中显示。是否建议修改：建议改。修改效果：替换对应位置显示的图片。注意：建议上传宽度 800px 以上的高清图片，支持 JPG/PNG/WebP 格式。\"",
+        "前台位置：被引用的页面/模块中显示。是否建议修改：建议改。修改效果：替换对应位置显示的图片。注意：这是通用图片字段，具体尺寸以所在页面字段提示为准；若无专门提示，建议上传宽度 1200px 以上的高清 JPG/PNG/WebP 图片，主体居中。\"",
       validation: (rule) => rule.required(),
     }),
     defineField({
