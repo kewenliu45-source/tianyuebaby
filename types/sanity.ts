@@ -219,7 +219,11 @@ export interface HomePage {
   featuredNewsCount?: number;
   featuredNews?: NewsArticle[];
   faqTitle?: string;
-  featuredFaqCount?: number;
+  faqDescription?: string;
+  faqItems?: Array<{
+    question: string;
+    answer: string;
+  }>;
   cta?: Cta;
   seo?: Seo;
 }
@@ -558,12 +562,6 @@ export interface ThirdGenerationIvfPage {
     content: string;
     rating?: number;
     avatar?: ImageWithAlt;
-  }>;
-  faqTitle?: string;
-  faqDescription?: string;
-  faqItems?: Array<{
-    question: string;
-    answer: string;
   }>;
   finalCtaTitle?: string;
   finalCtaDescription?: string;

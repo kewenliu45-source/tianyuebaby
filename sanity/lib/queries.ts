@@ -184,7 +184,11 @@ export const homePageQuery = `*[_type == "homePage"][0]{
     publishedAt
   },
   faqTitle,
-  featuredFaqCount,
+  faqDescription,
+  faqItems[]{
+    question,
+    answer
+  },
   cta${CTA},
   seo${SEO}
 }`;
@@ -206,26 +210,11 @@ export const featuredNewsQuery = `*[_type == "newsArticle"] | order(publishedAt 
   publishedAt
 }`;
 
-/** 首页精选 FAQ */
-export const featuredFaqsQuery = `*[_type == "faqItem"] | order(publishedAt desc)[0...5]{
-  _id,
-  _type,
-  question,
-  answer,
-  category->{
-    _id,
-    _type,
-    name,
-    slug
-  }
-}`;
-
 /** 首页聚合查询 */
 export const homePageDataQuery = `{
   "siteSettings": ${siteSettingsQuery},
   "homePage": ${homePageQuery},
-  "newsArticles": ${featuredNewsQuery},
-  "faqItems": ${featuredFaqsQuery}
+  "newsArticles": ${featuredNewsQuery}
 }`;
 
 // ─────────────────────────────────────────────
@@ -692,12 +681,6 @@ export const thirdGenerationIvfPageQuery = `*[_type == "thirdGenerationIvfPage"]
     content,
     rating,
     avatar${IMAGE_WITH_ALT}
-  },
-  faqTitle,
-  faqDescription,
-  faqItems[]{
-    question,
-    answer
   },
   finalCtaTitle,
   finalCtaDescription,

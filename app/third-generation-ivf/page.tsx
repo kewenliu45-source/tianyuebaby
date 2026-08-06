@@ -4,7 +4,6 @@ import Image from "next/image";
 import {
   Phone,
   ArrowRight,
-  ChevronDown,
   Users,
   Heart,
   Shield,
@@ -18,7 +17,6 @@ import {
   Star,
   CheckCircle2,
 } from "lucide-react";
-import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { PhoneConsultButton } from "@/components/shared/phone-consult-button";
 import { fetchThirdGenerationIvfPageData } from "@/sanity/lib/fetchers";
 import { contentImageUrl, iconImageUrl } from "@/sanity/lib/image";
@@ -180,19 +178,6 @@ const DEFAULT_TESTIMONIALS = {
   ] satisfies TestimonialItem[],
 };
 
-const DEFAULT_FAQ = {
-  title: "常见问题",
-  description: "关于三代试管婴儿咨询的常见疑问。",
-  items: [
-    { question: "什么是第三代试管婴儿？", answer: "第三代试管婴儿技术（PGT）是在胚胎移植前对胚胎进行遗传学检测的技术，主要目的是筛选出染色体正常或不携带特定遗传疾病的胚胎进行移植。它适用于有遗传病风险、高龄、反复流产等情况的家庭。" },
-    { question: "哪些家庭适合了解三代试管？", answer: "以下情况的家庭可以考虑了解：有遗传病家族史、女方年龄较大（35 岁以上）、多次试管婴儿失败、反复自然流产、染色体异常等。具体是否适合需要由医疗专业人员评估。" },
-    { question: "PGT 检测是否适合所有人？", answer: "PGT 并非适用于所有人。它主要针对有特定医学指征的家庭。是否需要进行 PGT 检测，应由生殖医学专家根据具体情况评估决定。" },
-    { question: "咨询前需要准备哪些资料？", answer: "建议准备：夫妻双方的体检报告、既往生育相关检查结果、病史资料、身份信息等。具体清单顾问会在初次沟通时详细说明。" },
-    { question: "服务过程中如何保护隐私？", answer: "天悦宝贝采用严格的信息管理机制，所有客户资料加密存储，仅限专属顾问访问。未经客户授权，不会向任何第三方披露个人信息。" },
-    { question: "如何开始咨询？", answer: "您可以通过页面上的在线咨询表单、拨打客服电话或添加微信客服开始咨询。顾问会在 24 小时内与您取得联系。" },
-  ],
-};
-
 const DEFAULT_FINAL_CTA = {
   title: "开始了解三代试管婴儿方案",
   description: "专业的咨询顾问随时为您服务，帮助您更清晰地了解生育方案选择。",
@@ -310,11 +295,6 @@ export default async function ThirdGenerationIvfPage() {
     description: p?.testimonialsDescription || DEFAULT_TESTIMONIALS.description,
     items: testimonialItems,
   };
-  const faq = {
-    title: p?.faqTitle || DEFAULT_FAQ.title,
-    description: p?.faqDescription || DEFAULT_FAQ.description,
-    items: p?.faqItems?.length ? p.faqItems : DEFAULT_FAQ.items,
-  };
   const finalCta = {
     title: p?.finalCtaTitle || DEFAULT_FINAL_CTA.title,
     description: p?.finalCtaDescription || DEFAULT_FINAL_CTA.description,
@@ -328,16 +308,6 @@ export default async function ThirdGenerationIvfPage() {
 
   return (
     <>
-      {/* FAQ 结构化数据 */}
-      {faq.items.length > 0 && (
-        <FaqJsonLd
-          items={faq.items.map((item) => ({
-            question: item.question,
-            answer: item.answer,
-          }))}
-        />
-      )}
-
       {/* ════════════════════════════════════════
           1. Hero Banner
       ════════════════════════════════════════ */}
@@ -799,38 +769,7 @@ export default async function ThirdGenerationIvfPage() {
       </section>
 
       {/* ════════════════════════════════════════
-          10. FAQ
-      ════════════════════════════════════════ */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="container mx-auto max-w-[1180px] px-4 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#173b68] mb-4">
-              {faq.title}
-            </h2>
-            <p className="text-[#5a6d8a] max-w-2xl mx-auto">{faq.description}</p>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-3">
-            {faq.items.map((item, i) => (
-              <details key={i} className="bg-[#f8fbff] rounded-xl overflow-hidden group">
-                <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
-                  <h3 className="font-semibold text-[#173b68] pr-4 text-[15px]">
-                    {item.question}
-                  </h3>
-                  <ChevronDown className="w-5 h-5 text-[#8a9bb5] flex-shrink-0 transition-transform group-open:rotate-180" />
-                </summary>
-                <div className="px-5 pb-5">
-                  <p className="text-sm text-[#5a6d8a] leading-relaxed">
-                    {item.answer}
-                  </p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-          11. 最终 CTA
+          10. 最终 CTA
       ════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-[#102c50] py-16 lg:py-24">
         <Image
