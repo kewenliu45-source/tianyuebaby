@@ -261,6 +261,25 @@ export const thirdGenerationIvfPage = defineType({
       ],
     }),
 
+    // ── FAQ ──
+    defineField({ name: "faqTitle", title: "FAQ - 标题", type: "string", description: '前台位置：FAQ 模块标题。是否建议修改：可不改。修改效果：模块主标题。' }),
+    defineField({ name: "faqDescription", title: "FAQ - 描述", type: "text", rows: 3, description: '前台位置：模块描述文字。是否建议修改：建议改。修改效果：补充说明常见问题。注意：建议 30-80 字。' }),
+    defineField({
+      name: "faqItems",
+      title: "FAQ 列表",
+      type: "array",
+      description: '前台位置：FAQ 问答列表。是否建议修改：建议改。修改效果：展示常见问题和解答。注意：建议 5-10 个问题。',
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "question", title: "问题", type: "string", validation: (r) => r.required(), description: '前台位置：FAQ 问题标题。是否建议修改：建议改。修改效果：展示问题内容。注意：建议简洁明了，10-30 字。' }),
+            defineField({ name: "answer", title: "回答", type: "text", validation: (r) => r.required(), description: '前台位置：FAQ 问题回答。是否建议修改：建议改。修改效果：展示问题解答。注意：建议 30-100 字，语言专业友好。' }),
+          ],
+        },
+      ],
+    }),
+
     // ── 最终 CTA ──
     defineField({ name: "finalCtaTitle", title: "最终 CTA - 标题", type: "string", description: '前台位置：页面底部 CTA 标题。是否建议修改：建议改。修改效果：引导用户咨询的主标题。' }),
     defineField({ name: "finalCtaDescription", title: "最终 CTA - 描述", type: "text", rows: 3, description: '前台位置：CTA 描述文字。是否建议修改：建议改。修改效果：引导用户咨询的说明。注意：建议 20-60 字。' }),

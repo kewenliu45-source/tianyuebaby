@@ -50,6 +50,7 @@ export interface HomePageData {
   siteSettings: SiteSettings | null;
   homePage: HomePage | null;
   newsArticles: NewsArticle[];
+  faqItems: FaqItem[];
 }
 
 // ─────────────────────────────────────────────

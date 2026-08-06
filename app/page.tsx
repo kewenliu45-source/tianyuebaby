@@ -9,7 +9,6 @@ import {
   Users,
   Award,
   Baby,
-  ChevronDown,
 } from "lucide-react";
 import { PageBanner } from "@/components/shared/page-banner";
 import { ProfessionalHomeHero } from "@/components/home/professional-home-hero";
@@ -96,7 +95,8 @@ function getColorClass(color?: string) {
 // ── Page Component ──
 
 export default async function HomePage() {
-  const { siteSettings, homePage, newsArticles } = await fetchHomePageData();
+  const { siteSettings, homePage, newsArticles, faqItems } =
+    await fetchHomePageData();
 
   const phone = siteSettings?.phone || "400-123-4567";
 
@@ -104,14 +104,13 @@ export default async function HomePage() {
   const advantages = homePage?.advantages?.filter((a) => a.isEnabled !== false) || [];
   const journeySteps = homePage?.journeySteps?.filter((s) => s.isEnabled !== false) || [];
   const stats = homePage?.stats || [];
-  const faqItems = homePage?.faqItems || [];
 
   // 模块可见性
   const visibility = homePage?.sectionVisibility;
 
   return (
     <>
-      {visibility?.faq !== false && faqItems.length > 0 && (
+      {faqItems.length > 0 && (
         <FaqJsonLd
           items={faqItems.map((item) => ({
             question: item.question,
@@ -424,35 +423,28 @@ export default async function HomePage() {
 
       {/* 常见问题 — 有数据才显示 */}
       {visibility?.faq !== false && faqItems.length > 0 && (
-        <section className="bg-white py-16 lg:py-24">
-          <div className="container mx-auto max-w-[1180px] px-4 lg:px-8">
+        <section className="py-16 lg:py-24 bg-muted">
+          <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                {homePage?.faqTitle && (
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#173b68] mb-4">
-                    {homePage.faqTitle}
-                  </h2>
-                )}
-                {homePage?.faqDescription && (
-                  <p className="text-[#5a6d8a] max-w-2xl mx-auto">
-                    {homePage.faqDescription}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-3">
+              {homePage?.faqTitle && (
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
+                  {homePage.faqTitle}
+                </h2>
+              )}
+              <div className="space-y-4">
                 {faqItems.map((item, i) => (
                   <details
                     key={i}
-                    className="bg-[#f8fbff] rounded-xl overflow-hidden group"
+                    className="bg-white rounded-xl overflow-hidden group ring-1 ring-blue-100/60"
                   >
-                    <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
-                      <h3 className="font-semibold text-[#173b68] pr-4 text-[15px]">
+                    <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                      <h3 className="font-semibold text-foreground pr-4">
                         {item.question}
                       </h3>
-                      <ChevronDown className="w-5 h-5 text-[#8a9bb5] flex-shrink-0 transition-transform group-open:rotate-180" />
+                      <ArrowRight className="w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform group-open:rotate-90" />
                     </summary>
-                    <div className="px-5 pb-5">
-                      <p className="whitespace-pre-line text-sm text-[#5a6d8a] leading-relaxed">
+                    <div className="px-6 pb-6">
+                      <p className="text-muted-foreground leading-relaxed">
                         {item.answer}
                       </p>
                     </div>

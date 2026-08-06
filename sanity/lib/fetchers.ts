@@ -125,6 +125,7 @@ export async function fetchHomePageData(): Promise<HomePageData> {
       siteSettings: null,
       homePage: null,
       newsArticles: [],
+      faqItems: [],
     };
   }
 }
