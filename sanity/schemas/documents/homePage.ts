@@ -461,7 +461,7 @@ export const homePage = defineType({
       },
     }),
 
-    // ── 常见问题精选 ──
+    // ── 常见问题 ──
     defineField({
       name: "faqTitle",
       title: "常见问题标题",
@@ -469,11 +469,43 @@ export const homePage = defineType({
       description: "前台位置：常见问题模块标题。是否建议修改：可不改。修改效果：引导访客查看常见问题。注意：建议 6-12 字。",
     }),
     defineField({
-      name: "featuredFaqCount",
-      title: "精选问题数量",
-      type: "number",
-      initialValue: 5,
-      description: "前台位置：首页展示的常见问题条数。是否建议修改：谨慎改。修改效果：控制前台展示的 FAQ 数量。注意：默认 5 条，数据来自 FAQ 管理中设为推荐的问题。",
+      name: "faqDescription",
+      title: "常见问题描述",
+      type: "text",
+      rows: 3,
+      description: "前台位置：首页底部常见问题模块的说明文字。是否建议修改：建议改。注意：建议 30-80 字。",
+    }),
+    defineField({
+      name: "faqItems",
+      title: "常见问题列表",
+      type: "array",
+      description: "前台位置：首页底部问答列表。可拖动调整展示顺序，建议 5-10 条。",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "question",
+              title: "问题",
+              type: "string",
+              validation: (rule) => rule.required(),
+              description: "建议简洁明了，10-30 字。",
+            }),
+            defineField({
+              name: "answer",
+              title: "回答",
+              type: "text",
+              rows: 5,
+              validation: (rule) => rule.required(),
+              description: "建议 30-100 字，语言专业友好。",
+            }),
+          ],
+          preview: {
+            select: { title: "question", subtitle: "answer" },
+          },
+        },
+      ],
+      options: { sortable: true },
     }),
 
     // ── 咨询行动区 ──
