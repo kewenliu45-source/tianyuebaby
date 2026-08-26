@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "seo:audit:production": "node scripts/seo-audit.mjs --site https://zhuyunbaby.com --alternate-host www.zhuyunbaby.com --output-dir tmp/seo-audit/zhuyunbaby",
+    "seo:audit:kbeier": "node scripts/seo-audit.mjs --site https://www.kbeier.com --alternate-host kbeier.com --output-dir tmp/seo-audit/kbeier"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

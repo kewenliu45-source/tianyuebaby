@@ -9,7 +9,7 @@ import type {
   SiteSettings,
 } from "@/types/sanity";
 
-const PRODUCTION_SITE_URL = "https://zhuyunbaby.com";
+export const PRODUCTION_SITE_URL = "https://zhuyunbaby.com";
 const STATIC_SHARE_IMAGE = "/images/share.jpg";
 
 type PageType = "website" | "article";
@@ -39,15 +39,69 @@ interface SocialImage {
 export function getPublicSiteUrl(): string {
   const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 
-  if (
-    !configuredUrl ||
-    configuredUrl.includes("localhost") ||
-    configuredUrl.includes("127.0.0.1")
-  ) {
+  if (!configuredUrl) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        `NEXT_PUBLIC_SITE_URL must be set to ${PRODUCTION_SITE_URL} in production`
+      );
+    }
     return PRODUCTION_SITE_URL;
   }
 
-  return configuredUrl.replace(/\/$/, "");
+  try {
+    const parsed = new URL(configuredUrl);
+    const isCanonicalOrigin = parsed.origin === PRODUCTION_SITE_URL;
+    const hasUnexpectedParts =
+      parsed.pathname !== "/" || Boolean(parsed.search) || Boolean(parsed.hash);
+
+    if (!isCanonicalOrigin || hasUnexpectedParts) {
+      throw new Error("site URL must match the canonical production origin");
+    }
+  } catch (error) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        `Invalid NEXT_PUBLIC_SITE_URL. Expected ${PRODUCTION_SITE_URL}`,
+        { cause: error }
+      );
+    }
+    console.warn(
+      `[SEO] Invalid NEXT_PUBLIC_SITE_URL; using ${PRODUCTION_SITE_URL}`
+    );
+    return PRODUCTION_SITE_URL;
+  }
+
+  return PRODUCTION_SITE_URL;
+}
+
+function resolveCanonicalUrl(
+  configuredCanonical: string | undefined,
+  pathname: string,
+  siteUrl: string
+): string {
+  const fallback = toAbsoluteUrl(pathname, siteUrl);
+  if (!configuredCanonical) return fallback;
+
+  try {
+    const candidate = new URL(configuredCanonical, `${siteUrl}/`);
+    const expected = new URL(fallback);
+    const normalizedPath = (value: string) => (value === "/" ? "" : value);
+    const isSelfReferencing =
+      candidate.origin === expected.origin &&
+      normalizedPath(candidate.pathname) === normalizedPath(expected.pathname) &&
+      candidate.search === expected.search &&
+      candidate.hash === expected.hash;
+
+    if (!isSelfReferencing) {
+      console.warn(
+        `[SEO] Ignoring non-self canonical ${candidate.toString()} for ${pathname}`
+      );
+      return fallback;
+    }
+    return candidate.toString();
+  } catch {
+    console.warn(`[SEO] Ignoring invalid canonical for ${pathname}`);
+    return fallback;
+  }
 }
 
 export function getBannerShareImage(
@@ -148,7 +202,7 @@ export function buildPageMetadata({
   const metaDescription = seo?.metaDescription || description;
   const socialTitle = seo?.ogTitle || metaTitle;
   const socialDescription = seo?.ogDescription || metaDescription;
-  const canonical = seo?.canonicalUrl || toAbsoluteUrl(pathname, siteUrl);
+  const canonical = resolveCanonicalUrl(seo?.canonicalUrl, pathname, siteUrl);
   const alt = imageAlt || socialTitle;
   const images = resolveSocialImages({
     staticImage,

@@ -72,6 +72,7 @@ import {
   videoSlugsQuery,
   allNewsForSitemapQuery,
   allVideosForSitemapQuery,
+  allSuccessCasesForSitemapQuery,
 } from "./queries";
 import { sanityFetch } from "./fetch";
 
@@ -725,8 +726,8 @@ export async function fetchAllNewsForSitemap(): Promise<
       cache: "force-cache",
       revalidate: 60,
     });
-  } catch {
-    console.warn("Failed to fetch news for sitemap");
+  } catch (error) {
+    console.error("[SEO] Failed to fetch news for sitemap", error);
     return [];
   }
 }
@@ -743,8 +744,26 @@ export async function fetchAllVideosForSitemap(): Promise<
       cache: "force-cache",
       revalidate: 60,
     });
-  } catch {
-    console.warn("Failed to fetch videos for sitemap");
+  } catch (error) {
+    console.error("[SEO] Failed to fetch videos for sitemap", error);
+    return [];
+  }
+}
+
+/** 获取所有成功案例（用于 sitemap） */
+export async function fetchAllSuccessCasesForSitemap(): Promise<
+  Array<{ slug: string; publishedAt?: string; _updatedAt?: string }>
+> {
+  try {
+    return await sanityFetch<
+      Array<{ slug: string; publishedAt?: string; _updatedAt?: string }>
+    >({
+      query: allSuccessCasesForSitemapQuery,
+      cache: "force-cache",
+      revalidate: 60,
+    });
+  } catch (error) {
+    console.error("[SEO] Failed to fetch success cases for sitemap", error);
     return [];
   }
 }

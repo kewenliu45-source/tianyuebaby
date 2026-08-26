@@ -7,6 +7,7 @@
 # testing
 /coverage
 /tmp/migration-backups/
+/tmp/seo-audit/
 
 # next.js
 /.next/

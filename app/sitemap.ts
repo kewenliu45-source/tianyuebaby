@@ -1,70 +1,75 @@
 import type { MetadataRoute } from "next";
 import {
   fetchAllNewsForSitemap,
+  fetchAllSuccessCasesForSitemap,
   fetchAllVideosForSitemap,
 } from "@/sanity/lib/fetchers";
+import { getPublicSiteUrl } from "@/lib/social-metadata";
+
+const STATIC_PATHS = [
+  "/",
+  "/about-tianyue",
+  "/egg-sperm-freezing",
+  "/faq",
+  "/intended-parents",
+  "/ivf-services",
+  "/journey",
+  "/medical-services",
+  "/news",
+  "/overseas-fertility",
+  "/privacy",
+  "/private-customization",
+  "/success-cases",
+  "/start-your-journey",
+  "/third-generation-ivf",
+  "/third-party-assisted-reproduction",
+  "/videos",
+  "/why-us",
+] as const;
+
+function toLastModified(...values: Array<string | undefined>): Date | undefined {
+  const value = values.find(Boolean);
+  if (!value) return undefined;
+
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? undefined : date;
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://zhuyunbaby.com";
+  const baseUrl = getPublicSiteUrl();
+  const [newsArticles, videos, successCases] = await Promise.all([
+    fetchAllNewsForSitemap(),
+    fetchAllVideosForSitemap(),
+    fetchAllSuccessCasesForSitemap(),
+  ]);
 
-  // 固定页面
-  const fixedPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: new Date(), priority: 1 },
-    {
-      url: `${baseUrl}/intended-parents`,
-      lastModified: new Date(),
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/journey`,
-      lastModified: new Date(),
-      priority: 0.8,
-    },
-    { url: `${baseUrl}/news`, lastModified: new Date(), priority: 0.8 },
-    { url: `${baseUrl}/videos`, lastModified: new Date(), priority: 0.8 },
-    {
-      url: `${baseUrl}/why-us`,
-      lastModified: new Date(),
-      priority: 0.8,
-    },
-    { url: `${baseUrl}/faq`, lastModified: new Date(), priority: 0.7 },
-    {
-      url: `${baseUrl}/start-your-journey`,
-      lastModified: new Date(),
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      priority: 0.3,
-    },
-  ];
+  const staticPages: MetadataRoute.Sitemap = STATIC_PATHS.map((pathname) => ({
+    url: pathname === "/" ? baseUrl : `${baseUrl}${pathname}`,
+    changeFrequency:
+      pathname === "/news" || pathname === "/videos" ? "weekly" : "monthly",
+    priority: pathname === "/" ? 1 : 0.7,
+  }));
 
-  // 新闻文章
-  let newsPages: MetadataRoute.Sitemap = [];
-  try {
-    const newsArticles = await fetchAllNewsForSitemap();
-    newsPages = newsArticles.map((article) => ({
-      url: `${baseUrl}/news/${article.slug}`,
-      lastModified: new Date(article._updatedAt || article.publishedAt),
-      priority: 0.6,
-    }));
-  } catch {
-    // ignore
-  }
+  const newsPages: MetadataRoute.Sitemap = newsArticles.map((article) => ({
+    url: `${baseUrl}/news/${article.slug}`,
+    lastModified: toLastModified(article._updatedAt, article.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
 
-  // 科普视频
-  let videoPages: MetadataRoute.Sitemap = [];
-  try {
-    const videos = await fetchAllVideosForSitemap();
-    videoPages = videos.map((video) => ({
-      url: `${baseUrl}/videos/${video.slug}`,
-      lastModified: new Date(video._updatedAt || video.publishedAt),
-      priority: 0.6,
-    }));
-  } catch {
-    // ignore
-  }
+  const videoPages: MetadataRoute.Sitemap = videos.map((video) => ({
+    url: `${baseUrl}/videos/${video.slug}`,
+    lastModified: toLastModified(video._updatedAt, video.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
 
-  return [...fixedPages, ...newsPages, ...videoPages];
+  const successCasePages: MetadataRoute.Sitemap = successCases.map((item) => ({
+    url: `${baseUrl}/success-cases/${item.slug}`,
+    lastModified: toLastModified(item._updatedAt, item.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...newsPages, ...videoPages, ...successCasePages];
 }

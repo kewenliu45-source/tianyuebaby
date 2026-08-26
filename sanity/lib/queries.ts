@@ -1531,13 +1531,19 @@ export const videoSlugsQuery = `*[_type == "scienceVideo" && defined(slug.curren
 // ─────────────────────────────────────────────
 
 /** 所有已发布新闻（用于 sitemap） */
-export const allNewsForSitemapQuery = `*[_type == "newsArticle"] | order(publishedAt desc){
+export const allNewsForSitemapQuery = `*[_type == "newsArticle" && defined(slug.current)] | order(publishedAt desc){
   "slug": slug.current,
   publishedAt,
   _updatedAt
 }`;
 
-export const allVideosForSitemapQuery = `*[_type == "scienceVideo"] | order(publishedAt desc){
+export const allVideosForSitemapQuery = `*[_type == "scienceVideo" && defined(slug.current)] | order(publishedAt desc){
+  "slug": slug.current,
+  publishedAt,
+  _updatedAt
+}`;
+
+export const allSuccessCasesForSitemapQuery = `*[_type == "successCase" && defined(slug.current)] | order(publishedAt desc){
   "slug": slug.current,
   publishedAt,
   _updatedAt
